@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "index.scss",
+        "_functions.scss",
+        "_mixins.scss",
+        "_variables.scss"
+    ],
+    "names": [],
+    "file": "index.css"
+}
