@@ -1,7 +1,22 @@
-.my-first {
-  height: 100px;
-  width: 100px;
-  background-color: rebeccapurple;
-  border-radius: 50%;
+body {
+  color: var(--text-color);
+  background-color: var(--body-bg);
+  font-size: 1.25rem;
+}
+
+:root,
+[data-theme="default"] {
+  --body-bg: #ffffff;
+  --body-light-bg: #fafafa;
+  --text-color: #121212;
+  --text-light-color: #6b6b6b;
+}
+
+:root,
+[data-theme="dark"] {
+  --body-bg: #121212;
+  --body-light-bg: #252525;
+  --text-color: #ffffff;
+  --text-light-color: #9e9e9e;
 }
 /*# sourceMappingURL=index.css.map */

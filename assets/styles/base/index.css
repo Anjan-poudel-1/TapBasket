@@ -1,1 +1,6 @@
-/* No CSS *//*# sourceMappingURL=index.css.map */
+body {
+  color: var(--text-color);
+  background-color: var(--body-bg);
+  font-size: 4rem;
+}
+/*# sourceMappingURL=index.css.map */
