@@ -1,1 +1,43 @@
-/* No CSS *//*# sourceMappingURL=index.css.map */
+.btn {
+  font-size: 1rem;
+}
+
+.primary-navbar {
+  position: absolute;
+  top: 0;
+  background-color: var(--navbar-bg);
+  width: 100%;
+  padding: 0.85rem 0;
+  -webkit-box-shadow: var(--navbar-shadow);
+          box-shadow: var(--navbar-shadow);
+}
+
+.primary-navbar__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.primary-navbar__content__left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.primary-navbar__content__left__logo {
+  width: 70px;
+}
+
+.primary-navbar__content__left__logo img {
+  width: 100%;
+}
+/*# sourceMappingURL=index.css.map */

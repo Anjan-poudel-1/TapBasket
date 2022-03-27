@@ -1,5 +1,58 @@
+
+*{
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+}
+
 body{
     color: var(--text-color);
     background-color: var(--body-bg);
     font-size: $font-size-base;
+}
+
+.page{
+    min-height: 100vh;
+    position: relative;
+}
+
+
+.container{
+    width: $xxl;
+    margin: auto;
+
+    @media only screen and (max-width:$screen-xxl) {
+
+        max-width: $xl;
+        
+    }
+    @media only screen and (max-width:$screen-xl) {
+
+        max-width: $lg;
+        
+    }
+    
+    @media only screen and (max-width:$screen-lg) {
+
+        max-width: $md;
+         
+     }
+     @media only screen and (max-width:$screen-md) {
+
+        max-width: $sm;
+        
+    }
+     
+
+   
+    @media only screen and (max-width:$screen-sm) {
+
+        padding: 0 1rem;
+        max-width: 100%;
+        
+    }
+   
+    
+   
+    
 }
