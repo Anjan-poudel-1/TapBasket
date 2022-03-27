@@ -1,8 +1,11 @@
 :root,
 [data-theme="default"] {
 	--body-bg: #{$white};
+	--navbar-bg:#{$white};
 	--body-light-bg: #{$gray-100};
-    
+    --navbar-shadow: 0 2px 8px 3px rgba(0,0,0,0.05);
+
+	--search-bg:#{$gray-250};
 	--text-color: #{$black};
 	--text-light-color: #{$gray-500};
 
