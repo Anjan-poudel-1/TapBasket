@@ -1,12 +1,18 @@
 :root,
 [data-theme="default"] {
 	--body-bg: #{$white};
-	--navbar-bg:#{$white};
-	--body-light-bg: #{$gray-100};
-    --navbar-shadow: 0 2px 8px 3px rgba(0,0,0,0.05);
-
-	--search-bg:#{$gray-250};
 	--text-color: #{$black};
 	--text-light-color: #{$gray-500};
+	--body-light-bg: #{$gray-100};
+
+    --navbar-shadow: 0 2px 8px 3px rgba(0,0,0,0.05);
+	--navbar-bg:#{$white};
+
+	--search-bg:#{$gray-250};
+
+	--dropdown-bg:#{$white};
+	--dropdown-shadow:0 2px 6px 2px rgba(0,0,0,0.03);
+	--dropdown-list-bg:#{$gray-200};
+
 
 }

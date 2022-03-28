@@ -1,0 +1,36 @@
+.nav-dropdown{
+    position: absolute;
+    
+
+    &--products{
+        bottom: -185px;
+        left: 0;
+        
+    }
+
+
+    &__lists{
+        //margin-top: 15px;
+        // padding: 0.75rem 0;
+        background-color: $gray-100;
+        //box-shadow: var(--dropdown-shadow);
+        border-radius: 0 0 8px 8px ;
+
+        &__list{
+            list-style: none;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem 0;
+            background-color: $gray-100;
+
+           &:nth-last-child(1),&:nth-child(1){
+                margin: 0;
+                padding: 0.5rem 1rem;
+           } 
+           
+
+            &:hover{
+                background-color: var(--dropdown-list-bg);
+            }
+        }
+    }
+}

@@ -1,8 +1,9 @@
 .primary-navbar{
 
     
-    position: absolute;
+    position: fixed;
     top: 0;
+
     background-color:var(--navbar-bg);
     width: 100%;
     // height: 70px;
@@ -16,7 +17,7 @@
 
         &__left{
             display: flex;
-            align-items: center;
+            // align-items: center;
 
            
                 &__logo{
@@ -36,7 +37,7 @@
     gap: 0.5rem;
     background: var(--search-bg);
     padding: 0.45rem 1rem;
-    width: 300px;
+    width: 400px;
     border-radius: 5px;
 
     svg{
@@ -52,8 +53,9 @@
             }
         }
 
-        &__links{
-                    
+        &__right{
+            display: flex;
+            align-items: center;
         }
     }
     
@@ -61,5 +63,91 @@
 }
 
 .nav-links{
-    padding: 0 0.5rem;
+    padding: 0 0.75rem;
+    font-size: $font-size-base;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    svg{
+        transform: scale(0.75);
+    }
+
+    &__cart{
+        
+        &__main{
+            position: relative;
+        }
+        &__counter{
+            position: absolute;
+    width: 20px;
+    height: 20px;
+    font-size: 0.875rem;
+    background: white;
+    border-radius: 50%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    top: 25px;
+    right: 0;
+    box-shadow: 0 0px 3px 0px;
+
+        }
+
+    }
+
+    &--products{
+        position: relative;
+        &:hover .nav-links__products__lists{
+            transform: scaleY(1);
+            max-height: 100%;
+        }
+        &:hover{
+            background-color: $gray-100;
+        }
+        &:hover .nav-links__products::after {
+            transform: scale(0.85) rotate(-180deg);
+        }
+    }
+
+    &__products{
+        position: relative;
+        padding-right: 1.25rem;
+       
+        &::after{
+            position: absolute;
+            content:"";
+            width: 1rem;
+			height: 1rem;
+            margin-top: 0.1rem;
+			margin-left: 0.25rem;
+			background-image: url(/assets/images/dropdown.svg);
+			background-repeat: no-repeat;
+			background-size: 0.875rem;
+			background-position: center;
+            opacity: 0.55;
+            transform: scale(0.85);
+			transition: transform 0.2s ease-in-out;
+
+        }
+
+        &__lists{
+            width: 280px;
+            transform: scaleY(0);
+            max-height: 0;
+            overflow: hidden;
+            transform-origin: top;
+            transition: 0.2s ease-in-out;
+        }
+
+        
+
+        
+
+    }
 }

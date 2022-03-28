@@ -1,11 +1,17 @@
 :root,
 [data-theme="dark"] {
     --body-bg: #{$black};
-    --navbar-bg:#{$black};
 	--body-light-bg: #{$gray-700};
+    --text-color: #{$white};
+	--text-light-color: #{$gray-400};
+
+    --navbar-bg:#{$black};
     --navbar-shadow: none;
     
     --search-bg:#e8e8e8;
-    --text-color: #{$white};
-	--text-light-color: #{$gray-400};
+
+    --dropdown-bg:#{$gray-700};
+	--dropdown-shadow:none;
+    --dropdown-list-bg:#{$gray-600};
+   
 }

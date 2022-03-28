@@ -2,13 +2,14 @@ $font-family:"sans-serif";
 
 
 //Base Font definations
-$font-size-base: 1.25rem;
-$font-size-sm: 1rem;
-$font-size-xs: 0.875rem;
+$font-size-md:1.2rem;           //18px
+$font-size-base: 1rem;          //16px
+$font-size-sm: 0.875rem;        //14px
+$font-size-xs: 0.75rem;         //12px
 
-$line-height-base: 1.6;
-$line-height-sm: 1.2;
-$line-height-lg: 2;
+$line-height-base: 1.6rem;     
+$line-height-sm: 1.2rem;
+$line-height-lg: 2rem;
 
 $font-weight-light: 300;
 $font-weight-normal: 400;
@@ -26,6 +27,9 @@ $gray-500: #6b6b6b;
 $gray-600: #313131;
 $gray-700: #252525;
 $black: #121212;
+
+
+
 
 
 //Container Width 
