@@ -12,12 +12,9 @@ body{
     font-family: sans-serif;
 }
 
-.page{
-    min-height: 100vh;
-    position: relative;
+ul{
+    list-style: none;
 }
-
-
 .container{
     width: $xxl;
     margin: auto;
@@ -54,6 +51,64 @@ body{
     }
    
     
-   
-    
 }
+
+.page{
+    min-height: 100vh;
+    position: relative;
+
+    &__body{
+        margin-top:8rem;
+
+        @media only screen and (max-width:$screen-md) {
+
+            margin-top:8rem;
+            
+        }
+    }
+}
+
+.section{
+    margin-top:3rem;
+
+    @media only screen and (max-width:$screen-md) {
+        margin-top: 1rem;
+    }
+
+    &__header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        &__heading{
+            font-weight: 600;
+            font-size: $font-size-lg;
+           
+            @media only screen and (max-width:$screen-md) {
+                font-size: $font-size-md;
+            }
+
+
+        }
+
+        &__view-all{
+            color: var(--text-light-color);
+            font-size: $font-size-sm;
+            cursor: pointer;
+
+        }
+    }
+
+    &__card-body{
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        justify-content: space-between;
+
+        @media only screen and (max-width:$screen-lg) {
+           overflow: auto;
+        }
+    }
+}
+

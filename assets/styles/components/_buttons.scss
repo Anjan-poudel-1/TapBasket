@@ -1,3 +1,72 @@
 .btn{
-    font-size: 1rem;
+    font-size: $font-size-sm;
+    outline: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    letter-spacing: 0.05rem;
+}
+
+.primary-btn{
+    background-color: $primary-color;
+    border: 1px $primary-color;
+    color: white;
+    transition: 0.3s ease-in-out;
+
+    &:hover{
+        background-color: $primary-hover-color;
+    }
+
+}
+.success-btn{
+
+}
+.danger-btn{
+    background-color: $danger-color;
+    border: 1px $danger-color;
+    color: white;
+    transition: 0.3s ease-in-out;
+    &:hover{
+        background-color: $danger-hover-color;
+    }
+
+
+}
+.clear-btn{
+    border: 1px solid $secondary-color;
+    background-color: transparent;
+    color: var(--text-color);
+}
+
+.primary-outline-btn{
+    border: 1px solid $primary-color;
+    color: $primary-color;
+    transition: 0.3s ease-in-out;
+    background-color: transparent;
+
+    &:hover{
+        color: white;
+        background-color:$primary-hover-color ;
+    }
+}
+
+.danger-outline-btn{
+    border: 1px $danger-color;
+    color: $danger-color;
+    transition: 0.3s ease-in-out;
+    background-color: transparent;
+
+    &:hover{
+        color: white;
+        background-color: $danger-hover-color;
+    }
+}
+
+
+.card-btn{
+    width: 100%;
 }

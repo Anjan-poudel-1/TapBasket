@@ -1,0 +1,27 @@
+.bottom-nav{
+    display: flex;
+    padding: 0 1rem ;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--navbar-bottom-bg);
+    box-shadow: var(--navbar-bottom-shadow);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+
+    @media only screen and (min-width:$screen-lg) {
+        display: none;
+    }
+
+    &__element{
+        cursor: pointer;
+        svg{
+            transform: scale(0.7);
+        }
+        .nav-links__cart__main{
+            
+                transform: scale(0.9);
+            
+        }
+    }
+}

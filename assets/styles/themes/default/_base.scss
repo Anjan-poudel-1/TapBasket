@@ -7,6 +7,18 @@
 
     --navbar-shadow: 0 2px 8px 3px rgba(0,0,0,0.05);
 	--navbar-bg:#{$white};
+	--navbar-product-hover-bg:#{$gray-100};
+
+	--navbar-bottom-shadow: 0 2px 8px 3px rgba(0,0,0,0.05);
+	--navbar-bottom-bg:#{$white};
+
+	--cart-counter-bg:#{$white};
+    --cart-counter-shadow:0 0px 3px 0px;
+
+	--footer-bg:#{$white};
+	--footer-shadow: 0 2px 8px 3px rgba(0,0,0,0.05);
+
+	--copyright-bg:   #{$gray-200};
 
 	--search-bg:#{$gray-250};
 
@@ -14,5 +26,6 @@
 	--dropdown-shadow:0 2px 6px 2px rgba(0,0,0,0.03);
 	--dropdown-list-bg:#{$gray-200};
 
+	--product-card-bg:#{$white};
 
 }

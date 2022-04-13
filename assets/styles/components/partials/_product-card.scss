@@ -1,0 +1,112 @@
+.product-card{
+    position: relative;
+    width: 240px;
+    box-shadow:  1px 1px 10px 1px rgba(0,0,0,0.03),-1px -1px 10px 1px rgba(0, 0, 0,0.03);
+    border-radius: 8px;
+    background-color: var(--product-card-bg);
+    &__image{
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1/1;
+
+        img{
+            width: 100%;
+        }
+
+    }
+
+    &__wishlist{
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        // background-color: red;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &__btn{
+            position: absolute;
+            top: 57%;
+            left: 53%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            svg{
+
+            }
+        }
+
+
+
+    }
+
+    &__details{
+        padding: 0.75rem;
+        // border-top: 1px solid #ececec;
+        
+
+        &__name{
+            font-weight: 600;
+            @include truncate(2);
+            font-size: $font-size-base;
+            @media only screen and (max-width:$screen-lg) {
+
+                width: 200px;
+                 
+             }
+             @media only screen and (max-width:$screen-md) {
+
+                width: 170px;
+                 
+             }
+           
+
+        }
+        &__price{
+            padding: 0.5rem 0;
+
+            &__discount-price{
+
+            }
+        }
+
+        &__star-rating{
+            padding: 0.5rem 0;
+            border-top: 1px solid #d6d6d6;
+            border-bottom: 1px solid #d6d6d6;
+            display: flex;
+
+            &__stars{
+                display: flex;
+                gap: 0.5rem;
+
+                .indi-star{
+                    transform: scale(1.25);
+                }
+            }
+
+        
+                &__count{
+                    color: var(--text-light-color);
+                    font-size: $font-size-sm;
+                    margin-left: 0.3rem;
+                }
+        
+        }
+
+        &__cart-btn{
+            margin-top: 1rem;
+
+        }
+
+        &__vendor{
+            font-size: $font-size-sm;
+            font-weight: 600;
+            color: var(--text-light-color);
+            padding-bottom: 0.5rem;
+        }
+    }
+
+}

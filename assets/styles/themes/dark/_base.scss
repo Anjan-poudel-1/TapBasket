@@ -5,13 +5,29 @@
     --text-color: #{$white};
 	--text-light-color: #{$gray-400};
 
-    --navbar-bg:#{$black};
+    --navbar-bg:#{$gray-700};
     --navbar-shadow: none;
-    
+    --navbar-product-hover-bg:#{$gray-600};
+
+    --cart-counter-bg:#404040;
+    --cart-counter-shadow:none;
+
+
+    --navbar-bottom-bg:#{$gray-700};
+    --navbar-bottom-shadow: none;
+
+    --footer-bg:#{$gray-700};
+    --footer-shadow: none;
+
+    --copyright-bg:  #{$black};
+
     --search-bg:#e8e8e8;
 
-    --dropdown-bg:#{$gray-700};
+    --dropdown-bg:#{$gray-600};
 	--dropdown-shadow:none;
-    --dropdown-list-bg:#{$gray-600};
+    --dropdown-list-bg:#{$gray-700};
    
+
+    --product-card-bg:#{$gray-700};
+
 }

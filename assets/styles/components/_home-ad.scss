@@ -1,0 +1,33 @@
+.homepage__advertisement-wrap{
+    margin: 3rem 0;
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+
+    @media only screen and (max-width:$screen-md) {
+
+       flex-direction: column; 
+       margin: 1.5rem auto;
+       justify-content: center;
+       align-items: center;
+       gap: 1.5rem;
+    }
+    &__ad{
+        width: 40%;
+        aspect-ratio: 9/5;
+
+        @media only screen and (max-width:$screen-md) {
+
+            width: 80%;
+         }
+         @media only screen and (max-width:$screen-sm) {
+
+            width: 95%;
+         }
+
+        img{
+            width: 100%;
+        }
+
+    }
+}
