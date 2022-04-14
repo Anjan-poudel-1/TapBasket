@@ -66,7 +66,31 @@
     }
 }
 
+.btn-max{
+    width: 100%;
+}
 
+.btn-lg{
+    min-width: 200px;
+}
 .card-btn{
     width: 100%;
+}
+
+.form-btn{
+   
+    padding:  0.7rem;
+
+    @media only screen and (max-width:$screen-md) {
+        padding:  0.5rem;
+  
+    }
+    
+}
+
+.button-desc{
+    text-align: center;
+    font-size: $font-size-sm;
+    color: $secondary-color;
+    margin-bottom: 0.4rem;
 }
