@@ -1,0 +1,27 @@
+.cart-page{
+
+
+    &__contents{
+        display: flex;
+        justify-content: space-between;
+        gap: 2rem;
+        
+        @media only screen and (max-width:$screen-lg) {
+          flex-direction: column;
+        }
+
+        &__main{
+            flex: 2.25;
+        }
+
+        &__aside{
+            flex: 1;
+            //  height: 100%;
+            //  padding: 2rem ;
+            width: 100%;
+            border-left: 1px solid var(--cart-aside-border);
+            // background-color: gray;
+        }
+    }
+
+}

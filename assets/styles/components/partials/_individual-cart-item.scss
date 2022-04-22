@@ -1,0 +1,130 @@
+.indi-cartitem{
+
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+
+    
+    margin: 0.75rem 0;
+    border-radius: 6px;
+    background-color: var(--indi-cart-item-bg);
+
+
+
+    // border-bottom: 1px solid $gray-250;
+    // &:not(&:nth-last-child(1)){
+    //     border-bottom: 1px solid $gray-250;
+    // }
+
+    &__left{
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+
+        &__image{
+            height: 90px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+
+            img{
+                width: 100%;
+            }
+
+        }
+        &__details{
+
+
+            &__name{
+                font-weight: 600;
+                width: 400px;
+
+                @media only screen and (max-width:$screen-xl) {
+                    width: 300px;
+                }
+
+                @media only screen and (max-width:$screen-md) {
+                    width: 200px;
+                }
+
+            }
+
+            &__vendor{
+                font-size: $font-size-sm;
+                margin-top: 0.25rem;
+                    color: $secondary-color;
+                &__by{
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    &__right{
+        display: flex;
+        justify-content: space-between;
+        flex-grow: 1;
+        align-items: center;
+        &__others{
+            display: flex;
+            gap: 0.5rem;
+            flex-direction: column;
+           
+            &__price{
+                font-weight: 500;
+                // font-size: $font-size-md;
+            }
+
+            &__functions{
+                display: flex;
+                gap: 1rem;
+                cursor: pointer;
+                // margin-top: 0.5rem;
+                &__icon{
+
+                }
+            }
+        }
+
+        &__quantity{
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+
+            &__label{
+
+
+            }
+
+            &__button{
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+               
+                background-color: var(--cart-change-btn-bg);
+                border-radius: 4px;
+                box-shadow: var(--footer-shadow);
+                &__change{
+                    display: flex;
+                    cursor: pointer;
+                    padding: 0.5rem 0.35rem;
+                    
+                    // border-left: 1px solid gray;
+                    // &:nth-child(1){
+                    //     border-left: none;
+                    //     border-right: 1px solid gray;
+                    // }
+                    
+                   
+
+                    
+                }
+
+                &__num{
+
+                }
+            }
+        }
+    }
+}

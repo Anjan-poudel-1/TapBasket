@@ -1,1 +1,23 @@
-/* No CSS *//*# sourceMappingURL=index.css.map */
+.cart-page__contents {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 3rem;
+}
+
+.cart-page__contents__main {
+  -webkit-box-flex: 2.25;
+      -ms-flex: 2.25;
+          flex: 2.25;
+}
+
+.cart-page__contents__aside {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  background-color: gray;
+}
+/*# sourceMappingURL=index.css.map */
