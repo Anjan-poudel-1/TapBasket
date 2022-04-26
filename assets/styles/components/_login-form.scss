@@ -80,9 +80,9 @@
             @media only screen and (max-width:$screen-md) {
                 width: 100%;
             }
-            button{
+            .btn{
                 min-width: 250px;
-
+                    
                 @media only screen and (max-width:$screen-md) {
                     width: 100%;
                 }

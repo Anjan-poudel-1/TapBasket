@@ -26,6 +26,9 @@
             padding-right: 3.5rem;
            
         }
+        &--error{
+            border: 1px solid $danger-color;
+        }
     }
 
     &__password{
@@ -53,4 +56,11 @@ select{
         /* border: none; */
         border: 1px solid var(--input-border);
         background-color: var(--input-bg);
+}
+
+.input-error{
+    color: $danger-color;
+    margin-top: 0.45rem;
+    font-size: $font-size-sm;
+
 }

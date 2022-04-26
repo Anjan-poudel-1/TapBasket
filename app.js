@@ -1,7 +1,3 @@
-let themeChanger = document.getElementById('theme-change');
-let bodyTheme = document.getElementById('get-theme');
-let darkThemeSvg =document.getElementById('dark-mode');
-let lightThemeSvg =document.getElementById('light-mode');
 
 let sliderImagesCount = document.querySelectorAll('.banner-wrapper__images__image').length;
 let nextbtn =document.getElementById('nextBtn');
@@ -90,6 +86,10 @@ resetimage(imagetrack,currentdisplay);
 
 
 
+let themeChanger = document.getElementById('theme-change');
+let bodyTheme = document.getElementById('get-theme');
+let darkThemeSvg =document.getElementById('dark-mode');
+let lightThemeSvg =document.getElementById('light-mode');
 
 
 
@@ -128,3 +128,42 @@ function setTheme(themeName) {
         lightThemeSvg.style.display="block";
     }
  })();
+
+
+
+ //Forms
+ let loginPasswordData = document.getElementById('password-field');
+ let hidePasswordBtn =document.getElementById('hide-pass');
+ let showPasswordBtn =document.getElementById('show-pass');
+
+
+ hidePasswordBtn.style.display="none";
+ showPasswordBtn.style.display="none";
+ 
+
+ loginPasswordData.oninput= function(event){
+    let tempData=(event.target.value);
+
+    if(tempData.trim().length>0){
+        showPasswordBtn.style.display="block";
+    }
+    else{
+        hidePasswordBtn.style.display="none";
+        showPasswordBtn.style.display="none";
+        
+    }
+ }
+
+ showPasswordBtn.onclick= ()=>{
+    showPasswordBtn.style.display="none";
+    hidePasswordBtn.style.display="block";
+    console.log(loginPasswordData)
+    loginPasswordData.setAttribute('type','text');
+ }
+
+ hidePasswordBtn.onclick= ()=>{
+    showPasswordBtn.style.display="block";
+    hidePasswordBtn.style.display="none";
+    loginPasswordData.setAttribute('type','password');
+ }
+ 

@@ -1133,12 +1133,12 @@ ul {
   }
 }
 
-.login-form__content__login button {
+.login-form__content__login .btn {
   min-width: 250px;
 }
 
 @media only screen and (max-width: 768px) {
-  .login-form__content__login button {
+  .login-form__content__login .btn {
     width: 100%;
   }
 }
@@ -1175,6 +1175,10 @@ ul {
   padding-right: 3.5rem;
 }
 
+.form-control__input--error {
+  border: 1px solid red;
+}
+
 .form-control__password {
   position: relative;
 }
@@ -1196,6 +1200,12 @@ select {
   /* border: none; */
   border: 1px solid var(--input-border);
   background-color: var(--input-bg);
+}
+
+.input-error {
+  color: red;
+  margin-top: 0.45rem;
+  font-size: 0.875rem;
 }
 
 .cart-aside {

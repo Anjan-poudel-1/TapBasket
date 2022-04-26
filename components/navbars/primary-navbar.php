@@ -20,7 +20,10 @@
                     </div>
 
                     <div class="nav-links nav-links--desktop">
-                        Home
+                    <a href="index.php">
+                    Home
+                    </a>
+                        
                     </div>
 
                     <div class="nav-links nav-links--products ">
