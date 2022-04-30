@@ -3,9 +3,13 @@
     
 
     &--products{
-        bottom: -185px;
+        bottom: -190px;
         left: 0;
         
+    }
+    &--profile{
+        bottom: -155px;
+        left: -182px;
     }
 
 
@@ -21,15 +25,24 @@
             padding: 0.5rem 1rem;
             margin: 0.25rem 0;
             background-color: var(--navbar-product-hover-bg);
-
-           &:nth-last-child(1),&:nth-child(1){
-                margin: 0;
-                padding: 0.5rem 1rem;
+            
+           &:nth-child(1){
+                    margin-top: 0.25rem ;
+                    padding: 0.5rem 1rem;
            } 
+           &:nth-last-child(1){
+            margin-bottom: 0.25rem ;
+           }
            
 
             &:hover{
                 background-color: var(--dropdown-list-bg);
+            }
+
+            &__link{
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             }
         }
     }
