@@ -139,6 +139,11 @@ ul {
   }
 }
 
+a {
+  color: inherit;
+  text-decoration: initial;
+}
+
 .btn {
   font-size: 0.875rem;
   outline: none;
@@ -389,9 +394,18 @@ ul {
   background-color: var(--navbar-product-hover-bg);
 }
 
-.nav-links--products:hover .nav-links__products::after {
-  -webkit-transform: scale(0.85) rotate(-180deg);
-          transform: scale(0.85) rotate(-180deg);
+.nav-links--profile {
+  position: relative;
+}
+
+.nav-links--profile:hover .nav-links__profile__lists {
+  -webkit-transform: scaleY(1);
+          transform: scaleY(1);
+  max-height: 100%;
+}
+
+.nav-links--profile:hover {
+  background-color: var(--navbar-product-hover-bg);
 }
 
 .nav-links__products {
@@ -431,6 +445,22 @@ ul {
   transition: 0.2s ease-in-out;
 }
 
+.nav-links__profile {
+  padding: 0.7rem 0;
+}
+
+.nav-links__profile__lists {
+  width: 250px;
+  -webkit-transform: scaleY(0);
+          transform: scaleY(0);
+  max-height: 0;
+  overflow: hidden;
+  -webkit-transform-origin: top;
+          transform-origin: top;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
 [data-theme="dark"] .nav-links__products::after {
   background-image: url(/assets/images/dropdown-dark.svg);
 }
@@ -440,8 +470,13 @@ ul {
 }
 
 .nav-dropdown--products {
-  bottom: -185px;
+  bottom: -190px;
   left: 0;
+}
+
+.nav-dropdown--profile {
+  bottom: -155px;
+  left: -182px;
 }
 
 .nav-dropdown__lists {
@@ -456,13 +491,27 @@ ul {
   background-color: var(--navbar-product-hover-bg);
 }
 
-.nav-dropdown__lists__list:nth-last-child(1), .nav-dropdown__lists__list:nth-child(1) {
-  margin: 0;
+.nav-dropdown__lists__list:nth-child(1) {
+  margin-top: 0.25rem;
   padding: 0.5rem 1rem;
+}
+
+.nav-dropdown__lists__list:nth-last-child(1) {
+  margin-bottom: 0.25rem;
 }
 
 .nav-dropdown__lists__list:hover {
   background-color: var(--dropdown-list-bg);
+}
+
+.nav-dropdown__lists__list__link {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1rem;
 }
 
 .banner-wrapper {
