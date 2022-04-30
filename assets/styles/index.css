@@ -1752,3 +1752,11 @@ select {
   --product-card-bg:#252525;
 }
 /*# sourceMappingURL=index.css.map */
+
+/* for form grid */
+.grid_container{
+    display: grid;
+    grid-template-columns: 47% 47%;
+    column-gap:6%;
+}
+
