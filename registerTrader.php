@@ -6,7 +6,15 @@
     $product=trim($_POST['product']);
     $addr=trim($_POST['addr']);
     $desc=trim($_POST['desc']);
+    $dob=trim($_POST['dob']);
 
+    if(empty(trim($dob))){
+        $doberr = "Please enter date of birth";
+    }
+    if(!preg_match('/^[\+0-9\-\(\)\s]*$/', $phone)) {
+        
+            $phoneerr="Please enter valid phone number";
+      }
 
     if(empty(trim($desc))){
         $descerr="Please add Product description";
@@ -146,6 +154,40 @@
                             
                         </div>
 
+                        <div class="form-control">
+                            <p class="form-control__label">
+                               Date of birth
+                            </p>
+                            <input 
+                            class="form-control__input <?php 
+                             if(isset($emailerror)){
+                                 echo " form-control__input--error";
+                             }
+                            ?>"
+                             placeholder="Date of birth"
+                             name="dob"
+                             value="<?php
+                                    if(isset( $_POST['dob'])){
+                                        echo $_POST['dob'];
+                                    }
+                                    ?>"
+
+                                
+                             />
+                             <!-- Error show  -->
+                             <?php
+                                if(isset($doberr)){
+                                    ?>
+                                    <div class="input-error"> 
+                                    <?php echo $doberr ?>
+                                     </div> 
+                                    <?php
+                                        }
+                                ?>
+
+                        </div>
+
+
                         <h3>Shop Details:</h3>
                                 
                         <div class="form-control">
@@ -243,7 +285,7 @@
 
                         <div class="form-control">
                       <p class="form-control__label">Purposal Message</p>
-                            <textarea class="form-control__input <?php 
+                            <textarea class="form-control__input textArea <?php 
                              if(isset($descerr)){
                                  echo " form-control__input--error";
                              }
@@ -265,15 +307,15 @@
                         </div>
 
                     <div class="login-form__content__login">
-                        <input type="submit" value="Send Proposal For Registration" name="TraderRegisterSubmit" class="btn primary-btn form-btn"/>
+                        <input type="submit" value="Registration Proposal" name="TraderRegisterSubmit" class="btn primary-btn form-btn"/>
                          
                     </div>
 
-                    <div class="login-form__content__signup grid_container">
+                    <div class="login-form__content__signup flex_container">
                     <div>
                             <p class="button-desc">
                                Already have an account?
-                    </p><br>
+                    </p>
                             
                             <!-- Go to registration page -->
                             
@@ -281,11 +323,11 @@
                             Log-in
                                 
                             </button>
-                    </div>
+                    </div><br>
                     <div>
                             <p class="button-desc">
                               Sign Up as Customer
-                    </p><br>
+                    </p>
                             <button class="btn primary-btn form-btn">
                             signup as customer
                                 

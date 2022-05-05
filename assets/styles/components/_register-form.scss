@@ -1,0 +1,142 @@
+.login-form{
+
+   
+
+    &__content{
+        padding: 3rem;
+        background-color:var(--login-form-bg) ;
+        width: 60%;
+        margin: auto;
+
+        @media only screen and (max-width:$screen-lg) {
+
+            width: 80%;
+            padding:2rem;
+        }
+        @media only screen and (max-width:$screen-sm) {
+
+            width: 100%;
+            padding: 1.5rem 0.5rem;
+            
+        }
+
+        &__header{
+            text-align: center;
+            margin-bottom: 2rem;
+            // font-weight: 600;
+            font-size: $font-size-xl;
+
+            @media only screen and (max-width:$screen-md) {
+
+                font-size: $font-size-lg;
+                
+            }
+        }
+
+        &__body{
+            
+            &__other{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin: 0.5rem 0;
+                margin-bottom: 1.5rem;
+                color: $secondary-color;
+
+                div{
+                    display: flex;
+                    align-items: center;
+                    gap: 0.25rem;
+                    cursor: pointer;
+                }
+
+                @media only screen and (max-width:$screen-md) {
+                    font-size: $font-size-sm;
+                }
+            }
+        }
+
+        &__signup{
+            margin: auto;
+            width: fit-content;
+            @media only screen and (max-width:$screen-md) {
+                width: 100%;
+            }
+            button{
+                min-width: 200px;
+
+                @media only screen and (max-width:$screen-md) {
+                   width: 100%;
+                }
+            }
+        }
+
+        &__login{
+            
+            margin: auto;
+            margin-bottom: 1rem;
+            width: fit-content;
+
+            @media only screen and (max-width:$screen-md) {
+                width: 100%;
+            }
+            .btn{
+                min-width: 250px;
+                    
+                @media only screen and (max-width:$screen-md) {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+}
+
+/* for form grid */
+.flex_container{
+    display: flex;
+    gap:2rem;
+    flex-direction: row;
+}
+@media only screen and (max-width: 768px) {
+  .flex_container{
+    display: flex;
+    gap:2rem;
+    flex-direction: column;
+    
+}
+}
+.textArea{
+  resize: none;
+}
+.flex_item{
+  width: 50%;
+}
+@media only screen and (max-width: 768px) {
+  .flex_item{
+    width: 100%;
+  }
+}
+
+
+.contact-form__content {
+  padding: 3rem;
+  background-color: var(--login-form-bg);
+  width: 60%;
+  height: 20%;
+  margin: auto;
+}
+
+@media only screen and (max-width: 992px) {
+  .login-form__content {
+    width: 80%;
+    padding: 2rem;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .login-form__content {
+    width: 100%;
+    padding: 1.5rem 0.5rem;
+  }
+}
