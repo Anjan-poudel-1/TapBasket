@@ -166,7 +166,7 @@
                             <ul class="nav-dropdown__lists nav-links__profile__lists">
                                 
                                 <li class="nav-dropdown__lists__list">
-                                    <a href='../../account-settings.html' class="nav-dropdown__lists__list__link">
+                                    <a href='account-settings.php' class="nav-dropdown__lists__list__link">
                                         <div class="nav-dropdown__lists__list__icon">
 
                                             I
@@ -178,7 +178,6 @@
                                         </div>
                                     </a>
 
-                                  
                                 </li>
                                 <li class="nav-dropdown__lists__list">
                                     <a href='../../account-settings.html' class="nav-dropdown__lists__list__link">
