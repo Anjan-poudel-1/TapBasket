@@ -1,0 +1,17 @@
+.user-dashboard__content__wishListPage{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    
+    @media only screen and (max-width:$screen-lg) {
+        justify-content: center;
+    }
+
+    .product-card{
+        margin-top: 1rem;
+        width: 220px;
+        @media only screen and (max-width:$screen-md) {
+            width: 240px;
+        }
+    }
+}

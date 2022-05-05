@@ -9,6 +9,7 @@
 
     &__menu{
         width: 280px;
+        flex: 1;
         @media only screen and (max-width:$screen-lg) {
             
             width: 100%;
@@ -16,6 +17,15 @@
 
         &__profile-details{
             padding-left: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            @media only screen and (max-width:$screen-lg) {
+            
+                padding-left: 0;
+            
+            }
+            
             &__name{
                 font-size: $font-size-md;
                 font-weight: 600;
@@ -58,6 +68,12 @@
                     font-size: $font-size-sm;
                    
                    
+                }
+
+                &--logout{
+                    @media only screen and (max-width:$screen-lg) {
+                        display: none;
+                    }
                 }
 
                 &__icon{
@@ -103,6 +119,10 @@
 
     &__content{
         flex-grow: 1;
+        flex: 3;
+        @media only screen and (max-width:$screen-xl) {
+            flex: 2.75;
+        } 
         // background-color: red;
     }
 }
