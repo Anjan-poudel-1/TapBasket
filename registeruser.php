@@ -6,7 +6,13 @@
     $fname=trim($_POST['fname']);
     $lname=trim($_POST['lname']);
     $phone=trim($_POST['phone']);
+    $dob=trim($_POST['dob']);
+    $gender=trim($_POST['gender']);
+    $pattern="/^[\+0-9\-\(\)\s]*$/";
 
+    if(!preg_match("/^[\+0-9\-\(\)\s]*$/", $phone)) {
+        $phoneerr="Please enter valid phone number";
+      }
     if(empty(trim($email))){
         $emailerror = "Please enter email";
     }
@@ -19,6 +25,10 @@
 
     if(empty(trim($password))){
         $passworderr = "Please enter password";
+    }
+
+    if(empty(trim($dob))){
+        $doberr = "Please enter date of birth";
     }
 
     if($password!=$rpassword){
@@ -35,6 +45,24 @@
     if(empty($phone)){
         $phoneerr="Please enter phone number";
     }
+
+    if((filter_var($email, FILTER_VALIDATE_EMAIL)) && (preg_match($pattern,$pass))){
+        // $pass=md5(trim($pass));
+         $sql="INSERT INTO USERS (user_name,email,password,phone_no,dob,user_role) VALUES ('$fname + $lname','$email',md5('$pass'),'$phone','$dob','customer')";
+ 
+         $qry=(mysqli_query($connection,$sql) or die(mysqli_error($sql)));
+ 
+         if($qry){
+           echo "Data Inserted Successfully";
+           header("location:../Search/displaybooks.php");
+       }else{
+           header("Location:registerForm.php");
+           echo "ERROR COULD NOT INSERT DATA";  
+         }
+              
+     }else{
+       echo "problem in statement";
+     }
   }
 ?>
 
@@ -62,9 +90,9 @@
                     </div>
                     <div class="login-form__content__body">
 
-                       <div class="grid_container form-control">
+                       <div class="flex_container form-control">
 
-                        <div>
+                        <div class="flex_item">
                         <p class="form-control__label">First Name</p>
                             <input class="form-control__input <?php 
                              if(isset($fnameerr)){
@@ -85,7 +113,7 @@
                                         }
                                 ?> 
                         </div>
-                        <div>
+                        <div class="flex_item">
                             <p class="form-control__label">Last Name</p>
                             <input class="form-control__input <?php 
                              if(isset($lnameerr)){
@@ -144,6 +172,60 @@
 
                         </div>
 
+                        <div class="form-control">
+                            <p class="form-control__label">
+                               Date of birth
+                            </p>
+                            <input 
+                            class="form-control__input <?php 
+                             if(isset($emailerror)){
+                                 echo " form-control__input--error";
+                             }
+                            ?>"
+                             placeholder="Date of birth"
+                             name="dob"
+                             value="<?php
+                                    if(isset( $_POST['dob'])){
+                                        echo $_POST['dob'];
+                                    }
+                                    ?>"
+
+                                
+                             />
+                             <!-- Error show  -->
+                             <?php
+                                if(isset($doberr)){
+                                    ?>
+                                    <div class="input-error"> 
+                                    <?php echo $doberr ?>
+                                     </div> 
+                                    <?php
+                                        }
+                                ?>
+
+                        </div>
+
+                        
+                        <div class="form-control">
+                            <p class="form-control__label">
+                                Gender
+                            </p>
+                            <select class="form-control__input"
+                             name="gender"
+                             value="<?php
+                                    if(isset( $_POST['male'])){
+                                        echo $_POST['male'];
+                                    }else if(isset($_POST['female'])){
+                                        echo $_POST['female'];
+                                    }else{
+                                        echo $_POST['other'];
+                                    }
+                                    ?>">
+                                <option value="male">Female</option>
+                                <option value="female">Male</option>
+                                <option value="other">Others</option>
+                            </select>
+                            </div>
                         <div class="form-control">
                             <p class="form-control__label">
                                 Phone Number
@@ -280,11 +362,11 @@
                          
                     </div>
 
-                    <div class="login-form__content__signup grid_container">
+                    <div class="login-form__content__signup flex_container">
                     <div>
                             <p class="button-desc">
                                Already have an account?
-                    </p><br>
+                    </p>
                             
                             <!-- Go to registration page -->
                             
@@ -296,7 +378,7 @@
                     <div>
                             <p class="button-desc">
                               Sell Product on TapBasket?
-                    </p><br>
+                    </p>
                             <button class="btn primary-btn form-btn">
                             Register as Trader
                                 
