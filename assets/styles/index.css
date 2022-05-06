@@ -158,15 +158,15 @@ a {
 }
 
 .primary-btn {
-  background-color: blue;
-  border: 1px blue;
+  background-color: #e1a825;
+  border: 1px #b97f2b;
   color: white;
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
 }
 
 .primary-btn:hover {
-  background-color: #0d0dc2;
+  background-color: #b97f2b;
 }
 
 .danger-btn {
@@ -188,8 +188,8 @@ a {
 }
 
 .primary-outline-btn {
-  border: 1px solid blue;
-  color: blue;
+  border: 1px solid #b97f2b;
+  color: #b97f2b;
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
   background-color: transparent;
@@ -197,7 +197,7 @@ a {
 
 .primary-outline-btn:hover {
   color: white;
-  background-color: #0d0dc2;
+  background-color: #b97f2b;
 }
 
 .danger-outline-btn {
