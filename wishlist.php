@@ -17,6 +17,7 @@
 <div class="container page__body">
 <div class="user-dashboard">
                 <?php
+                 $pageName="wishlist";
                 include './components/pages/AccountSettings/userNavbar.php';
                 
                 ?>
