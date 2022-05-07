@@ -23,6 +23,8 @@ if(imagetrack==0 && initial){
    currentdisplay = document.querySelector('.'+sliderArray[0]);
    currentdisplay && currentdisplay.classList.add('show-img');
    }
+
+   
 // At first we need to initialize interval... 
 // Upon changes, we donot want rapid change as a user might click next or previous button at the end of 6 sec timer.So, initializeinterval is called everytime next image is changed
 

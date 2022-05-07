@@ -19,6 +19,26 @@
   }
 ?>
 
+<?php
+include("connection.php");
+if(isset($_POST['LoginSubmit'])){
+    
+    $email =trim($_POST['email']);
+    $password =trim($_POST['password']);
+
+
+$sql="SELECT * FROM USERS where email='$email' and password= '$password'";
+$result=mysqli_query($conn,$sql) or die(mysqli_error($sql));
+
+   if (!mysqli_fetch_assoc($result)) {
+    $_SESSION['error']= 'User not recognised';
+    echo $_SESSION['error']."<br>";
+    }
+
+}
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

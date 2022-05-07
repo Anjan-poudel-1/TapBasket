@@ -79,6 +79,7 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    font-weight: 600;
     svg{
         transform: scale(0.75);
     }
@@ -100,6 +101,7 @@
             position: absolute;
     width: 20px;
     height: 20px;
+    padding-bottom: 4px;
     font-size: 0.875rem;
     background: var(--cart-counter-bg);
     box-shadow: var(--cart-counter-shadow);
@@ -152,9 +154,9 @@
             content:"";
             width: 1rem;
 			height: 1rem;
-            margin-top: 0.1rem;
+            margin-top: 0.3rem;
 			margin-left: 0.25rem;
-			background-image: url(/assets/images/dropdown.svg);
+			background-image: url('/assets/images/dropdown.svg');
 			background-repeat: no-repeat;
 			background-size: 0.875rem;
 			background-position: center;
@@ -196,6 +198,6 @@
 
 [data-theme="dark"]{
     .nav-links__products::after{
-        background-image: url(/assets/images/dropdown-dark.svg);
+        background-image: url('/assets/images/dropdown-dark.svg');
     }
 }

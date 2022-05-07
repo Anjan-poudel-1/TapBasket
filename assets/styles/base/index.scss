@@ -1,4 +1,6 @@
 
+//Base structure of website
+
 *{
 padding: 0;
 margin: 0;
@@ -9,7 +11,7 @@ body{
     color: var(--text-color);
     background-color: var(--body-bg);
     font-size: $font-size-base;
-    font-family: sans-serif;
+    font-family: system-ui;
 }
 
 ul{
@@ -58,7 +60,7 @@ ul{
     position: relative;
 
     &__body{
-        margin-top:8rem;
+        margin-top:10rem;
 
         @media only screen and (max-width:$screen-md) {
 

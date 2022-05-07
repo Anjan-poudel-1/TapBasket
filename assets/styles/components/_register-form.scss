@@ -1,0 +1,49 @@
+
+/* for form grid */
+.flex_container{
+    display: flex;
+    gap:2rem;
+    flex-direction: row;
+}
+@media only screen and (max-width: 768px) {
+  .flex_container{
+    display: flex;
+    gap:2rem;
+    flex-direction: column;
+    
+}
+}
+.textArea{
+  resize: none;
+}
+.flex_item{
+  width: 50%;
+}
+@media only screen and (max-width: 768px) {
+  .flex_item{
+    width: 100%;
+  }
+}
+
+
+.contact-form__content {
+  padding: 3rem;
+  background-color: var(--login-form-bg);
+  width: 60%;
+  height: 20%;
+  margin: auto;
+}
+
+@media only screen and (max-width: 992px) {
+  .login-form__content {
+    width: 80%;
+    padding: 2rem;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .login-form__content {
+    width: 100%;
+    padding: 1.5rem 0.5rem;
+  }
+}

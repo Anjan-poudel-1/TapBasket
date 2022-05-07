@@ -1,0 +1,84 @@
+.account-settings{
+
+    &__user-details{
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2rem;
+
+        @media only screen and (max-width:$screen-md) {
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        } 
+
+        &__image{
+            height: 220px;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            border: 4px solid $gray-200;
+            position: relative;
+            overflow:hidden ;
+
+            @media only screen and (max-width:$screen-xl) {
+                height: 180px;
+            } 
+            @media only screen and (max-width:$screen-md) {
+                height: 160px;
+            } 
+
+
+            img{
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+
+            }
+
+            &__upload{
+
+            }
+        }
+
+        &__others{
+            flex-grow: 1;
+            @media only screen and (max-width:$screen-md) {
+              width: 100%;
+            } 
+            .form-control{
+                &:first-child{
+                    margin-top: 0;
+                }
+            }
+
+            &__flex{
+                display: flex;
+                gap: 1rem;
+
+                @media only screen and (max-width:$screen-md) {
+                    flex-direction: column;
+                    gap: 0;
+                } 
+
+                .form-control{
+                    margin-top: 0;
+                    flex: 1;
+                }
+            }
+        }
+    }
+
+    &__reset{
+
+        &__body{
+            &__button{
+                input{
+                    @media only screen and (max-width:$screen-md) {
+                        width: 100%;
+                    }
+                }
+                
+            }
+        }
+    }
+}
