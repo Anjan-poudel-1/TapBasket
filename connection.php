@@ -1,5 +1,7 @@
+
 <?php
-$conn = oci_connect('tap_basket', 'rabinadon', 'localhost/XE');
+//rabina ko connection detail
+$conn = oci_connect('tapbasket', 'tapbasket', 'localhost/XE');
 
 if (!$conn) {
 	$e = oci_error();
