@@ -3,12 +3,12 @@
     
 
     &--products{
-        bottom: -190px;
+        bottom: -200px;
         left: 0;
         
     }
     &--profile{
-        bottom: -155px;
+        bottom: -195px;
         left: -182px;
     }
 
@@ -41,8 +41,8 @@
 
             &__link{
             display: flex;
-            align-items: center;
-            gap: 1rem;
+            // align-items: center;
+            gap: 0.5rem;
             }
         }
     }

@@ -1,0 +1,137 @@
+.ProductMain{
+    width:90%;
+    margin:auto;
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+    grid-template-areas: 'img detail cart';
+    background-color: white;
+    box-shadow: var(--footer-shadow);
+    border-radius: 10px;
+}
+
+.ProductImage{
+    grid-area: img;
+    background-color: rgb(252, 252, 252);
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.ProductImage img{
+    width:80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+}
+
+.ProductDetail-wrapper{
+    grid-area: detail;
+    background-color: rgb(252, 252, 252);
+    width: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 10px;
+
+    &__name{
+        font-size: $font-size-xl;
+        margin-bottom: 5px;
+
+    }
+    &__shop a{
+        color: $primary-color;
+    }
+
+    &__price{
+        font-size: $font-size-xl;
+        color: $primary-color;
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+
+    &__information{
+        &__see-more button{
+            width: 50%;
+            margin-top: 5px;
+            font-size: 0.5rem;
+            margin-left: 25%;
+        }
+    }
+}
+
+.ProductCart-wrapper{
+    grid-area: cart;
+    padding-top: 5%;
+    padding-left: 15px;
+
+    &__Title{
+        font-size: $font-size-lg;
+    }
+
+    &__quantity{
+        display: flex;
+        margin-top: 30px;
+        margin-left: 25%;
+        width:60%;
+        margin-bottom: 5px;
+
+        &__Title{
+            font-size: $font-size-md;
+            margin-right: 5px;
+        }
+        &__Qty{
+            margin-right: 10px;
+        }
+
+        &__Stock{
+            color:$danger-color;
+            font-size: $font-size-md;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    }
+    &__buttons{
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        margin: auto;
+
+        &__Wishlist{
+            display: flex;
+            width: 100%;
+        }
+        &__Wishlist button{
+            width: 100%;
+        }
+        &__Add-Cart{
+            width: 100%;
+            
+            margin-top: 10px;
+        }
+        &__Add-Cart button{
+            width: 100%;
+        }
+    }
+    &__Total{
+        display: flex;
+        flex-direction: row;
+        font-size: $font-size-md;
+        margin-bottom: 10px;
+        width: 80%;
+        margin-left: 10%;
+
+        &__Currency{
+        }
+        &__Amount{
+            
+            font-weight: $font-weight-bold;
+            margin-left: 5px;
+        }
+    }
+}
+.Product-Info{
+    width:$screen-xl;
+    background-color: lightblue;
+    margin: auto;
+    margin-top: 50px;
+    height: 100px;
+}
