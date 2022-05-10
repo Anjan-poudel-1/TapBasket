@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORders</title>
+    <title>Orders</title>
     <link rel="stylesheet" href="./assets/styles/index.css">
 </head>
 <body data-theme="default" id="get-theme">
@@ -13,7 +13,6 @@
          <?php
         include './components/navbars/primary-navbar.php';
         ?>
-
 <div class="container page__body">
 <div class="user-dashboard">
                 <?php
@@ -29,8 +28,43 @@
                             My Orders
                     
                         </div>
-                    
                     </div>
+                    <div class= "order_history">
+                        Your order history and purchase information
+                    </div>
+                        <div class="order_filter">
+                                <select>
+                                    <option value="">
+                                        Order Filter
+                                        All Orders
+                                    </option>
+                                    <option value="">
+                                        7 days
+                                    </option>
+                                    <option value="">
+                                        15 days
+                                    </option>
+                                    <option value="">
+                                       1 month
+                                    </option>
+                                    <option value="">
+                                        3 months
+                                    </option>
+                                </select>  
+                            </div>
+                            <div class="order_history_table">
+				                <table>
+						            <tr>
+                                        <th>Order No</th>
+                                        <th>Order Place</th>
+                                        <th>Status</th>
+                                        <th>Total</th>
+                                        <th>Show Order</th>
+						            </tr>
+				                </table>
+                            </div>
+
+                                
                 </div>
 </div>
 
@@ -41,7 +75,7 @@
 
 
 
-    </div>
+ </div>
 
     
  <!-- Page Footers -->
