@@ -102,10 +102,11 @@ include("connection.php");
                         $to=$Temail;
                         $sender="shahirabina652@gmail.com";
                         $subject="Verify your email address";
-                        $message='Please verify your Account';
-                        // '<button>'
-                        //  '<a href="login.php"?id='.$vcode.'</a>   
-                        // </button>';
+                        $message?>
+                        <?php
+                        echo "= Please verify your Account <button> <a href='login.php?id=".$vcode."</a></button>";
+                        
+                        
                         
                         $header='Thank you '.$Tname. ' To register you must verify your account click below for registration.';
                         if(mail($to,$subject,$message, $header)){

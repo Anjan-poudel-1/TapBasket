@@ -53,9 +53,6 @@ if(isset($_GET['product_id']) && isset($_GET['qty'])){
 
 ?>
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
