@@ -1,5 +1,18 @@
 <?php
 include("connection.php");
+
+function generateNumericOTP($n)
+{
+  $generator = "1683579024";
+  $result = "";
+  
+  for ($i = 1; $i <= $n; $i++) {
+    $result .= substr($generator, (rand() % (strlen($generator))), 1);
+  }
+
+  return $result;
+}
+
   if(isset($_POST['userRegisterSubmit'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -52,7 +65,7 @@ include("connection.php");
         $fname=trim($_POST['fname']);
         $lname=trim($_POST['lname']);
         $phone=trim($_POST['phone']);
-        $vcode=bin2hex(random_bytes(16));
+        $vcode=generateNumericOTP(4);
 
     $fullname=$fname." ".$lname;
     $sql= "SELECT * FROM users WHERE email = '$email'";
@@ -67,8 +80,8 @@ include("connection.php");
       if(!empty($email)&& !empty($password)&& !empty($lname) &&!empty($fname)){
       
 
-                  $sql="INSERT INTO USERS(username,email,password,vcode,phone_no,user_role) VALUES (:fullname,:email,:userpassword,:vcode,:phone_no,:userrole)";
-                    $stid=(oci_parse($conn,$sql));  
+                  $sqli="INSERT INTO USERS(username,email,password,vcode,phone_no,user_role) VALUES (:fullname,:email,:userpassword,:vcode,:phone_no,:userrole)";
+                    $stid=(oci_parse($conn,$sqli));  
                         oci_bind_by_name($stid, ":fullname", $fullname);
                         oci_bind_by_name($stid, ":email", $email);
                         oci_bind_by_name($stid, ":userpassword",$password);
@@ -79,16 +92,19 @@ include("connection.php");
                         oci_commit($conn);
                         oci_free_statement($stid);
                         oci_close($conn);
-
-                    if($sql){                       
+                        
+                    if($sqli){  
+                        
+                        
                         $to=$email;
                         $sender="shahirabina652@gmail.com";
                         $subject="Verify your email address";
-                        $message='Please verify your email'.
-                         '<a href="emailverification.php"?   
-                        </button>';
+                        $message=$vcode;
                         
-                        $header='Thank you '.$fname. ' To register you must verify your account click below for registration.';
+                        $headers  = 'MIME-Version: 1.0' . "\r\n";
+                        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                        
+                        $header='Thank you '.$fname. ' For registration. kindly find the OTP below';
                         if(mail($to,$subject,$message, $header)){
                             echo"Email sent";
                         }else{
@@ -97,10 +113,23 @@ include("connection.php");
 
                     }
         }}
+
         
     }
 
 ?>
+ <?php
+                        if(isset($_POST['userRegisterSubmit'])){    
+                          $email = $_POST['email'];
+                           $sql= "SELECT * FROM users WHERE email = '$email'";
+                           $select = oci_parse($conn,$sql);
+                           oci_execute($select, OCI_NO_AUTO_COMMIT);          
+                           while($row = oci_fetch_array($select, OCI_ASSOC+OCI_RETURN_NULLS)){
+                            header("location:otp.php?id=".$row['USER_ID']);              
+                           }
+                        }
+                        
+                           ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -347,6 +376,7 @@ include("connection.php");
                     
                    
                         <input type="submit" value="Sign-Up" name="userRegisterSubmit" class="btn primary-btn form-btn"/>
+                       
                     </a>
                     </div>
 
@@ -359,8 +389,7 @@ include("connection.php");
                             <!-- Go to registration page -->
                             
                             <button class="btn primary-btn form-btn">
-                            Log-in
-                                
+                                Login
                             </button>
                     </div>
                     <div>

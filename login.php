@@ -1,4 +1,8 @@
 <?php
+session_start();
+?>
+<?php
+include("connection.php");
   if(isset($_POST['LoginSubmit'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -16,27 +20,28 @@
     if(empty(trim($password))){
         $passworderr = "Please enter password";
     }
+
+    if(!empty($email) && !empty($password)){
+        $password=md5($password);
+        $sql = "SELECT * FROM USERS WHERE email = '$email' AND password ='$password'";
+
+        $stid=(oci_parse($conn,$sql));
+        oci_execute($stid, OCI_NO_AUTO_COMMIT);  
+        oci_commit($conn);
+       
+        $count= oci_fetch_all($stid,$sql);
+        // $count=oci_num_rows($stid);
+        if ($count==1) {
+            $_SESSION['isAuthenticated']=True;
+            header ('location:index.php');
+        }else {
+            $_SESSION['isAuthenticated']= False;
+            header ('location:login.php');
+        }
+        oci_free_statement($stid);
+        oci_close($conn);
   }
-?>
-
-<?php
-include("connection.php");
-if(isset($_POST['LoginSubmit'])){
-    
-    $email =trim($_POST['email']);
-    $password =trim($_POST['password']);
-
-
-$sql="SELECT * FROM USERS where email='$email' and password= '$password'";
-$result=mysqli_query($conn,$sql) or die(mysqli_error($sql));
-
-   if (!mysqli_fetch_assoc($result)) {
-    $_SESSION['error']= 'User not recognised';
-    echo $_SESSION['error']."<br>";
-    }
-
 }
-    
 ?>
 
 <!DOCTYPE html>
