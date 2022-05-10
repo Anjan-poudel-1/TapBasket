@@ -1,7 +1,4 @@
 <?php
-session_start();
-?>
-<?php
 $count = 0;
 if(isset($_SESSION['cart'])){
     $cartData = $_SESSION['cart'];
@@ -10,7 +7,9 @@ if(isset($_SESSION['cart'])){
         $count = $count+$value;
     }
 }
-
+if(!isset($_SESSION['isAuthenticated'])){
+    $_SESSION['isAuthenticated']=False;
+}
 ?>
 
 <!DOCTYPE html>
@@ -143,8 +142,11 @@ if(isset($_SESSION['cart'])){
                         </a>
                     </div>
 
+                    <?php
+                       if(isset($_SESSION['isAuthenticated']) && $_SESSION['isAuthenticated']){
+                    ?>
                     <!-- If logged in  -->
-                <div class="nav-links nav-links--profile nav-links--desktop">
+            <div class="nav-links nav-links--profile nav-links--desktop">
                     <div class="nav-links__profile">
                         <!-- If user logs in -->
                         <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -191,16 +193,19 @@ if(isset($_SESSION['cart'])){
                                         </div>
                                     </a>
                                 </li>
+
                                 <li class="nav-dropdown__lists__list">
-                                    <a  class="nav-dropdown__lists__list__link">
+                                    <a  class="nav-dropdown__lists__list__link" href="logout.php">
                                         <div class="nav-dropdown__lists__list__icon">
                                         <svg width="25" height="25" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M11.3333 14.6667H26.8L22.2667 10.1333L24.1778 8.22222L32 16.0444L24.2667 23.7778L22.3556 21.8667L26.8889 17.3333H11.3333V14.6667ZM15.6 0V2.66667H2.66667V29.3333H15.6V32H2.66667C1.95556 32 1.33333 31.7333 0.8 31.2C0.266667 30.6667 0 30.0444 0 29.3333V2.66667C0 1.95556 0.266667 1.33333 0.8 0.8C1.33333 0.266667 1.95556 0 2.66667 0H15.6Z" fill="currentColor"/>
                                     </svg>
                                         </div>
-                                         <div class="nav-dropdown__lists__list__name">
-                                            Logout
+                                       
+                                         <div class="nav-dropdown__lists__list__name" >
+                                      Logout
                                         </div>
+
                                     </a>
                                 </li>
                             </ul>
@@ -210,6 +215,9 @@ if(isset($_SESSION['cart'])){
                 
                     </div>
                 </div>
+                <?php
+                    }else{
+                ?>
                  <!-- if not logged in -->
                 <div class="nav-links nav-links--desktop">
                     <div class="nav-links__profile">
@@ -217,11 +225,14 @@ if(isset($_SESSION['cart'])){
                       <a href="login.php">
                             Login
                         </a>
-                        </div>
-                        </div>
-                        
                     </div>
-                </div> 
+                </div>
+            <?php
+                }
+           ?>       
+             </div>
+        </div> 
+               
                 </div>
             
    

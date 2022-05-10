@@ -32,10 +32,10 @@ include("connection.php");
         $count= oci_fetch_all($stid,$sql);
         // $count=oci_num_rows($stid);
         if ($count==1) {
-            $_SESSION['email']=$email;
+            $_SESSION['isAuthenticated']=True;
             header ('location:index.php');
         }else {
-            $_SESSION['error']= 'User not recognised';
+            $_SESSION['isAuthenticated']= False;
             header ('location:login.php');
         }
         oci_free_statement($stid);
