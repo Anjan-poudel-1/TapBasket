@@ -85,7 +85,7 @@ include("connection.php");
                         $sender="shahirabina652@gmail.com";
                         $subject="Verify your email address";
                         $message='Please verify your email'.
-                         '<a href="emailverification.php"?   
+                         '<a href="login.php"?   
                         </button>';
                         
                         $header='Thank you '.$fname. ' To register you must verify your account click below for registration.';

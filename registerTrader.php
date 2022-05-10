@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trader Register</title>
+    <link rel="stylesheet" href="assets/styles/index.css">
+</head>
+<body data-theme="default" id="get-theme">
 <?php
 include("connection.php");
   if(isset($_POST['TraderRegisterSubmit'])){
@@ -102,9 +112,14 @@ include("connection.php");
                         $to=$Temail;
                         $sender="shahirabina652@gmail.com";
                         $subject="Verify your email address";
-                        $message?>
-                        <?php
-                        echo "= Please verify your Account <button> <a href='login.php?id=".$vcode."</a></button>";
+                        // $message = "Please verify your Account  <a href='login.php?id=".$vcode."'><button class='btn'> Click</button></a>";
+                       
+                        $message = "<a href='http://localhost/TapBasket/TapBasket/login.php?vcode=."$vcode".'>Verify Account</a>";
+                        // <button class='btn'> Verify account</button>
+                       
+                    
+                      
+                        // echo "= Please verify your Account <button> <a href='login.php?id=".$vcode."'>Verify</a></button>";
                         
                         
                         
@@ -121,17 +136,6 @@ include("connection.php");
     }
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trader Register</title>
-    <link rel="stylesheet" href="assets/styles/index.css">
-</head>
-<body data-theme="default" id="get-theme">
     <div class="page login-page">
     <?php 
             include './components/navbars/primary-navbar.php';
