@@ -114,7 +114,7 @@ include("connection.php");
                         $subject="Verify your email address";
                         // $message = "Please verify your Account  <a href='login.php?id=".$vcode."'><button class='btn'> Click</button></a>";
                        
-                        $message = "<a href='http://localhost/TapBasket/TapBasket/login.php?vcode=."$vcode".'>Verify Account</a>";
+                        $message = "<a href='http://localhost/TapBasket/TapBasket/login.php?vcode=".$vcode."'>Verify Account</a>";
                         // <button class='btn'> Verify account</button>
                        
                     

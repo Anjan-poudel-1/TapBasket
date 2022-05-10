@@ -68,9 +68,9 @@ if(isset($_GET['product_id']) && isset($_GET['qty'])){
 
     <div class="page home-page">
 
-        <?php 
+         <?php 
             include './components/navbars/primary-navbar.php';
-        ?>
+        ?> 
 
         <div class="container page__body">
 
