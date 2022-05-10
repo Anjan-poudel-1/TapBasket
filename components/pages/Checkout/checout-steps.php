@@ -1,3 +1,30 @@
+<?php
+$collectionDates = [];
+
+$now = strtotime("now");
+$end_date = strtotime("+2 weeks");
+
+while (date("Y-m-d", $now) != date("Y-m-d", $end_date)) {
+    $day_index = date("w", $now);
+    if ($day_index == 0 || $day_index == 1|| $day_index == 2) {
+        // Print or store the weekends here
+        // echo date("F j, l", $now);
+         $timeDiff =  abs(strtotime("+1 day"))-abs(strtotime(date("Y-m-d", $now))); 
+        
+       array_push($collectionDates,date("F j, l", $now));
+
+      // print_r($collectionDates);
+      // echo $timeDiff;
+
+        // diffabs(strtotime("+1 day"))-abs(strtotime(date("Y-m-d", $now)))
+
+
+    }
+    $now = strtotime(date("Y-m-d", $now) . "+1 day");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,8 +55,10 @@
                                     <option value="">
                                         ---- Select Date here ----
                                     </option>
+                                    <!-- Loop the collectionDates here... -->
+                                    
                                     <option value="">
-                                        Jan 19, thursday
+                                        Jan 19, sunday
                                     </option>
                                     <option value="">
                                        Jan 19, thursday
@@ -81,13 +110,16 @@
                             </div>
 
                             <div class="checkout-buttons">
-
+                                <a href="cart.php">
                                 <button class="btn  clear-btn desktop-view">
                                     Back to cart
                                 </button>
+                                </a>
+                                <a href="cart.php">
                                 <button class="btn  clear-btn mobile-view">
                                     Back
                                 </button>
+                                </a>
                                 <button  class="btn primary-btn disabled-btn desktop-view" >
                                     Confirm & Continue
                                 </button>

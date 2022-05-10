@@ -1,3 +1,61 @@
+<?php
+SESSION_START();
+// session_destroy();
+//If cart doesnt already exists...
+if(!(isset($_SESSION['cart']))){
+
+    $_SESSION['cart']= [];
+
+}
+
+//YEsma chai .. after login.. check the cartlist...
+//through array add every item to the local i.e. session cart
+if(isset($_GET['product_id']) && isset($_GET['qty'])){
+
+   
+
+    $product_id = $_GET['product_id'];
+   
+    $quantity = $_GET['qty'];
+
+
+    //To validate.... check if quantity is int>0, product is in table
+    if($quantity>0 && filter_var($quantity,FILTER_VALIDATE_INT)){
+        //buy the product
+
+        //if person is logged in.. add to cartlist
+
+        if(isset($_SESSION['isAuthenticated'])){
+
+        }
+
+        //Session ma ta jasari pani upload hunu paryo 
+        //We are mapping index and quantity here.. the index represents productId and value represents quantity'
+
+        //If the item is already in the cart .. update it.. else just add to cart
+        if(isset($_SESSION['cart'] [$product_id])){
+             $_SESSION['cart'] [$product_id] += $quantity;
+        }
+        else{
+            $_SESSION['cart'] [$product_id] = $quantity;
+        }
+
+    }
+    else{
+        echo '<script>alert("Invalid input to the cart")</script>';
+    }
+
+
+    echo"<script>console.log('hello')</script>";
+
+} 
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +81,12 @@
 
             <?php
                 include './components/pages/home/banner.php';
+            ?>
+
+            <?php
+                echo "<pre>";
+                print_r($_SESSION['cart']);
+                echo "</pre>";
             ?>
 
             <!-- Top Deals Section -->

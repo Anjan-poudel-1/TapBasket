@@ -108,10 +108,15 @@
             
             <div class="product-card__details__cart-btn">
 
+            <a href= <?php
+                echo'index.php?product_id=4&qty=1'
+            ?>>
+
+            
                 <button class="btn primary-btn card-btn">
                     Add to Cart
                 </button>
-                
+             </a>
                 
 
             </div>
@@ -199,13 +204,21 @@
             </div>
             
             <div class="product-card__details__cart-btn">
+                <div class="product-card__details__cart-btn">
 
-                <button class="btn primary-outline-btn card-btn">
+            <a href= <?php
+                echo'index.php?product_id=1&qty=1'
+            ?>>
+
+            
+                <button class="btn primary-btn card-btn">
                     Add to Cart
                 </button>
-                
+             </a>
                 
 
+            </div>
+                
             </div>
 
         </div>
@@ -292,10 +305,15 @@
             
             <div class="product-card__details__cart-btn">
 
-                <button class="btn primary-outline-btn card-btn">
+            <a href= <?php
+                echo'index.php?product_id=2&qty=1'
+            ?>>
+
+            
+                <button class="btn primary-btn card-btn">
                     Add to Cart
                 </button>
-                
+             </a>
                 
 
             </div>

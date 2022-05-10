@@ -1,3 +1,15 @@
+<?php
+$count = 0;
+if(isset($_SESSION['cart'])){
+    $cartData = $_SESSION['cart'];
+    
+    foreach ($cartData as $key => $value) {
+        $count = $count+$value;
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -149,7 +161,9 @@
                                 
 
                                 <div class="nav-links__cart__counter">
-                                    0
+                                    <?php
+                                    echo "$count";
+                                    ?>
                                 </div>
                         </div>
                        
