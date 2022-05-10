@@ -1,6 +1,4 @@
-<?php
-session_start();
-?>
+
 <?php
 $count = 0;
 if(isset($_SESSION['cart'])){
