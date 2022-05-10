@@ -2118,7 +2118,7 @@ select {
 }
 
 .ProductMain {
-  width: 90%;
+  width: 100%;
   margin: auto;
   display: -ms-grid;
   display: grid;
@@ -2270,7 +2270,7 @@ select {
 }
 
 .Review-Section {
-  width: 90%;
+  width: 100%;
   margin: auto;
   margin-top: 50px;
   padding-left: 1%;

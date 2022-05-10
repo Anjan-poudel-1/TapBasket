@@ -84,11 +84,12 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+
             <?php
             include './components/pages/Product-Detail/review-section.php';
             ?>
+            
         </div>
     </div>
 

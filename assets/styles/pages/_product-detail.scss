@@ -1,13 +1,17 @@
 
 .ProductMain{
-    width:90%;
+    width:100%;
     margin:auto;
     display: grid;
     grid-template-columns: 30% 40% 30%;
     grid-template-areas: 'img detail cart';
-    // background-color: white;
+    // background-color:;
     box-shadow: var(--footer-shadow);
     border-radius: 10px;
+
+    @media only screen and (max-width:$screen-lg){
+
+    }
 }
 
 .ProductImage{
@@ -131,7 +135,7 @@
     }
 }
 .Review-Section{
-    width:90%;
+    width:100%;
     // background-color: lightblue;
     margin: auto;
     margin-top: 50px;
