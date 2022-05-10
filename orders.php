@@ -17,8 +17,9 @@
 <div class="container page__body">
 <div class="user-dashboard">
                 <?php
+                  $pageName="order";
                 include './components/pages/AccountSettings/userNavbar.php';
-                
+              
                 ?>
                 <div class="user-dashboard__content">
                 

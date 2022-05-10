@@ -18,6 +18,7 @@
         <div class="container page__body">
             <div class="user-dashboard">
                 <?php
+                 $pageName="settings";
                 include './components/pages/AccountSettings/userNavbar.php';
                 
                 ?>

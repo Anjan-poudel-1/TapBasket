@@ -1,16 +1,15 @@
 <?php
+include("connection.php");
   if(isset($_POST['TraderRegisterSubmit'])){
-    $email = $_POST['email'];
+    $Traderemail=$_POST['Temail'];
     $name=trim($_POST['name']);
+    $tradername=trim($_POST['Tname']);
     $phone=trim($_POST['phone']);
+    $Traderphone=trim($_POST['Tphone']);
     $product=trim($_POST['product']);
     $addr=trim($_POST['addr']);
     $desc=trim($_POST['desc']);
-    $dob=trim($_POST['dob']);
-
-    if(empty(trim($dob))){
-        $doberr = "Please enter date of birth";
-    }
+ 
     if(!preg_match('/^[\+0-9\-\(\)\s]*$/', $phone)) {
         
             $phoneerr="Please enter valid phone number";
@@ -22,12 +21,12 @@
     if(empty(trim($addr))){
         $addrerr = "Please enter address";
     }
-    if(empty(trim($email))){
+    if(empty(trim($Traderemail))){
         $emailerror = "Please enter email";
     }
     else{
-        $email = filter_var($email,FILTER_SANITIZE_EMAIL);
-        if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+        $Traderemail = filter_var($Traderemail,FILTER_SANITIZE_EMAIL);
+        if(!filter_var($Traderemail,FILTER_VALIDATE_EMAIL)){
             $emailerror = "Invalid email";
         }
     }
@@ -35,15 +34,91 @@
     if(empty(trim($product))){
         $producterr = "Please enter products types";
     }
-    if(empty($name)){
+    if(empty($name)||empty($tradername)){
         $nameerr="Please enter name";
     }
 
    
-    if(empty($phone)){
+    if(empty($phone) || empty($Traderphone)){
         $phoneerr="Please enter phone number";
     }
   }
+?>
+  <?php
+    include("connection.php");
+    if(isset($_POST['TraderRegisterSubmit'])){
+        $role="Trader";
+        $Temail = $_POST['Temail'];
+        $Tname=trim($_POST['Tname']);
+        $Tphone=trim($_POST['Tphone']);
+        $addr=trim($_POST['addr']);
+        $desc=trim($_POST['desc']);
+        $vcode=bin2hex(random_bytes(16));
+
+
+        $shopname=trim($_POST['name']);
+        $shopaddress=trim($_POST['addr']);
+        $shopphone=trim($_POST['phone']);
+        $product=trim($_POST['product']);
+        $desc=trim($_POST['desc']);
+
+    $sql= "SELECT * FROM users WHERE email = '$Temail'";
+    $select = oci_parse($conn,$sql);
+    oci_execute($select, OCI_NO_AUTO_COMMIT);
+    $rows= oci_fetch_all($select,$res);
+    if($rows>0) {       
+        $emailerror="this email already exist";
+    } 
+     else{   
+
+      if(!empty($Temail)&& !empty($Tphone)&& !empty($Tname)){
+        if(!empty($shopaddress) && !empty($shopname) &&!empty($shopphone) && !empty($desc) && !empty($product)){
+                  $sql="INSERT INTO USERS(username,email,vcode,phone_no,user_role) VALUES (:Tname,:email,:vcode,:phone_no,:Traderrole)";
+                    $stid=(oci_parse($conn,$sql));  
+                        oci_bind_by_name($stid, ":Tname", $Tname);
+                        oci_bind_by_name($stid, ":email", $Temail);
+                        oci_bind_by_name($stid, ":phone_no", $Tphone);
+                        oci_bind_by_name($stid, ":Traderrole", $role);
+                        oci_bind_by_name($stid, ":vcode", $vcode);
+                        oci_execute($stid, OCI_NO_AUTO_COMMIT);  
+                        oci_commit($conn);
+                        oci_free_statement($stid);
+                        oci_close($conn);
+                    $statement="INSERT INTO SHOP(shop_name,shop_address,shop_contact,product_category,shop_description) VALUES (:sname,:saddress,:sphone,:product,:sdesc)";
+                    $stid=(oci_parse($conn,$statement));  
+                        oci_bind_by_name($stid, ":sname", $shopname);
+                        oci_bind_by_name($stid, ":saddress", $shopaddress);
+                        oci_bind_by_name($stid, ":sphone", $shopphone);
+                        oci_bind_by_name($stid, ":product", $product);
+                        oci_bind_by_name($stid, ":sdesc", $desc);
+                        oci_execute($stid, OCI_NO_AUTO_COMMIT);  
+                        oci_commit($conn);
+                        oci_free_statement($stid);
+                        oci_close($conn);
+                }
+                        
+
+                    if($sql){                       
+                        $to=$Temail;
+                        $sender="shahirabina652@gmail.com";
+                        $subject="Verify your email address";
+                        $message='Please verify your Account';
+                        // '<button>'
+                        //  '<a href="login.php"?id='.$vcode.'</a>   
+                        // </button>';
+                        
+                        $header='Thank you '.$Tname. ' To register you must verify your account click below for registration.';
+                        if(mail($to,$subject,$message, $header)){
+                            echo"Email sent";
+                        }else{
+                            echo "unable to send email";
+                        }
+
+                    }
+        }}
+        
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -76,9 +151,9 @@
                              if(isset($nameerr)){
                                  echo " form-control__input--error";
                              }
-                            ?>" placeholder="FirstName" name="name"  value="<?php
-                            if(isset( $_POST['name'])){
-                                echo $_POST['name'];
+                            ?>" placeholder="FirstName" name="Tname"  value="<?php
+                            if(isset( $_POST['Tname'])){
+                                echo $_POST['Tname'];
                             }
                             ?>"/>
                              <?php
@@ -105,10 +180,10 @@
                              }
                             ?>"
                              placeholder="Enter your email Address"
-                             name="email"
+                             name="Temail"
                              value="<?php
-                                    if(isset( $_POST['email'])){
-                                        echo $_POST['email'];
+                                    if(isset( $_POST['Temail'])){
+                                        echo $_POST['Temail'];
                                     }
                                     ?>"
 
@@ -136,9 +211,9 @@
                              if(isset($phoneerr)){
                                  echo " form-control__input--error";
                              }
-                            ?>" placeholder="+977" name="phone" value="<?php
-                            if(isset( $_POST['phone'])){
-                                echo $_POST['phone'];
+                            ?>" placeholder="+977" name="Tphone" value="<?php
+                            if(isset( $_POST['Tphone'])){
+                                echo $_POST['Tphone'];
                             }
                             ?>"/>
                             
@@ -152,39 +227,6 @@
                                         }
                                 ?>
                             
-                        </div>
-
-                        <div class="form-control">
-                            <p class="form-control__label">
-                               Date of birth
-                            </p>
-                            <input 
-                            class="form-control__input <?php 
-                             if(isset($emailerror)){
-                                 echo " form-control__input--error";
-                             }
-                            ?>"
-                             placeholder="Date of birth"
-                             name="dob"
-                             value="<?php
-                                    if(isset( $_POST['dob'])){
-                                        echo $_POST['dob'];
-                                    }
-                                    ?>"
-
-                                
-                             />
-                             <!-- Error show  -->
-                             <?php
-                                if(isset($doberr)){
-                                    ?>
-                                    <div class="input-error"> 
-                                    <?php echo $doberr ?>
-                                     </div> 
-                                    <?php
-                                        }
-                                ?>
-
                         </div>
 
 

@@ -23,5 +23,9 @@
                 transform: scale(0.9);
             
         }
+
+        &--active{
+            color: $primary-color;
+        }
     }
 }

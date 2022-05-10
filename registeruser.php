@@ -1,4 +1,5 @@
 <?php
+include("connection.php");
   if(isset($_POST['userRegisterSubmit'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -6,10 +7,9 @@
     $fname=trim($_POST['fname']);
     $lname=trim($_POST['lname']);
     $phone=trim($_POST['phone']);
-    $dob=trim($_POST['dob']);
-    $gender=trim($_POST['gender']);
     $pattern="/^[\+0-9\-\(\)\s]*$/";
 
+   
     if(!preg_match("/^[\+0-9\-\(\)\s]*$/", $phone)) {
         $phoneerr="Please enter valid phone number";
       }
@@ -27,10 +27,6 @@
         $passworderr = "Please enter password";
     }
 
-    if(empty(trim($dob))){
-        $doberr = "Please enter date of birth";
-    }
-
     if($password!=$rpassword){
         $rpassworderr="please recheck the password";
     }
@@ -45,25 +41,65 @@
     if(empty($phone)){
         $phoneerr="Please enter phone number";
     }
+}
+    ?>
+    <?php
+    include("connection.php");
+    if(isset($_POST['userRegisterSubmit'])){
+        $role="customer";
+        $email = $_POST['email'];
+        $password =md5($_POST['password']);
+        $fname=trim($_POST['fname']);
+        $lname=trim($_POST['lname']);
+        $phone=trim($_POST['phone']);
+        $vcode=bin2hex(random_bytes(16));
 
-    if((filter_var($email, FILTER_VALIDATE_EMAIL)) && (preg_match($pattern,$pass))){
-        // $pass=md5(trim($pass));
-         $sql="INSERT INTO USERS (user_name,email,password,phone_no,dob,user_role) VALUES ('$fname + $lname','$email',md5('$pass'),'$phone','$dob','customer')";
- 
-         $qry=(mysqli_query($connection,$sql) or die(mysqli_error($sql)));
- 
-         if($qry){
-           echo "Data Inserted Successfully";
-           header("location:../Search/displaybooks.php");
-       }else{
-           header("Location:registerForm.php");
-           echo "ERROR COULD NOT INSERT DATA";  
-         }
-              
-     }else{
-       echo "problem in statement";
-     }
-  }
+    $fullname=$fname." ".$lname;
+    $sql= "SELECT * FROM users WHERE email = '$email'";
+    $select = oci_parse($conn,$sql);
+    oci_execute($select, OCI_NO_AUTO_COMMIT);
+    $rows= oci_fetch_all($select,$res);
+    if($rows>0) {       
+        $emailerror="this email already exist";
+    } 
+     else{   
+
+      if(!empty($email)&& !empty($password)&& !empty($lname) &&!empty($fname)){
+      
+
+                  $sql="INSERT INTO USERS(username,email,password,vcode,phone_no,user_role) VALUES (:fullname,:email,:userpassword,:vcode,:phone_no,:userrole)";
+                    $stid=(oci_parse($conn,$sql));  
+                        oci_bind_by_name($stid, ":fullname", $fullname);
+                        oci_bind_by_name($stid, ":email", $email);
+                        oci_bind_by_name($stid, ":userpassword",$password);
+                        oci_bind_by_name($stid, ":phone_no", $phone);
+                        oci_bind_by_name($stid, ":userrole", $role);
+                        oci_bind_by_name($stid, ":vcode", $vcode);
+                        oci_execute($stid, OCI_NO_AUTO_COMMIT);  
+                        oci_commit($conn);
+                        oci_free_statement($stid);
+                        oci_close($conn);
+
+                    if($sql){                       
+                        $to=$email;
+                        $sender="shahirabina652@gmail.com";
+                        $subject="Verify your email address";
+                        $message='Please verify your email'.
+                         '<a href="emailverification.php"?   
+                        </button>';
+                        
+                        $header='Thank you '.$fname. ' To register you must verify your account click below for registration.';
+                        if(mail($to,$subject,$message, $header)){
+                            echo"Email sent";
+                        }else{
+                            echo "unable to send email";
+                        }
+
+                    }
+        }}
+        
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -99,8 +135,8 @@
                                  echo " form-control__input--error";
                              }
                             ?>" placeholder="FirstName" name="fname"  value="<?php
-                            if(isset( $_POST['lname'])){
-                                echo $_POST['lname'];
+                            if(isset( $_POST['fname'])){
+                                echo $_POST['fname'];
                             }
                             ?>"/>
                              <?php
@@ -172,60 +208,9 @@
 
                         </div>
 
-                        <div class="form-control">
-                            <p class="form-control__label">
-                               Date of birth
-                            </p>
-                            <input 
-                            class="form-control__input <?php 
-                             if(isset($emailerror)){
-                                 echo " form-control__input--error";
-                             }
-                            ?>"
-                             placeholder="Date of birth"
-                             name="dob"
-                             value="<?php
-                                    if(isset( $_POST['dob'])){
-                                        echo $_POST['dob'];
-                                    }
-                                    ?>"
-
-                                
-                             />
-                             <!-- Error show  -->
-                             <?php
-                                if(isset($doberr)){
-                                    ?>
-                                    <div class="input-error"> 
-                                    <?php echo $doberr ?>
-                                     </div> 
-                                    <?php
-                                        }
-                                ?>
-
-                        </div>
-
                         
-                        <div class="form-control">
-                            <p class="form-control__label">
-                                Gender
-                            </p>
-                            <select class="form-control__input"
-                             name="gender"
-                             value="<?php
-                                    if(isset( $_POST['male'])){
-                                        echo $_POST['male'];
-                                    }else if(isset($_POST['female'])){
-                                        echo $_POST['female'];
-                                    }else{
-                                        echo $_POST['other'];
-                                    }
-                                    ?>">
-                                <option value="male">Female</option>
-                                <option value="female">Male</option>
-                                <option value="other">Others</option>
-                            </select>
-                            </div>
+                        
+                 
                         <div class="form-control">
                             <p class="form-control__label">
                                 Phone Number
@@ -358,8 +343,11 @@
                     </div>
 
                     <div class="login-form__content__login">
+                        
+                    
+                   
                         <input type="submit" value="Sign-Up" name="userRegisterSubmit" class="btn primary-btn form-btn"/>
-                         
+                    </a>
                     </div>
 
                     <div class="login-form__content__signup flex_container">

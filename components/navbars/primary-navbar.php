@@ -14,8 +14,11 @@
                 <div class="primary-navbar__content__left">
 
                     <div class="primary-navbar__content__left__logo">
-
+                        <a href="index.php">
                         <img src="./assets/images/logo-01.png"/>
+                        </a>
+
+                     
 
                     </div>
 
@@ -104,8 +107,11 @@
                     </div>
                    
 
-
+                        
                     <div class="nav-links nav-links--desktop">
+                        <a href="cart.php">
+
+                       
                         <div class="nav-links__cart">
                         <div class="nav-links__cart__main">
 
@@ -149,6 +155,7 @@
                        
 
                         </div>
+                        </a>
                     </div>
 
 
