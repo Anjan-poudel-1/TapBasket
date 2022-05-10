@@ -168,4 +168,15 @@ function setTheme(themeName) {
     hidePasswordBtn.style.display="none";
     loginPasswordData.setAttribute('type','password');
  }
+
+
+
+ //toast
+const callData = (message)=>{
+
+    console.log("messsage");
+}
+
+
+
  

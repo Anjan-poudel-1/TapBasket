@@ -1,3 +1,17 @@
+<?php
+SESSION_START();
+// session_destroy();
+if(!(isset($_SESSION['cart']))){
+
+    $_SESSION['cart']= [];
+
+}
+
+$date_chosen = '';
+$timing = '';
+$finalPayment = false;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

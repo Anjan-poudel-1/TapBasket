@@ -81,9 +81,11 @@
                     </div>
 
                     <div class="cart-aside__checkout">
+                    <a href="checkout.php">
                         <button class="btn primary-btn">
                             Checkout
                         </button>
+                    </a>
                     </div>
                 </div>
 </body>
