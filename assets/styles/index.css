@@ -1729,6 +1729,14 @@ select {
   }
 }
 
+.center_body_div {
+  margin-top: 20%;
+  display: block;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .cart-page__contents {
   display: -webkit-box;
   display: -ms-flexbox;
