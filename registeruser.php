@@ -43,7 +43,8 @@ function generateNumericOTP($n)
 
     if(!preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/", $password)) {
         $passworderr="password must contain Minimum eight characters, at least one lowercase, one uppercase letter and one number";
-      }
+        $errCount=1;
+    }
 
     if(empty(trim($password))){
         $passworderr = "Please enter password";
@@ -74,6 +75,7 @@ function generateNumericOTP($n)
     include("connection.php");
     if(isset($_POST['userRegisterSubmit'])){
         $role="customer";
+        $IS_DISABLED='true';
         $email = $_POST['email'];
         $password =md5($_POST['password']);
         $fname=trim($_POST['fname']);
@@ -91,14 +93,13 @@ function generateNumericOTP($n)
         $errCount=1;
     } 
      else{   
-      if(!empty($email)&& !empty($password) &&(preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/", $password)) && !empty($lname) &&!empty($fname)){
-      
-
-                  $sqli="INSERT INTO USERS(username,email,password,vcode,phone_no,user_role) VALUES (:fullname,:email,:userpassword,:vcode,:phone_no,:userrole)";
+      if($errCount==0){
+                  $sqli="INSERT INTO USERS(username,email,password,vcode,phone_no,user_role,IS_DISABLED) VALUES (:fullname,:email,:userpassword,:vcode,:phone_no,:userrole,:is_disable)";
                     $stid=(oci_parse($conn,$sqli));  
                         oci_bind_by_name($stid, ":fullname", $fullname);
                         oci_bind_by_name($stid, ":email", $email);
                         oci_bind_by_name($stid, ":userpassword",$password);
+                        oci_bind_by_name($stid, ":is_disable",$IS_DISABLED);
                         oci_bind_by_name($stid, ":phone_no", $phone);
                         oci_bind_by_name($stid, ":userrole", $role);
                         oci_bind_by_name($stid, ":vcode", $vcode);
@@ -108,22 +109,6 @@ function generateNumericOTP($n)
                         oci_close($conn);
                         
                     if($sqli){  
-                            $email = $_POST['email'];
-                             $sql= "SELECT * FROM users WHERE email = '$email'";
-                             $select = oci_parse($conn,$sql);
-                             oci_execute($select, OCI_NO_AUTO_COMMIT);          
-                             while($row = oci_fetch_array($select, OCI_ASSOC+OCI_RETURN_NULLS)){
-                              header("location:otp.php?id=".$row['USER_ID']);              
-                             }
-                        
-                        $email = $_POST['email'];
-                           $sql= "SELECT * FROM users WHERE email = '$email'";
-                           $select = oci_parse($conn,$sql);
-                           oci_execute($select, OCI_NO_AUTO_COMMIT);          
-                           while($row = oci_fetch_array($select, OCI_ASSOC+OCI_RETURN_NULLS)){
-                            header("location:otp.php?id=".$row['USER_ID']);              
-                           }
-
                         $to=$email;
                         $sender="shahirabina652@gmail.com";
                         $subject="Verify your email address";
@@ -137,6 +122,13 @@ function generateNumericOTP($n)
                             echo"Email sent";
                         }else{
                             echo "unable to send email";
+                        }
+                        $email = $_POST['email'];
+                        $sql= "SELECT * FROM users WHERE email = '$email'";
+                        $select = oci_parse($conn,$sql);
+                        oci_execute($select, OCI_NO_AUTO_COMMIT);          
+                        while($row = oci_fetch_array($select, OCI_ASSOC+OCI_RETURN_NULLS)){
+                         header("location:otp.php?id=".$row['USER_ID']);              
                         }
 
                     }

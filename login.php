@@ -1,6 +1,6 @@
 <?php
 session_start();
-if((isset($_SESSION['isAuthenticated']) && $_SESSION['isAuthenticated']===true) ){
+if((isset($_SESSION['isAuthenticated']) && $_SESSION['isAuthenticated']===True) ){
 
     header ('location:index.php');
 }
@@ -37,7 +37,7 @@ include("connection.php");
         $count= oci_fetch_all($stid,$res);
         // $count=oci_num_rows($stid);
 
-        echo $res;
+        // echo $res;
         // var_dump($res);
         // print_r($res);
         foreach ($res as $key => $value) {
