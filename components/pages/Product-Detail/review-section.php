@@ -42,7 +42,7 @@
                             <input type="radio" class="Review-Section__First-Row__Add-Review__Form__star-item" value="5" id="star5">
                             <label class="Review-Section__First-Row__Add-Review__Form__star-label" for="star5"> <img src="assets/images/star/filled-star.svg"> </label>
                             </div>
-                            <textarea class="Review-Section__First-Row__Add-Review__Form__Review-Text">Write your review</textarea>
+                            <textarea class="Review-Section__First-Row__Add-Review__Form__Review-Text" placeholder="Write your review"></textarea>
                             <input type="submit" class="btn primary-outline-btn card-btn" id="submit-review">
                         </form>
                     </div>
