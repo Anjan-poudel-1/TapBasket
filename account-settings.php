@@ -137,6 +137,15 @@ while (($row = oci_fetch_object($stid)) != false) {
   }
 ?>
 
+<?php
+
+if(isset($_POST['reset'])){
+   $_Post['pass'];
+
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -37,12 +37,16 @@ include("connection.php");
         $count= oci_fetch_all($stid,$res);
         // $count=oci_num_rows($stid);
 
-        echo $res;
+        
         // var_dump($res);
-        // print_r($res);
+         print_r($res);
         foreach ($res as $key => $value) {
-            if($key=="USER_ID")
-            $user_id=$value[0];
+            if($key=="USER_ID"){
+
+                echo $key;
+                print_r($value);
+                $user_id=$value[0];
+            }
         }
         if ($count==1) {
             $_SESSION['isAuthenticated']=true;

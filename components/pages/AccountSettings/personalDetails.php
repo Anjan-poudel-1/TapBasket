@@ -11,11 +11,11 @@
 <body>
 <div class="account-settings__user-details">
                         <div class="account-settings__user-details__image">
-
+                                
                             <img src="./assets/images/meat.jpg">
 
                             <div class="account-settings__user-details__image__upload">
-
+                                    Upload Image
                             </div>
 
                         </div>
