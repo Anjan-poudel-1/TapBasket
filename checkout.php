@@ -1,11 +1,19 @@
 <?php
 SESSION_START();
 // session_destroy();
+if(!(isset($_SESSION['isAuthenticated']) && $_SESSION['isAuthenticated']===true) ){
+
+    header ('location:index.php');
+}
+
 if(!(isset($_SESSION['cart']))){
 
     $_SESSION['cart']= [];
 
 }
+
+
+
 
 $date_chosen = '';
 $timing = '';

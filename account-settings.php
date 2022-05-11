@@ -1,3 +1,16 @@
+<?php
+SESSION_START();
+include("connection.php");
+
+if(!(isset($_SESSION['isAuthenticated']) && $_SESSION['isAuthenticated']===true) ){
+
+    header ('location:index.php');
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

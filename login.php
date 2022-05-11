@@ -1,5 +1,9 @@
 <?php
 session_start();
+if((isset($_SESSION['isAuthenticated']) && $_SESSION['isAuthenticated']===true) ){
+
+    header ('location:index.php');
+}
 ?>
 <?php
 include("connection.php");
@@ -23,20 +27,32 @@ include("connection.php");
 
     if(!empty($email) && !empty($password)){
         $password=md5($password);
-        $sql = "SELECT * FROM USERS WHERE email = '$email' AND password ='$password'";
+        $sql = "SELECT * FROM USERS WHERE email = '$email' AND password ='$password' AND IS_DISABLED='false'";
 
         $stid=(oci_parse($conn,$sql));
         oci_execute($stid, OCI_NO_AUTO_COMMIT);  
         oci_commit($conn);
        
-        $count= oci_fetch_all($stid,$sql);
+        //Here $res is the response fetched..... 
+        $count= oci_fetch_all($stid,$res);
         // $count=oci_num_rows($stid);
+
+        echo $res;
+        // var_dump($res);
+        // print_r($res);
+        foreach ($res as $key => $value) {
+            if($key=="USER_ID")
+            $user_id=$value[0];
+        }
         if ($count==1) {
-            $_SESSION['isAuthenticated']=True;
+            $_SESSION['isAuthenticated']=true;
+            $_SESSION['user_id']=$user_id;
+            $passworderr = "";
+            $emailerror = "";
             header ('location:index.php');
         }else {
-            $_SESSION['isAuthenticated']= False;
-            header ('location:login.php');
+            $_SESSION['isAuthenticated']= false;
+            $passworderr = "Invalid Credential";
         }
         oci_free_statement($stid);
         oci_close($conn);

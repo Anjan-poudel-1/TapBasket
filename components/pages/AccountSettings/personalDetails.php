@@ -1,11 +1,39 @@
 
 <?php
+
+$email = '';
+$userName='';
+$phone='';
+$gender='';
+$dob='';
+
+$user_id = $_SESSION['user_id'];
+$sql = "SELECT * FROM USERS WHERE USER_ID=$user_id";
+$stid = oci_parse($conn,$sql );
+oci_execute($stid);
+
+
+
+while (($row = oci_fetch_object($stid)) != false) {
+    // Use upper case attribute names for each standard Oracle column
+    $userName=     $row->USERNAME ;
+    $email =  $row->EMAIL; 
+    $phone=$row->PHONE_NO;
+    $gender =$row->GENDER;
+    $dob=$row->DOB;
+   
+    $date=date_create($dob);
+    $dob= date_format($date,'Y-m-d');
+    
+}
+
   if(isset($_POST['userProfileUpdate'])){
     $email = $_POST['email'];
     $userName=trim($_POST['userName']);
     $phone=trim($_POST['phoneNumber']);
     $gender=trim($_POST['gender']);
     $dob=trim($_POST['dob']);
+    $errCount=0;
 
 
     // $password = $_POST['password'];
@@ -26,34 +54,76 @@
 
     if(empty(trim($email))){
         $emailerror = "Please enter email";
+        $errCount++;
     }
     else{
         $email = filter_var($email,FILTER_SANITIZE_EMAIL);
         if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
             $emailerror = "Invalid email";
+            $errCount++;
         }
     }
     if(empty(trim($dob))){
         $doberr = "Please provide DOB";
+        $errCount++;
     }
     if(empty(trim($gender))){
         $gendererr = "Please select your gender";
+        $errCount++;
     }
 
 
     if(empty($userName)){
         $userNameerr="Please enter your name";
+        $errCount++;
     }
 
     if(empty($phone)){
         $phoneNumbererror="Please enter phone number";
+        $errCount++;
     }
     if(empty($gender)){
         $gendererr="Please seslect your gender";
+        $errCount++;
     }
     if(empty($dob)){
         $doberr="Please enter your DOB";
+        $errCount++;
     }
+    else{
+        //check .. aja ko vanda pachi ko date ta haina?
+        // $date=date_create($dob);
+        // $dob= date_format($date,'YYYY-MM-DD');
+    }
+
+
+    if($errCount==0){
+        //If  no errors... connect to database,, update data 
+
+        $sqli="UPDATE USERS 
+         
+         SET username=:userName,email=:email,phone_no=:phone,gender=:gender,DOB=TO_DATE(:DOB,'YYYY-MM-DD')
+       
+        WHERE USER_ID=$user_id";
+
+    $stid = oci_parse($conn,$sqli);
+    oci_bind_by_name($stid, ':userName', $userName);
+    oci_bind_by_name($stid, ':email', $email);
+    oci_bind_by_name($stid, ':phone', $phone);
+    oci_bind_by_name($stid, ':gender', $gender);
+    echo"<script>$dob</script>";
+    oci_bind_by_name($stid, ':DOB', $dob);
+
+    oci_execute($stid, OCI_COMMIT_ON_SUCCESS);
+    // refreshAccountSettingsPage();
+    echo("<script>location.href = 'http://localhost/TapBasket/account-settings.php'</script>");
+
+
+    }
+
+
+
+
   }
 ?>
 
@@ -94,8 +164,8 @@
                              placeholder="Enter your full name"
                              name="userName"
                              value="<?php
-                                    if(isset( $_POST['userNameerr'])){
-                                        echo $_POST['userNameerr'];
+                                    if($userName){
+                                        echo $userName;
                                     }
                                     ?>"
                              />
@@ -127,8 +197,8 @@
                              name="email"
                              readonly
                              value="<?php
-                                    if(isset( $_POST['email'])){
-                                        echo $_POST['email'];
+                                    if($email){
+                                        echo $email;
                                     }
                                     ?>"
                              />
@@ -159,8 +229,8 @@
                              placeholder="Enter your full name"
                              name="phoneNumber"
                              value="<?php
-                                    if(isset( $_POST['phoneNumber'])){
-                                        echo $_POST['phoneNumber'];
+                                    if($phone){
+                                        echo $phone;
                                     }
                                     ?>"
                              />
@@ -197,8 +267,9 @@
                              placeholder="Enter your DOB"
                              name="dob"
                              value="<?php
-                                    if(isset( $_POST['dob'])){
-                                        echo $_POST['dob'];
+                                    if($dob){
+                                        echo $dob;
+                                        
                                     }
                                     ?>"
                              />
@@ -226,14 +297,14 @@
                              }?>"
                             >
                                 <option name="gender" class="" value="" <?php
-                                     if(isset( $_POST['gender']) &&  $_POST['gender']==""){
+                                     if($gender &&  $gender==""){
                                         echo "selected";
                                     }
                                 ?>>
                                     Select your gender
                                 </option>
                                 <option name="gender" class="" value="male" <?php
-                                     if(isset( $_POST['gender']) &&  $_POST['gender']=="male"){
+                                     if(($gender) &&  $gender=="male"){
                                         echo "selected";
                                     }
                                 ?>>
@@ -241,7 +312,7 @@
                                 </option>
 
                                 <option name="gender" class="" value="female" <?php
-                                     if(isset( $_POST['gender']) &&  $_POST['gender']=="female"){
+                                     if($gender &&  $gender=="female"){
                                         echo "selected";
                                     }
                                 ?>>
@@ -249,7 +320,7 @@
                                 </option>
 
                                 <option name="gender" class="" value="other" <?php
-                                     if(isset( $_POST['gender']) &&  $_POST['gender']=="other"){
+                                     if($gender &&  $gender=="other"){
                                         echo "selected";
                                     }
                                 ?>>

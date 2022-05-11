@@ -10,8 +10,12 @@ if(isset($_SESSION['cart'])){
 if(!isset($_SESSION['isAuthenticated'])){
     $_SESSION['isAuthenticated']=False;
 }
-?>
 
+function refreshAccountSettingsPage() {
+    header("location:account-settings.php");
+  }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

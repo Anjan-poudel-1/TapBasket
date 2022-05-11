@@ -1,6 +1,5 @@
-
+<!-- Everyone create the same schema and password.. -->
 <?php
-//rabina ko connection detail
 $conn = oci_connect('tapbasket', 'tapbasket', 'localhost/XE');
 
 if (!$conn) {
