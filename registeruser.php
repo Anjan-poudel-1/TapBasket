@@ -1,4 +1,5 @@
 <?php
+$errorcount=0;
 include("connection.php");
 
 function generateNumericOTP($n)
@@ -35,6 +36,10 @@ function generateNumericOTP($n)
             $emailerror = "Invalid email";
         }
     }
+
+    if(!preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/", $password)) {
+        $passworderr="password must contain Minimum eight characters, at least one lowercase, one uppercase letter and one number";
+      }
 
     if(empty(trim($password))){
         $passworderr = "Please enter password";
@@ -76,8 +81,7 @@ function generateNumericOTP($n)
         $emailerror="this email already exist";
     } 
      else{   
-
-      if(!empty($email)&& !empty($password)&& !empty($lname) &&!empty($fname)){
+      if(!empty($email)&& !empty($password) &&(preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/", $password)) && !empty($lname) &&!empty($fname)){
       
 
                   $sqli="INSERT INTO USERS(username,email,password,vcode,phone_no,user_role) VALUES (:fullname,:email,:userpassword,:vcode,:phone_no,:userrole)";
@@ -94,8 +98,15 @@ function generateNumericOTP($n)
                         oci_close($conn);
                         
                     if($sqli){  
+                            $email = $_POST['email'];
+                             $sql= "SELECT * FROM users WHERE email = '$email'";
+                             $select = oci_parse($conn,$sql);
+                             oci_execute($select, OCI_NO_AUTO_COMMIT);          
+                             while($row = oci_fetch_array($select, OCI_ASSOC+OCI_RETURN_NULLS)){
+                              header("location:otp.php?id=".$row['USER_ID']);              
+                             }
                         
-                        
+                          
                         $to=$email;
                         $sender="shahirabina652@gmail.com";
                         $subject="Verify your email address";
@@ -112,24 +123,17 @@ function generateNumericOTP($n)
                         }
 
                     }
-        }}
+        }else{
+            echo "problem in statement";
+          }
+             
+    }
 
         
     }
 
 ?>
- <?php
-                        if(isset($_POST['userRegisterSubmit'])){    
-                          $email = $_POST['email'];
-                           $sql= "SELECT * FROM users WHERE email = '$email'";
-                           $select = oci_parse($conn,$sql);
-                           oci_execute($select, OCI_NO_AUTO_COMMIT);          
-                           while($row = oci_fetch_array($select, OCI_ASSOC+OCI_RETURN_NULLS)){
-                            header("location:otp.php?id=".$row['USER_ID']);              
-                           }
-                        }
-                        
-                           ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
