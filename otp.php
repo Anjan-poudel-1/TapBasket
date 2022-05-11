@@ -12,7 +12,9 @@ include('connection.php');
       $vcode=$_POST['otp'];
 
       if($otp==$vcode){
-        header ('location:index.php');
+          //user_id='';
+          //isAuthenticated=true
+        //header ('location:index.php');
       }else{
         header ('location:otp.php');
           $otperror='Please enter the correct otp';

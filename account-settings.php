@@ -129,7 +129,6 @@ while (($row = oci_fetch_object($stid)) != false) {
     header ('location:account-settings.php');
     // echo("<script>location.href = 'http://localhost/TapBasket/account-settings.php'</script>");
 
-
     }
 
 
