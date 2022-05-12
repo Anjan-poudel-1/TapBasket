@@ -10,10 +10,28 @@ if(isset($_SESSION['cart'])){
 if(!isset($_SESSION['isAuthenticated'])){
     $_SESSION['isAuthenticated']=False;
 }
+if(!isset($_SESSION['user_id'])){
+    $_SESSION['user_id'] = '';
+}
 
-function refreshAccountSettingsPage() {
-    header("location:account-settings.php");
-  }
+if( $_SESSION['isAuthenticated']){
+    $user_id = $_SESSION['user_id'];
+    $sql = "SELECT * FROM USERS WHERE USER_ID=$user_id";
+    $stid = oci_parse($conn,$sql );
+    oci_execute($stid);
+    
+    
+    
+    while (($row = oci_fetch_object($stid)) != false) {
+        // Use upper case attribute names for each standard Oracle column
+       
+        $userImage= $row->USER_IMAGE;
+        
+    }
+}
+
+
+
 
 ?>
 <!DOCTYPE html>
@@ -153,9 +171,18 @@ function refreshAccountSettingsPage() {
             <div class="nav-links nav-links--profile nav-links--desktop">
                     <div class="nav-links__profile">
                         <!-- If user logs in -->
-                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M22 0.333344C10.04 0.333344 0.333374 10.04 0.333374 22C0.333374 33.96 10.04 43.6667 22 43.6667C33.96 43.6667 43.6667 33.96 43.6667 22C43.6667 10.04 33.96 0.333344 22 0.333344ZM22 6.83334C25.5967 6.83334 28.5 9.73668 28.5 13.3333C28.5 16.93 25.5967 19.8333 22 19.8333C18.4034 19.8333 15.5 16.93 15.5 13.3333C15.5 9.73668 18.4034 6.83334 22 6.83334ZM22 37.6C16.5834 37.6 11.795 34.8267 9.00004 30.6233C9.06504 26.3117 17.6667 23.95 22 23.95C26.3117 23.95 34.935 26.3117 35 30.6233C32.205 34.8267 27.4167 37.6 22 37.6Z" fill="currentColor"/>
-                        </svg>
+                        <?php
+                            if(isset($userImage) && strlen($userImage)>0){
+                                echo "<img class='navbar-profile-picture' src='./assets/images/profiles/$userImage'/>";
+                            }
+                            else{
+
+                                echo '<svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 0.333344C10.04 0.333344 0.333374 10.04 0.333374 22C0.333374 33.96 10.04 43.6667 22 43.6667C33.96 43.6667 43.6667 33.96 43.6667 22C43.6667 10.04 33.96 0.333344 22 0.333344ZM22 6.83334C25.5967 6.83334 28.5 9.73668 28.5 13.3333C28.5 16.93 25.5967 19.8333 22 19.8333C18.4034 19.8333 15.5 16.93 15.5 13.3333C15.5 9.73668 18.4034 6.83334 22 6.83334ZM22 37.6C16.5834 37.6 11.795 34.8267 9.00004 30.6233C9.06504 26.3117 17.6667 23.95 22 23.95C26.3117 23.95 34.935 26.3117 35 30.6233C32.205 34.8267 27.4167 37.6 22 37.6Z" fill="currentColor"/>
+                            </svg>';
+                            }
+                        ?>
+                        
                         <div class="nav-dropdown nav-dropdown--profile">
                             <ul class="nav-dropdown__lists nav-links__profile__lists">
                                 

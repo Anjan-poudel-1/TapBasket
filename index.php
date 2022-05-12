@@ -7,6 +7,7 @@ if(!(isset($_SESSION['cart']))){
     $_SESSION['cart']= [];
 
 }
+include('./connection.php');
 
 //YEsma chai .. after login.. check the cartlist...
 //through array add every item to the local i.e. session cart
