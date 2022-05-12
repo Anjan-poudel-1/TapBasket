@@ -1,25 +1,56 @@
 <?php
-include('connection.php');
   if(isset($_GET['id'])){
-      $id=$_GET['id'];
-      $sql= "SELECT * FROM users WHERE userid = '$id'";
+    include('connection.php');
+      $userid=trim($_GET['id']);
+      $sql= "SELECT * FROM USERS WHERE user_id ='$userid'";
+      echo $userid;
       $select = oci_parse($conn,$sql);
-      oci_execute($select, OCI_NO_AUTO_COMMIT);          
-      while($row = oci_fetch_array($select, OCI_ASSOC+OCI_RETURN_NULLS)){
-       $otp=$row['vcode'];
+      oci_execute($select, OCI_NO_AUTO_COMMIT);  
+      oci_commit($conn);    
+      
+      $count= oci_fetch_all($select,$res);
+    //   $count=oci_num_rows($stid);
+
+      // echo $res;
+      // var_dump($res);
+    //   print_r($res);
+      foreach ($res as $key => $value) {
+          if($key=="VCODE")
+          $vcode=$value[0];
+          
       }
+      echo "vcode is: ".$vcode;
 
-      $vcode=$_POST['otp'];
+    // while($row = oci_fetch_array($select, OCI_ASSOC+OCI_RETURN_NULLS)){
+    //     $vcode=$row['vcode'];
+    //    }
+    if(isset($_POST['otpSubmit']) && !empty($_POST['otpSubmit'])){
+        $otp=$_POST['otp'];
+        echo $otp;
+        if(trim(empty($otp))){
+            $otperror="Enter your otp";
+            header ('location:otp.php');   
+        }
+      if(trim($otp) === (trim($vcode))){
+          $isdisable="false";
+        $sqli="UPDATE USERS 
+        SET IS_DISABLED=:isdisable WHERE USER_ID='$userid'";
+         $stid = oci_parse($conn,$sqli);
+         oci_bind_by_name($stid, ':isdisable', $isdisable);
+         oci_execute($stid, OCI_COMMIT_ON_SUCCESS);
 
-      if($otp==$vcode){
-          //user_id='';
-          //isAuthenticated=true
-        //header ('location:index.php');
+        $_SESSION['user_id']=$userid;
+        $_SESSION['isAuthenticated']=True;
+        echo "success";
+        header ('location:login.php');
       }else{
-        header ('location:otp.php');
           $otperror='Please enter the correct otp';
+        //   header ('location:otp.php');
       }
+    }
   }
+
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">

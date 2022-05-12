@@ -17,6 +17,7 @@ $userName='';
 $phone='';
 $gender='';
 $dob='';
+$userImage ='';
 
 $user_id = $_SESSION['user_id'];
 $sql = "SELECT * FROM USERS WHERE USER_ID=$user_id";
@@ -32,6 +33,7 @@ while (($row = oci_fetch_object($stid)) != false) {
     $phone=$row->PHONE_NO;
     $gender =$row->GENDER;
     $dob=$row->DOB;
+    $userImage= $row->USER_IMAGE;
    
     $date=date_create($dob);
     $dob= date_format($date,'Y-m-d');
@@ -122,7 +124,7 @@ while (($row = oci_fetch_object($stid)) != false) {
     oci_bind_by_name($stid, ':email', $email);
     oci_bind_by_name($stid, ':phone', $phone);
     oci_bind_by_name($stid, ':gender', $gender);
-    echo"<script>$dob</script>";
+   
     oci_bind_by_name($stid, ':DOB', $dob);
 
     oci_execute($stid, OCI_COMMIT_ON_SUCCESS);
@@ -139,10 +141,37 @@ while (($row = oci_fetch_object($stid)) != false) {
 
 <?php
 
-if(isset($_POST['reset'])){
-   $_Post['pass'];
+    if(isset($_POST['uploadfile'])){
+        if(isset($_FILES['image-upload'])){
+            $file_name = $_FILES['image-upload']['name'];
+            $file_size = $_FILES['image-upload']['size'];
+            $file_tmp = $_FILES['image-upload']['tmp_name'];
 
-}
+            $folder = "assets/images/profiles/".$file_name;
+
+            if (move_uploaded_file($file_tmp, $folder))  {
+                $msg = "Image uploaded successfully";
+                $sqli="UPDATE USERS 
+         
+                SET user_image=:fileName
+              
+               WHERE USER_ID=$user_id";
+       
+           $stid = oci_parse($conn,$sqli);
+           oci_bind_by_name($stid, ':fileName', $file_name);
+           oci_execute($stid, OCI_COMMIT_ON_SUCCESS);
+           header ('location:account-settings.php');
+
+            }else{
+                $msg = "Failed to upload image";
+          }
+
+
+        }
+    }
+
+
+
 ?>
 
 

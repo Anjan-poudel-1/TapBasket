@@ -9,16 +9,39 @@
     <title>Document</title>
 </head>
 <body>
+<form method="POST" action="" enctype="multipart/form-data">
 <div class="account-settings__user-details">
-                        <div class="account-settings__user-details__image">
-                                
-                            <img src="./assets/images/meat.jpg">
+                        
+
+
+
+                        <input type="file" name="image-upload" accept="image/*" id="image-upload" hidden onchange="changePicture(event)"/>
+                        <label class="account-settings__user-details__image" for="image-upload">
+
+             
+                            <?php
+                           
+                                if( is_null($userImage)){
+                                    echo '<img id="profile-image" src ="./assets/images/default-profile-image.png">';
+                                }
+                                else{
+                                    echo'<img id="profile-image" src="./assets/images/profiles/'.$userImage .'" />';
+                                }
+                            ?>
+                           
 
                             <div class="account-settings__user-details__image__upload">
-                                    Upload Image
+                                    Upload 
                             </div>
 
-                        </div>
+                        </label>
+                        <button type="submit" name="uploadfile" class="upload-profile-picture">
+
+UPLOAD
+
+</button>
+                        </form>
+
 
                         <div class="account-settings__user-details__others">
                             <form  method="POST" action="">
@@ -226,5 +249,20 @@
                             </form>
                         </div>
                     </div>
+
+                    <script>
+                        const changePicture=(event)=>{
+                            
+                            console.log(event);
+                            let image =  (event.target.files[0]);
+                            let imageUrl = URL.createObjectURL(image);
+                            let profileImage = document.getElementById('profile-image');
+                            console.log("profileImage",profileImage)
+                            profileImage.setAttribute('src',imageUrl);
+                            
+
+                        }
+                    </script>
+
 </body>
 </html>
