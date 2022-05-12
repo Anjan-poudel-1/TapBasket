@@ -476,6 +476,11 @@ a {
   overflow: hidden;
 }
 
+.navbar-profile-picture--mobile {
+  height: 35px;
+  width: 35px;
+}
+
 .nav-dropdown {
   position: absolute;
 }

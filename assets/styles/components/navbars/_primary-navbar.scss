@@ -208,4 +208,9 @@
     border-radius: 50%;
     object-fit: cover;
     overflow: hidden;
+
+    &--mobile{
+   height: 35px;
+    width: 35px;
+    }
 }
