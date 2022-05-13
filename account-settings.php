@@ -28,7 +28,7 @@ oci_execute($stid);
 
 while (($row = oci_fetch_object($stid)) != false) {
     // Use upper case attribute names for each standard Oracle column
-    $userName=     $row->USERNAME ;
+    $userName=  $row->USERNAME ;
     $email =  $row->EMAIL; 
     $phone=$row->PHONE_NO;
     $gender =$row->GENDER;

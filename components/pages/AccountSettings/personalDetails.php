@@ -37,7 +37,7 @@
                         </label>
                         <button type="submit" name="uploadfile" class="upload-profile-picture">
 
-UPLOAD
+SAVE
 
 </button>
                         </form>
