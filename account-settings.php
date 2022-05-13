@@ -173,6 +173,88 @@ while (($row = oci_fetch_object($stid)) != false) {
 
 
 ?>
+<?php
+  if(isset($_POST['userPasswordUpdate'])){
+    $errCount=0;
+    $password = $_POST['password'];
+    $newPassword = $_POST['newPassword'];
+    $confirmPassword = $_POST['confirmPassword'];
+
+    $sql= "SELECT * FROM USERS WHERE USER_ID=$user_id";
+    $select = oci_parse($conn,$sql);
+    oci_execute($select, OCI_NO_AUTO_COMMIT);
+    $rows= oci_fetch_all($select,$res);
+
+    foreach ($res as $key => $value) {
+        if($key=="PASSWORD")
+        $recentpass=$value[0];   
+    }
+    if(md5($password) != $recentpass){
+        $passwordErr = "This password doesnot matches the previous password";
+        $errCount++;
+    }
+    if(empty(trim($confirmPassword))){
+        $confirmPasswordErr = "Please enter  password";
+        $errCount++;
+    }else if($newPassword!=$confirmPassword){
+            $confirmPasswordErr="Password must match";
+            $errCount++;
+    }
+    
+    if(empty(trim($password))){
+        $passwordErr = "Please enter password";
+        $errCount++;
+    }
+    if(empty(trim($newPassword))){
+        $newPasswordErr = "Please enter new password";
+        $errCount++;
+    }else if(!preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/", $newPassword)) {
+        $newPasswordErr="password must contain Minimum eight characters, at least one lowercase, one uppercase letter and one number";
+        $errCount++;
+    }
+
+  
+    echo $user_id;
+    if($errCount==0){
+        $Passwordnew=md5($newPassword);
+        $sqli="UPDATE USERS 
+        SET PASSWORD=:newpassword WHERE USER_ID='$user_id'";
+          
+         $stid = oci_parse($conn,$sqli);
+         oci_bind_by_name($stid, ':newpassword', $Passwordnew);
+         oci_execute($stid, OCI_COMMIT_ON_SUCCESS); 
+        //  echo '<script>alert("Password Changed")</script>'; 
+        // header ('location:logout.php');
+
+        if($sqli){  
+            $to=$email;
+            $sender="shahirabina652@gmail.com";
+            $subject="Security alert";
+
+            $headers  = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+            
+            $header='Your password was changed. ';
+            if(mail($to,$subject,$message, $header)){
+                echo"Email sent";
+            }else{
+                echo "unable to send email";
+            }
+
+        }
+        echo "<script> alert('Password Changed');
+        window.setTimeout(function(){
+            window.location.href = 'logout.php';
+
+        });
+        </script>";
+       
+    }else{
+        echo "Couldnot enter the data in database";
+    }
+
+  }
+?>
 
 
 <!DOCTYPE html>

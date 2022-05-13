@@ -3,7 +3,6 @@
     include('connection.php');
       $userid=trim($_GET['id']);
       $sql= "SELECT * FROM USERS WHERE user_id ='$userid'";
-      echo $userid;
       $select = oci_parse($conn,$sql);
       oci_execute($select, OCI_NO_AUTO_COMMIT);  
       oci_commit($conn);    
@@ -29,23 +28,25 @@
         echo $otp;
         if(trim(empty($otp))){
             $otperror="Enter your otp";
-            header ('location:otp.php');   
         }
       if(trim($otp) === (trim($vcode))){
-          $isdisable="false";
+        $isdisable="false";
         $sqli="UPDATE USERS 
         SET IS_DISABLED=:isdisable WHERE USER_ID='$userid'";
+         $_SESSION['user_id']=$userid;
+         $_SESSION['isAuthenticated']=true;
          $stid = oci_parse($conn,$sqli);
          oci_bind_by_name($stid, ':isdisable', $isdisable);
          oci_execute($stid, OCI_COMMIT_ON_SUCCESS);
 
-        $_SESSION['user_id']=$userid;
-        $_SESSION['isAuthenticated']=True;
-        echo "success";
+       if(isset($_GET['changePassword'])){
+           header("location:changeForgotPassword.php?id=$userid");
+       }else{
         header ('location:login.php');
+       }
+        
       }else{
           $otperror='Please enter the correct otp';
-        //   header ('location:otp.php');
       }
     }
   }

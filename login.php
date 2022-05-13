@@ -174,10 +174,11 @@ include("connection.php");
                             <div>
                                <input type="checkbox" id="remember-me"/> <span id="remember-me-text"> Remember me</span>
                             </div>
+                        <a href="forgetPassword.php">
                             <div>
                                 Forgot password?
                             </div>
-
+                    </a>
                         </div>
                     
                         

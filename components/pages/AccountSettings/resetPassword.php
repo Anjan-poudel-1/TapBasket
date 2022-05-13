@@ -1,27 +1,3 @@
-<?php
-  if(isset($_POST['userPasswordUpdate'])){
-    
-    $password = $_POST['password'];
-    $newPassword = $_POST['newPassword'];
-    $confirmPassword = $_POST['confirmPassword'];
-
-    if(empty(trim($password))){
-        $passwordErr = "Please enter password";
-    }
-    if(empty(trim($newPassword))){
-        $newPasswordErr = "Please enter new password";
-    }
-    if(empty(trim($confirmPassword))){
-        $confirmPasswordErr = "Please enter  password";
-    }
-    else{
-        if($newPassword!=$confirmPassword){
-            $confirmPasswordErr="Password must match";
-        }
-    }
-    
-  }
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -78,7 +54,7 @@ class="form-control__input <?php
      echo " form-control__input--error";
  }
 ?>"
- placeholder="Enter your full name"
+ placeholder="Enter your Password"
  name="newPassword"
  type="password"
  value="<?php
