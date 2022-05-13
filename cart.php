@@ -11,7 +11,6 @@ if (!(isset($_SESSION['user_id']))) {
 }
 include('./connection.php');
 
-
 //yesma chai... its about updating the cart... 
 //here type can be add, subs, delete, 
 if (isset($_GET['product_id']) && isset($_GET['qty']) && isset($_GET['type'])) {
