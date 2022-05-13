@@ -39,6 +39,17 @@
                     $qty_in_stock = $row->QUANTITY_IN_STOCK;
                     $product_price = $row->PRICE;
                     $shop_id = $row->SHOP_ID;
+                    $discountPrice = 0;
+
+                    $stidDiscount = "SELECT DISCOUNT_RATE FROM DISCOUNT WHERE PRODUCT_ID=$product_id";
+                    $stidDiscount = oci_parse($conn, $stidDiscount);
+                    oci_execute($stidDiscount);
+        
+        
+                    while (oci_fetch($stidDiscount)) {
+                        $discountPrice = oci_result($stidDiscount, 'DISCOUNT_RATE');
+                        
+                    }
                 }
 
                 $subtotal += $product_price * $quantity;
@@ -58,6 +69,20 @@
                         <?php
                         echo "£" . $product_price * $quantity;
                         ?>
+                        <span>
+                                 <!-- If discount data is available -->
+                           <?php
+                           if($discountPrice>0){
+                               ?>
+                           
+                            <b><strike>
+                            £<?php
+                                echo ($product_price+$discountPrice)* $quantity;
+                           
+                                ?>
+                            </strike></b>
+                           <?php } ?>
+                            </span>
                     </div>
 
                 </div>

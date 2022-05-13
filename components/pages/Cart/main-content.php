@@ -46,6 +46,10 @@
                 $shop_name = oci_result($stidNew, 'SHOP_NAME');
             }
 
+            $discountPrice = 0;
+
+           
+
         ?>
 
 
@@ -64,6 +68,7 @@
                             <?php
                             echo "£" . $product_price * $quantity;
                             ?>
+                           
                         </div>
 
                         <div>
@@ -156,6 +161,7 @@
                             <?php
                             echo "£" . $product_price * $quantity;
                             ?>
+                            
                         </div>
                         <div class="indi-cartitem__right__others__functions">
 

@@ -21,36 +21,7 @@ while (date("Y-m-d", $now) != date("Y-m-d", $end_date)) {
 // print_r($collectionDates);
 
 
-if(isset($_POST['submitPickDetails'])){
 
-    $selectedDateError ='';
-    $selectedTimeError ='';
-    $selectedDate = '';
-    $selectedTime = '';
-    $isStepOneCompleted=false;
-    $errCount=0;
-
-    if(isset($_POST['dateSelected']) && $_POST['dateSelected']){
-        $selectedDate = $_POST['dateSelected'];
-    }
-    else{
-        $errCount=1;
-        $selectedDateError ='Please select the date';
-    }
-
-    if(isset($_POST['timing'])){
-        $selectedTime = $_POST['timing'];
-    }
-    else{
-        $errCount=1;
-        $selectedTimeError ='Please select the timing';
-    }
-
-    if( $errCount==0){
-        $isStepOneCompleted=true;
-    }
-
-}
 ?>
 
 <!DOCTYPE html>
@@ -191,23 +162,18 @@ if(isset($isStepOneCompleted) && $isStepOneCompleted ){
                             </div>
 
                             <div class="checkout-buttons">
-                                <a href="cart.php">
-                                <button class="btn  clear-btn desktop-view">
-                                    Back to cart
-                                </button>
-                                </a>
-                                <a href="cart.php">
-                                <button class="btn  clear-btn mobile-view">
-                                    Back
-                                </button>
-                                </a>
-                                <input type="submit" value=" Confirm & Continue"  class="btn primary-btn  desktop-view" name="submitPickDetails">
+                               
+                                <input type="submit" value="Back to Cart" name="goToCart" class="btn  clear-btn desktop-view"/>
                                   
-                                </input>
-                                <input  type="submit" value=" Confirm "   class="btn primary-btn  mobile-view" name="submitPickDetails">
+                               
+                                
+                                <input type="submit" class="btn  clear-btn mobile-view"  value="Back" name="goToCart" />
                                     
-                                </input>
-
+                                
+                                <input type="submit" value=" Confirm & Continue"  class="btn primary-btn  desktop-view" name="submitPickDetails"/>
+                                  
+                                <input  type="submit" value=" Confirm "   class="btn primary-btn  mobile-view" name="submitPickDetails"/>
+                  
 
                             </div>
                         </div>

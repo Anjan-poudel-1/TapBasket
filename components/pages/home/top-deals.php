@@ -66,6 +66,7 @@
                         $product_stock = $res['QUANTITY_IN_STOCK'][$i];
                         $price = $res['PRICE'][$i];
                         $shop_id = $res['SHOP_ID'][$i];
+                        $discountPrice = 0;
 
                         $fetchShopNameSql = "SELECT SHOP_NAME 
                             FROM SHOP_REQUEST
@@ -80,6 +81,16 @@
 
                         while (oci_fetch($stidNew)) {
                             $shop_name = oci_result($stidNew, 'SHOP_NAME');
+                        }
+
+                        $stidDiscount = "SELECT DISCOUNT_RATE FROM DISCOUNT WHERE PRODUCT_ID=$product_id";
+                        $stidDiscount = oci_parse($conn, $stidDiscount);
+                        oci_execute($stidDiscount);
+
+
+                        while (oci_fetch($stidDiscount)) {
+                            $discountPrice = oci_result($stidDiscount, 'DISCOUNT_RATE');
+                            
                         }
 
 
@@ -178,12 +189,23 @@
 
                         <div class="product-card__details__price">
                             <b>£<?php
-                                echo $price;
+                                echo ($price);
                                 ?></b>
 
+                                <!-- If discount data is available -->
+                           <?php
+                           if($discountPrice>0){
+                               ?>
                             <span class="product-card__details__price__discount-price">
-
+                            <b><strike>
+                            £<?php
+                                echo ($price+$discountPrice);
+                                ?>
+                            </strike></b>
                             </span>
+                               <?php
+                           }?>
+                            
 
 
                         </div>
