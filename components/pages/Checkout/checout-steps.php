@@ -6,7 +6,7 @@ $end_date = strtotime("+2 weeks");
 
 while (date("Y-m-d", $now) != date("Y-m-d", $end_date)) {
     $day_index = date("w", $now);
-    if ($day_index == 0 || $day_index == 1|| $day_index == 2) {
+    if ($day_index == 3 || $day_index == 4|| $day_index == 5) {
         // Print or store the weekends here
         // echo date("F j, l", $now);
          $timeDiff =  abs(strtotime(date("Y-m-d", $now)))-abs(strtotime("+1 day")); 
@@ -19,9 +19,6 @@ while (date("Y-m-d", $now) != date("Y-m-d", $end_date)) {
 }
 
 // print_r($collectionDates);
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -213,10 +210,18 @@ if(isset($isStepOneCompleted) && $isStepOneCompleted ){
                                     Cancel
                                 </button>
                                 </a>
-                                <button  class="btn primary-btn  desktop-view" >
+                                
+                                <!-- <form method="POST" >
+                                <input type="submit" value=" Proceed to Payment"  class="btn primary-btn  desktop-view" name="paymentsubmit"/>
+                                  
+                                <input  type="submit" value="Payment"   class="btn primary-btn  mobile-view" name="paymentsubmit"/>
+                                </form> -->
+                                <a href="checkout.php?collectionSlot=<?php echo $selectedDate ?>&timing=<?php echo $selectedTime?>&payment=true">
+                                <button  class="btn primary-btn  desktop-view" name="paymentsubmit">
                                     Proceed to Payment
                                 </button>
-                                <button  class="btn primary-btn  mobile-view" >
+                                </a>
+                                <button  class="btn primary-btn  mobile-view" name="paymentsubmit">
                                      Payment
                                 </button>
 
