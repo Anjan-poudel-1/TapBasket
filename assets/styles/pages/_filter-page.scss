@@ -1,0 +1,130 @@
+.filter-page{
+    &__Top-Row{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+
+        @media only screen and (max-width:$screen-sm){
+            align-items: flex-end;
+        }
+
+        &__Res-Num{
+            color: $gray-400;
+            margin-right: auto;
+            @media only screen and (max-width:$screen-sm){
+                display: none;
+            }
+            
+        }
+        &__Sort{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &__Sort-Title{
+                font-size: $font-size-base;
+                font-weight: 450;
+                margin-right: 10px;
+            }
+            &__Sort-Dropdown{
+                display: inline-block;
+                min-width: 150px;
+
+                &__Button{
+                    width: 100%;
+                    border: 1px solid $primary-color;
+                    color: var(--text-color);
+                    background-color: transparent;
+                    transition: 0.3s ease-in-out;
+                    outline: none;
+                    cursor: pointer;
+                    padding: 0.5rem 0.75rem;
+                    border-radius: 4px;
+                    font-weight: 550;
+
+                    &:hover{
+                        font-weight: 600;
+                        box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.1);
+                    }
+
+                    &__Icon{
+                        fill: var(--icon-color);
+                    }
+                }
+
+                &__Dropdown-Content{
+                    display: none;
+                    position: absolute;
+                    z-index: 1;
+                    box-shadow: var(--dropdown-shadow);
+                    min-width: 150px;
+
+                    &__Options{
+                        color: var(--text-color);
+                        border: 0;
+                        border-bottom: 1px solid $primary-color;
+                        background-color: transparent;
+                        transition: 0.3s ease-in-out;
+                        outline: none;
+                        cursor: pointer;
+                        padding: 0.5rem 0.75rem;
+                        font-weight: 550;
+
+                    &:hover{
+                        font-weight: 600;
+                        box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.1);
+                    }
+                    }
+                }
+
+                &:hover .filter-page__Top-Row__Sort__Sort-Dropdown__Dropdown-Content{
+                    display: flex;
+                    flex-direction: column;
+                    background-color: var(--dropdown-bg);
+                }
+            }
+        }
+    }
+    &__Line{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border:0;
+        background-color: $primary-color;
+        height: 1px;
+    }
+
+    &__Result{
+        width: 100%;
+        gap: 1.25rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+        @media only screen and (max-width:$screen-lg){
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        @media only screen and (max-width:$screen-md){
+            grid-template-columns: 1fr 1fr;
+        }
+        @media only screen and (max-width:$screen-sm){
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+    }
+}
+
+.search-card{
+    width: auto;
+
+    @media only screen and (max-width:$screen-sm){
+        display: flex;
+        flex-direction: row;
+    }
+
+    &__image{
+        @media only screen and (max-width:$screen-sm){
+            
+        }
+    }
+}

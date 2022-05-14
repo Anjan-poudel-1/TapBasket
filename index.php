@@ -37,11 +37,11 @@ if (isset($_GET['product_id']) && isset($_GET['qty'])) {
         while (oci_fetch($stidNew)) {
             $qty_in_stock = oci_result($stidNew, 'QUANTITY_IN_STOCK');
         }
-        $currentItemInCart =0;
-        if(isset($_SESSION['cart'][$product_id])){
+        $currentItemInCart = 0;
+        if (isset($_SESSION['cart'][$product_id])) {
             $currentItemInCart = $_SESSION['cart'][$product_id];
         }
-       
+
 
         //We have fetched current quantity of item in our cart and quantity total in stock.
         //User should not be able to keep items in cart more than it is in stock.
@@ -58,63 +58,53 @@ if (isset($_GET['product_id']) && isset($_GET['qty'])) {
                 $user_id = $_SESSION['user_id'];
 
                 $sqlCheckIfAlreadyICart = "SELECT PRODUCT_ID,QUANTITY FROM CARTLIST WHERE USER_ID=:user_id AND PRODUCT_ID=:product_id";
-                $stidCheckIfAlreadyICart = oci_parse($conn,$sqlCheckIfAlreadyICart );
-                oci_bind_by_name($stidCheckIfAlreadyICart,':user_id',$user_id);
-                oci_bind_by_name($stidCheckIfAlreadyICart,':product_id',$product_id);
+                $stidCheckIfAlreadyICart = oci_parse($conn, $sqlCheckIfAlreadyICart);
+                oci_bind_by_name($stidCheckIfAlreadyICart, ':user_id', $user_id);
+                oci_bind_by_name($stidCheckIfAlreadyICart, ':product_id', $product_id);
                 oci_execute($stidCheckIfAlreadyICart);
 
 
-while (($row = oci_fetch_object($stidCheckIfAlreadyICart)) != false) {
+                while (($row = oci_fetch_object($stidCheckIfAlreadyICart)) != false) {
 
-$isProductAlreadyPresent = $row->PRODUCT_ID;
-$currentQuantity = $row->QUANTITY;
+                    $isProductAlreadyPresent = $row->PRODUCT_ID;
+                    $currentQuantity = $row->QUANTITY;
+                }
 
-}
+                if (isset($isProductAlreadyPresent) && $isProductAlreadyPresent) {
 
-    if(isset($isProductAlreadyPresent) && $isProductAlreadyPresent){
-
-            //update quantity
-            $sqlUpdateCart = "UPDATE CARTLIST 
+                    //update quantity
+                    $sqlUpdateCart = "UPDATE CARTLIST 
          
             SET quantity=:quantity
           
            WHERE USER_ID=$user_id AND PRODUCT_ID=$product_id";
 
-            $stidUpdateCart  = oci_parse($conn,$sqlUpdateCart);
-            $tempQuantity= $quantity+$currentQuantity;
-            oci_bind_by_name($stidUpdateCart, ':quantity',$tempQuantity );
-            oci_execute($stidUpdateCart, OCI_COMMIT_ON_SUCCESS);
+                    $stidUpdateCart  = oci_parse($conn, $sqlUpdateCart);
+                    $tempQuantity = $quantity + $currentQuantity;
+                    oci_bind_by_name($stidUpdateCart, ':quantity', $tempQuantity);
+                    oci_execute($stidUpdateCart, OCI_COMMIT_ON_SUCCESS);
+                } else {
 
-
-    }else{
-
-        //else insert
-        $sqlInsertCart = "INSERT INTO CARTLIST(USER_ID,PRODUCT_ID,QUANTITY) VALUES ($user_id,$product_id,$quantity)";
-        $stidInsert = oci_parse($conn,$sqlInsertCart);
-        oci_execute($stidInsert, OCI_COMMIT_ON_SUCCESS);
-    }
-
-               
-       
+                    //else insert
+                    $sqlInsertCart = "INSERT INTO CARTLIST(USER_ID,PRODUCT_ID,QUANTITY) VALUES ($user_id,$product_id,$quantity)";
+                    $stidInsert = oci_parse($conn, $sqlInsertCart);
+                    oci_execute($stidInsert, OCI_COMMIT_ON_SUCCESS);
+                }
             }
-    
+
             //Session ma ta jasari pani upload hunu paryo 
             //We are mapping index and quantity here.. the index represents productId and value represents quantity'
-    
+
             //If the item is already in the cart .. update it.. else just add to cart
             if (isset($_SESSION['cart'][$product_id])) {
                 $_SESSION['cart'][$product_id] += $quantity;
             } else {
                 $_SESSION['cart'][$product_id] = $quantity;
             }
-
         }
-
-        
     } else {
         echo '<script>alert("Invalid input to the cart")</script>';
     }
-
 }
 
 
@@ -125,23 +115,18 @@ if (isset($_GET['category']) && isset($_GET['product_id']) && isset($_GET['type'
     $wishlist_category = $_GET['category'];
     $wishlist_type = $_GET['type'];
 
-    if($wishlist_type=='remove'){
-        $sqlRemove ="DELETE FROM  WISHLIST WHERE USER_ID=".$_SESSION['user_id']." AND PRODUCT_ID=".$wishlist_proId; 
-        $stidWishListRemove = oci_parse($conn,$sqlRemove);
+    if ($wishlist_type == 'remove') {
+        $sqlRemove = "DELETE FROM  WISHLIST WHERE USER_ID=" . $_SESSION['user_id'] . " AND PRODUCT_ID=" . $wishlist_proId;
+        $stidWishListRemove = oci_parse($conn, $sqlRemove);
         oci_execute($stidWishListRemove, OCI_COMMIT_ON_SUCCESS);
-
     }
-    if($wishlist_type=='add'){
+    if ($wishlist_type == 'add') {
         $sqlInsert = 'INSERT INTO WISHLIST(USER_ID,PRODUCT_ID) VALUES (:userI_id,:product_id)';
-        $stidWishList = oci_parse($conn,$sqlInsert);
+        $stidWishList = oci_parse($conn, $sqlInsert);
         oci_bind_by_name($stidWishList, ':userI_id', $_SESSION['user_id']);
         oci_bind_by_name($stidWishList, ':product_id', $wishlist_proId);
         oci_execute($stidWishList, OCI_COMMIT_ON_SUCCESS);
     }
-
-
-
-
 }
 
 

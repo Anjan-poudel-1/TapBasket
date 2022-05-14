@@ -12,6 +12,7 @@ while (($row = oci_fetch_object($stid)) != false) {
 }
 
 
+
 ?>
 
 
@@ -71,7 +72,7 @@ while (($row = oci_fetch_object($stid)) != false) {
                                     Orders
                                 </div>
                                 <div class="user-dashboard__menu__nav__list__details__sub">
-                                    5 orders
+                                    Purchase Hiistory
                                 </div>
                             </div>
                             <div class="user-dashboard__menu__nav__list__arrow">
@@ -100,7 +101,7 @@ while (($row = oci_fetch_object($stid)) != false) {
                                      WishList
                                 </div>
                                 <div class="user-dashboard__menu__nav__list__details__sub">
-                                    2 items
+                                    Saved Items
                                 </div>
                             </div>
                             <div class="user-dashboard__menu__nav__list__arrow">
