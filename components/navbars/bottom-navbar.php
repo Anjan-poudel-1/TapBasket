@@ -1,3 +1,32 @@
+<?php
+$count = 0;
+if(isset($_SESSION['cart'])){
+    $cartData = $_SESSION['cart'];
+    
+    foreach ($cartData as $key => $value) {
+        $count = $count+$value;
+    }
+}
+
+if( $_SESSION['isAuthenticated']){
+    $user_id = $_SESSION['user_id'];
+    $sql = "SELECT * FROM USERS WHERE USER_ID=$user_id";
+    $stid = oci_parse($conn,$sql );
+    oci_execute($stid);
+    
+    
+    
+    while (($row = oci_fetch_object($stid)) != false) {
+        // Use upper case attribute names for each standard Oracle column
+       
+        $userImage= $row->USER_IMAGE;
+        
+    }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,14 +40,18 @@
 
 <!-- Home icon -->
     <div class="bottom-nav__element">
+        <a href="index.php">
         <svg width="38" height="32" viewBox="0 0 38 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15.3334 31.6667V20.6667H22.6667V31.6667H31.8334V17H37.3334L19.0001 0.5L0.666748 17H6.16675V31.6667H15.3334Z" fill="currentColor"/>
         </svg>
+        </a>
+        
 
     </div>
 
      <!-- Search icon -->
      <div class="bottom-nav__element">
+        
         <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M25 22H23.42L22.86 21.46C24.82 19.18 26 16.22 26 13C26 5.82 20.18 0 13 0C5.82 0 0 5.82 0 13C0 20.18 5.82 26 13 26C16.22 26 19.18 24.82 21.46 22.86L22 23.42V25L32 34.98L34.98 32L25 22V22ZM13 22C8.02 22 4 17.98 4 13C4 8.02 8.02 4 13 4C17.98 4 22 8.02 22 13C22 17.98 17.98 22 13 22Z" fill="currentColor"/>
         </svg>
@@ -28,6 +61,9 @@
 
      <!-- Cart icon -->
      <div class="bottom-nav__element">
+         <a href="cart.php">
+
+        
         <div class="nav-links__cart">
             <div class="nav-links__cart__main">
 
@@ -65,21 +101,41 @@
                     
 
                     <div class="nav-links__cart__counter">
-                        0
+                    <?php
+                       echo "$count";
+                     ?>
                     </div>
             </div>
            
 
             </div>
 
-    </div>
+            </a>
+
+   
+   
+        </div>
 
      <!-- Account icon -->
-     <div class="bottom-nav__element">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21.9999 0.333313C10.0399 0.333313 0.333252 10.04 0.333252 22C0.333252 33.96 10.0399 43.6667 21.9999 43.6667C33.9599 43.6667 43.6666 33.96 43.6666 22C43.6666 10.04 33.9599 0.333313 21.9999 0.333313ZM21.9999 6.83331C25.5966 6.83331 28.4999 9.73665 28.4999 13.3333C28.4999 16.93 25.5966 19.8333 21.9999 19.8333C18.4033 19.8333 15.4999 16.93 15.4999 13.3333C15.4999 9.73665 18.4033 6.83331 21.9999 6.83331ZM21.9999 37.6C16.5833 37.6 11.7949 34.8266 8.99992 30.6233C9.06492 26.3116 17.6666 23.95 21.9999 23.95C26.3116 23.95 34.9349 26.3116 34.9999 30.6233C32.2049 34.8266 27.4166 37.6 21.9999 37.6Z" fill="currentColor"/>
-        </svg>
-            
+     <div class="bottom-nav__element
+     
+     ">
+         <a href="account-settings.php">
+
+         <?php
+                            if(isset($userImage) && strlen($userImage)>0){
+                                echo "<img class='navbar-profile-picture navbar-profile-picture--mobile' src='./assets/images/profiles/$userImage'/>";
+                            }
+                            else{
+                                echo '<svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21.9999 0.333313C10.0399 0.333313 0.333252 10.04 0.333252 22C0.333252 33.96 10.0399 43.6667 21.9999 43.6667C33.9599 43.6667 43.6666 33.96 43.6666 22C43.6666 10.04 33.9599 0.333313 21.9999 0.333313ZM21.9999 6.83331C25.5966 6.83331 28.4999 9.73665 28.4999 13.3333C28.4999 16.93 25.5966 19.8333 21.9999 19.8333C18.4033 19.8333 15.4999 16.93 15.4999 13.3333C15.4999 9.73665 18.4033 6.83331 21.9999 6.83331ZM21.9999 37.6C16.5833 37.6 11.7949 34.8266 8.99992 30.6233C9.06492 26.3116 17.6666 23.95 21.9999 23.95C26.3116 23.95 34.9349 26.3116 34.9999 30.6233C32.2049 34.8266 27.4166 37.6 21.9999 37.6Z" fill="currentColor"/>
+                            </svg>';
+                            }
+                        ?>
+       
+       
+    
+    </a>
 
     </div>
 

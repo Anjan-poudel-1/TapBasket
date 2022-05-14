@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,gBAAgB,CAAA;EACZ,UAAU,EAAE,GAAG;EACf,OAAO,EAAE,KAAK;EACd,eAAe,EAAE,MAAM;CAC1B",
+    "sources": [
+        "otp.scss"
+    ],
+    "names": [],
+    "file": "otp.css"
+}

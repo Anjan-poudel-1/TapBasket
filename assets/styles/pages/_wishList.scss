@@ -2,6 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
+    min-height:300px;
     
     @media only screen and (max-width:$screen-lg) {
         justify-content: center;

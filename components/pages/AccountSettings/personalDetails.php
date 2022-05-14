@@ -1,61 +1,4 @@
 
-<?php
-  if(isset($_POST['userProfileUpdate'])){
-    $email = $_POST['email'];
-    $userName=trim($_POST['userName']);
-    $phone=trim($_POST['phoneNumber']);
-    $gender=trim($_POST['gender']);
-    $dob=trim($_POST['dob']);
-
-
-    // $password = $_POST['password'];
-    // $newPassword = $_POST['newPassword'];
-    // $confirmPassword = $_POST['confirmPassword'];
-
-    // if(empty(trim($password))){
-    //     $passworderr = "Please enter password";
-    // }
-    // if(empty(trim($newPassword))){
-    //     $passworderr = "Please enter new password";
-    // }
-
-
-    // if($newPassword!=$confirmPassword){
-    //     $confirmPassworderr="please must match";
-    // }
-
-    if(empty(trim($email))){
-        $emailerror = "Please enter email";
-    }
-    else{
-        $email = filter_var($email,FILTER_SANITIZE_EMAIL);
-        if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
-            $emailerror = "Invalid email";
-        }
-    }
-    if(empty(trim($dob))){
-        $doberr = "Please provide DOB";
-    }
-    if(empty(trim($gender))){
-        $gendererr = "Please select your gender";
-    }
-
-
-    if(empty($userName)){
-        $userNameerr="Please enter your name";
-    }
-
-    if(empty($phone)){
-        $phoneNumbererror="Please enter phone number";
-    }
-    if(empty($gender)){
-        $gendererr="Please seslect your gender";
-    }
-    if(empty($dob)){
-        $doberr="Please enter your DOB";
-    }
-  }
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,16 +9,39 @@
     <title>Document</title>
 </head>
 <body>
+<form method="POST" action="" enctype="multipart/form-data">
 <div class="account-settings__user-details">
-                        <div class="account-settings__user-details__image">
+                        
 
-                            <img src="./assets/images/meat.jpg">
+
+
+                        <input type="file" name="image-upload" accept="image/*" id="image-upload" hidden onchange="changePicture(event)"/>
+                        <label class="account-settings__user-details__image" for="image-upload">
+
+             
+                            <?php
+                           
+                                if( is_null($userImage)){
+                                    echo '<img id="profile-image" src ="./assets/images/default-profile-image.png">';
+                                }
+                                else{
+                                    echo'<img id="profile-image" src="./assets/images/profiles/'.$userImage .'" />';
+                                }
+                            ?>
+                           
 
                             <div class="account-settings__user-details__image__upload">
-
+                                    Upload 
                             </div>
 
-                        </div>
+                        </label>
+                        <button type="submit" name="uploadfile" class="upload-profile-picture">
+
+SAVE
+
+</button>
+                        </form>
+
 
                         <div class="account-settings__user-details__others">
                             <form  method="POST" action="">
@@ -94,8 +60,8 @@
                              placeholder="Enter your full name"
                              name="userName"
                              value="<?php
-                                    if(isset( $_POST['userNameerr'])){
-                                        echo $_POST['userNameerr'];
+                                    if($userName){
+                                        echo $userName;
                                     }
                                     ?>"
                              />
@@ -127,8 +93,8 @@
                              name="email"
                              readonly
                              value="<?php
-                                    if(isset( $_POST['email'])){
-                                        echo $_POST['email'];
+                                    if($email){
+                                        echo $email;
                                     }
                                     ?>"
                              />
@@ -159,8 +125,8 @@
                              placeholder="Enter your full name"
                              name="phoneNumber"
                              value="<?php
-                                    if(isset( $_POST['phoneNumber'])){
-                                        echo $_POST['phoneNumber'];
+                                    if($phone){
+                                        echo $phone;
                                     }
                                     ?>"
                              />
@@ -197,8 +163,9 @@
                              placeholder="Enter your DOB"
                              name="dob"
                              value="<?php
-                                    if(isset( $_POST['dob'])){
-                                        echo $_POST['dob'];
+                                    if($dob){
+                                        echo $dob;
+                                        
                                     }
                                     ?>"
                              />
@@ -226,14 +193,14 @@
                              }?>"
                             >
                                 <option name="gender" class="" value="" <?php
-                                     if(isset( $_POST['gender']) &&  $_POST['gender']==""){
+                                     if($gender &&  $gender==""){
                                         echo "selected";
                                     }
                                 ?>>
                                     Select your gender
                                 </option>
                                 <option name="gender" class="" value="male" <?php
-                                     if(isset( $_POST['gender']) &&  $_POST['gender']=="male"){
+                                     if(($gender) &&  $gender=="male"){
                                         echo "selected";
                                     }
                                 ?>>
@@ -241,7 +208,7 @@
                                 </option>
 
                                 <option name="gender" class="" value="female" <?php
-                                     if(isset( $_POST['gender']) &&  $_POST['gender']=="female"){
+                                     if($gender &&  $gender=="female"){
                                         echo "selected";
                                     }
                                 ?>>
@@ -249,7 +216,7 @@
                                 </option>
 
                                 <option name="gender" class="" value="other" <?php
-                                     if(isset( $_POST['gender']) &&  $_POST['gender']=="other"){
+                                     if($gender &&  $gender=="other"){
                                         echo "selected";
                                     }
                                 ?>>
@@ -282,5 +249,20 @@
                             </form>
                         </div>
                     </div>
+
+                    <script>
+                        const changePicture=(event)=>{
+                            
+                            console.log(event);
+                            let image =  (event.target.files[0]);
+                            let imageUrl = URL.createObjectURL(image);
+                            let profileImage = document.getElementById('profile-image');
+                            console.log("profileImage",profileImage)
+                            profileImage.setAttribute('src',imageUrl);
+                            
+
+                        }
+                    </script>
+
 </body>
 </html>

@@ -1,0 +1,8 @@
+.center_body_div {
+  margin-top: 20%;
+  display: block;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+/*# sourceMappingURL=otp.css.map */

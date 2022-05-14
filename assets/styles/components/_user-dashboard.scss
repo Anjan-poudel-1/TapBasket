@@ -47,6 +47,12 @@
                 border-bottom: 1px solid var(--account-setting-nav);
             }
 
+            a{
+                @media only screen and (max-width:$screen-lg) {
+                    flex: 1;
+                }
+            }
+
 
             &__list{
                 display: flex;
@@ -66,6 +72,7 @@
                     margin: 0.25rem 0;
                     padding: 0.5rem 0;
                     font-size: $font-size-sm;
+                   
                    
                    
                 }
@@ -111,6 +118,11 @@
                 &:hover{
                     background-color: var(--login-form-bg);
                     
+                }
+
+                &--active{
+                    background-color: var(--login-form-bg);
+                    color: $primary-color;
                 }
 
             }
