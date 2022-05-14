@@ -245,6 +245,7 @@ a {
 .disabled-btn {
   opacity: 0.5;
   pointer-events: none;
+  cursor: not-allowed;
 }
 
 .primary-navbar {
@@ -422,7 +423,7 @@ a {
   height: 1rem;
   margin-top: 0.3rem;
   margin-left: 0.25rem;
-  background-image: url("/assets/images/dropdown.svg");
+  background-image: url("assets/images/dropdown.svg");
   background-repeat: no-repeat;
   background-size: 0.875rem;
   background-position: center;
@@ -464,7 +465,21 @@ a {
 }
 
 [data-theme="dark"] .nav-links__products::after {
-  background-image: url("/assets/images/dropdown-dark.svg");
+  background-image: url("assets/images/dropdown-dark.svg");
+}
+
+.navbar-profile-picture {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  overflow: hidden;
+}
+
+.navbar-profile-picture--mobile {
+  height: 35px;
+  width: 35px;
 }
 
 .nav-dropdown {
@@ -1770,6 +1785,13 @@ select {
   border-left: 1px solid var(--cart-aside-border);
 }
 
+.cart-excess-message {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  background-color: var(--cart-aside-border);
+  margin-bottom: 1rem;
+}
+
 .checkout__body {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2192,7 +2214,7 @@ select {
 
 .upload-profile-picture {
   margin-top: 230px;
-  margin-left: 85px;
+  margin-left: 90px;
   position: absolute;
   /* bottom: 78px; */
   background: none;
@@ -2205,7 +2227,7 @@ select {
 @media only screen and (max-width: 1200px) {
   .upload-profile-picture {
     margin-top: 195px;
-    margin-left: 60px;
+    margin-left: 64px;
   }
 }
 
@@ -2722,6 +2744,7 @@ select {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   gap: 1.5rem;
+  min-height: 300px;
 }
 
 @media only screen and (max-width: 992px) {

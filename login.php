@@ -39,7 +39,7 @@ include("connection.php");
 
         // echo $res;
         // var_dump($res);
-         print_r($res);
+        //  print_r($res);
         foreach ($res as $key => $value) {
             if($key=="USER_ID"){
 
@@ -53,6 +53,36 @@ include("connection.php");
             $_SESSION['user_id']=$user_id;
             $passworderr = "";
             $emailerror = "";
+
+            //Here set up the cart after logging in.... 
+
+            $sql="SELECT * FROM CARTLIST WHERE USER_ID=$user_id";
+            $stid = oci_parse($conn, $sql);
+            oci_execute($stid);
+
+            $nrows = oci_fetch_all($stid, $res);
+
+            for ($i = 0; $i < $nrows; $i++) {
+                $product_id = $res['PRODUCT_ID'][$i];
+                $quantity= $res['QUANTITY'][$i];
+
+                //If the item is already in the cart, we update the item from cartlist
+                if(isset($_SESSION['cart'][$product_id])){
+                    $updateCartListSql ="UPDATE CARTLIST 
+         
+                    SET QUANTITY=:quantity
+                  
+                   WHERE USER_ID=$user_id AND PRODUCT_ID=$product_id" ;
+                    $stidUpdate = oci_parse($conn,$updateCartListSql);
+                    oci_bind_by_name($stidUpdate, ':quantity', $_SESSION['cart'][$product_id]);
+                    oci_execute($stidUpdate, OCI_COMMIT_ON_SUCCESS);
+                }
+                else{
+                    $_SESSION['cart'][$product_id] = $quantity;
+                }
+
+            }
+
             header ('location:index.php');
         }else {
             $_SESSION['isAuthenticated']= false;
@@ -174,10 +204,11 @@ include("connection.php");
                             <div>
                                <input type="checkbox" id="remember-me"/> <span id="remember-me-text"> Remember me</span>
                             </div>
+                        <a href="forgetPassword.php">
                             <div>
                                 Forgot password?
                             </div>
-
+                    </a>
                         </div>
                     
                         

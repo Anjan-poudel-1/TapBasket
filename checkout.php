@@ -11,13 +11,63 @@ if(!(isset($_SESSION['cart']))){
     $_SESSION['cart']= [];
 
 }
+if (!(isset($_SESSION['user_id']))) {
 
+    $_SESSION['user_id'] = '';
+}
 
+$user_id = $_SESSION['user_id'];
 
+include './connection.php';
 
 $date_chosen = '';
 $timing = '';
 $finalPayment = false;
+
+
+
+
+
+
+
+//For checkout form 
+if(isset($_POST['submitPickDetails'])){
+
+    $selectedDateError ='';
+    $selectedTimeError ='';
+    $selectedDate = '';
+    $selectedTime = '';
+    $isStepOneCompleted=false;
+    $errCount=0;
+
+    if(isset($_POST['dateSelected']) && $_POST['dateSelected']){
+        $selectedDate = $_POST['dateSelected'];
+    }
+    else{
+        $errCount=1;
+        $selectedDateError ='Please select the date';
+    }
+
+    if(isset($_POST['timing'])){
+        $selectedTime = $_POST['timing'];
+    }
+    else{
+        $errCount=1;
+        $selectedTimeError ='Please select the timing';
+    }
+
+    if( $errCount==0){
+        $isStepOneCompleted=true;
+    }
+
+}
+
+
+if(isset($_POST['goToCart'])){
+    header ('location:cart.php');
+}
+
+
 ?>
 
 <!DOCTYPE html>
