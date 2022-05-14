@@ -17,66 +17,19 @@
 <div class="user-dashboard">
                 <?php
                 include './components/pages/AccountSettings/userNavbar.php';
-                
                 ?>
+
                 <div class="user-dashboard__content">
-                
-                    <div class="section__header">
-
-                        <div class="section__header__heading">
-                    
-                            My Orders
-                    
-                        </div>
-                    </div>
-                    <div class= "order_history">
-                        Your order history and purchase information
-                    </div>
-                        <div class="order_filter">
-                                <select>
-                                    <option value="">
-                                        Order Filter
-                                        All Orders
-                                    </option>
-                                    <option value="">
-                                        7 days
-                                    </option>
-                                    <option value="">
-                                        15 days
-                                    </option>
-                                    <option value="">
-                                       1 month
-                                    </option>
-                                    <option value="">
-                                        3 months
-                                    </option>
-                                </select>  
-                            </div>
-                            <div class="order_history_table">
-				                <table>
-						            <tr>
-                                        <th>Order No</th>
-                                        <th>Order Place</th>
-                                        <th>Status</th>
-                                        <th>Total</th>
-                                        <th>Show Order</th>
-						            </tr>
-				                </table>
-                            </div>
-
-                                
-                </div>
+                  <?php 
+                    include './components/pages/OrderHistory/order-history.html';
+                  ?>
+                </div>   
+               
+            </div>
+            
 </div>
-
-
-
-
-
-
-
-
- </div>
-
+</div>
+</div>
     
  <!-- Page Footers -->
  <?php
