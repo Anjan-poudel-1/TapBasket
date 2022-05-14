@@ -13,7 +13,7 @@ echo'<div class="product-card search-card">
         </div>               
     </div>
 </div>
-<div class="product-card__details">
+<div class="product-card__details search-card-detail">
     <div class="product-card__details__name">
         Spinach Krantikari 
     </div>

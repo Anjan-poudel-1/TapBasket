@@ -2796,7 +2796,7 @@ select {
   margin-right: auto;
 }
 
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 768px) {
   .filter-page__Top-Row__Res-Num {
     display: none;
   }
@@ -2901,21 +2901,21 @@ select {
   gap: 1.25rem;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr;
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 @media only screen and (max-width: 992px) {
   .filter-page__Result {
-    -ms-grid-columns: 1fr 1fr 1fr;
-        grid-template-columns: 1fr 1fr 1fr;
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
   }
 }
 
 @media only screen and (max-width: 768px) {
   .filter-page__Result {
-    -ms-grid-columns: 1fr 1fr;
-        grid-template-columns: 1fr 1fr;
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
   }
 }
 
@@ -2931,7 +2931,7 @@ select {
   width: auto;
 }
 
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 768px) {
   .search-card {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -2940,6 +2940,68 @@ select {
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
             flex-direction: row;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .search-card__image {
+    max-width: 200px;
+    width: 70%;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: auto;
+    margin: auto;
+  }
+  .search-card__image__img {
+    border-radius: 5px;
+  }
+}
+
+.search-card-detail {
+  width: 100%;
+}
+
+.filter-result-container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.filter-result-container__left {
+  width: 20%;
+}
+
+@media only screen and (max-width: 768px) {
+  .filter-result-container__left {
+    width: 35%;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .filter-result-container__left {
+    display: none;
+  }
+}
+
+.filter-result-container__right {
+  width: 80%;
+}
+
+@media only screen and (max-width: 768px) {
+  .filter-result-container__right {
+    width: 65%;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .filter-result-container__right {
+    width: 100%;
   }
 }
 
