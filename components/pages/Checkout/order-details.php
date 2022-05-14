@@ -12,114 +12,95 @@
                         Order Details
                     </div>
                     <div class="checkout__body__right__body">
-                        <div class="checkout-product-card">
+
+                        <?php
+$myCart = ($_SESSION['cart']);
+$subTotal= 0;
+foreach ($myCart as $product_id => $quantity) {
+
+    $sql = "SELECT * FROM PRODUCT WHERE IS_DISABLED='false' AND PRODUCT_ID=$product_id";
+
+    $stid = oci_parse($conn, $sql);
+    oci_execute($stid);
+    
+
+    while (($row = oci_fetch_object($stid)) != false) {
+        // Use upper case attribute names for each standard Oracle column
+        $product_name =  $row->PRODUCT_NAME;
+        $product_image =  $row->PRODUCT_IMAGE;
+        $qty_in_stock = $row->QUANTITY_IN_STOCK;
+        $product_price = $row->PRICE;
+        $shop_id = $row->SHOP_ID;
+
+        $subTotal+=$product_price*$quantity;
+        $discountPrice=0;
+
+        $stidDiscount = "SELECT DISCOUNT_RATE FROM DISCOUNT WHERE PRODUCT_ID=$product_id";
+                    $stidDiscount = oci_parse($conn, $stidDiscount);
+                    oci_execute($stidDiscount);
+        
+        
+                    while (oci_fetch($stidDiscount)) {
+                        $discountPrice = oci_result($stidDiscount, 'DISCOUNT_RATE');
+                        
+                    }
+    }
+?>
+
+<div class="checkout-product-card">
                             <div class="checkout-product-card__left">
                                 <div class="checkout-product-card__left__image">
-                                    <img src="assets/images/spinach.jpg"/>
+                                    <img src="assets/images/ProductImage/<?php echo $product_image ?>"/>
                                 </div>
                                 <div class="checkout-product-card__left__desc">
                                     <div class="checkout-product-card__left__desc__name">
-                                        Spinach Kranrikari
+                                       <?php echo $product_name?>
                                     </div>
                                     <div class="checkout-product-card__left__desc__rate">
-                                        Rs.112
+                                    £<?php echo $product_price?>
                                     </div>
                                 </div>
                             </div>
                             <div class="checkout-product-card__right">
                                 <div class="checkout-product-card__right__quantity">
-                                    x5
+                                    x<?php echo $quantity?>
                                 </div>
                                 <div class="checkout-product-card__right__total">
-                                    Rs.1000
+                                £<?php echo $quantity*$product_price?>
+                                <span>
+                                 <!-- If discount data is available -->
+                           <?php
+                           if($discountPrice>0){
+                               ?>
+                           
+                            <b><strike>
+                            £<?php
+                                echo ($product_price+$discountPrice)* $quantity;
+                           
+                                ?>
+                            </strike></b>
+                           <?php } ?>
+                            </span>
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="checkout-product-card">
-                            <div class="checkout-product-card__left">
-                                <div class="checkout-product-card__left__image">
-                                    <img src="assets/images/spinach.jpg"/>
-                                </div>
-                                <div class="checkout-product-card__left__desc">
-                                    <div class="checkout-product-card__left__desc__name">
-                                        Spinach Kranrikari
-                                    </div>
-                                    <div class="checkout-product-card__left__desc__rate">
-                                        Rs.112
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="checkout-product-card__right">
-                                <div class="checkout-product-card__right__quantity">
-                                    x5
-                                </div>
-                                <div class="checkout-product-card__right__total">
-                                    Rs.1000
-                                </div>
-                            </div>
-
-                        </div>
+<?php
+}
 
 
-                        <div class="checkout-product-card">
-                            <div class="checkout-product-card__left">
-                                <div class="checkout-product-card__left__image">
-                                    <img src="assets/images/spinach.jpg"/>
-                                </div>
-                                <div class="checkout-product-card__left__desc">
-                                    <div class="checkout-product-card__left__desc__name">
-                                        Spinach Kranrikari
-                                    </div>
-                                    <div class="checkout-product-card__left__desc__rate">
-                                        Rs.112
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="checkout-product-card__right">
-                                <div class="checkout-product-card__right__quantity">
-                                    x5
-                                </div>
-                                <div class="checkout-product-card__right__total">
-                                    Rs.1000
-                                </div>
-                            </div>
 
-                        </div>
+?>
 
 
-                        <div class="checkout-product-card">
-                            <div class="checkout-product-card__left">
-                                <div class="checkout-product-card__left__image">
-                                    <img src="assets/images/spinach.jpg"/>
-                                </div>
-                                <div class="checkout-product-card__left__desc">
-                                    <div class="checkout-product-card__left__desc__name">
-                                        Spinach Kranrikari
-                                    </div>
-                                    <div class="checkout-product-card__left__desc__rate">
-                                        Rs.112
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="checkout-product-card__right">
-                                <div class="checkout-product-card__right__quantity">
-                                    x5
-                                </div>
-                                <div class="checkout-product-card__right__total">
-                                    Rs.1000
-                                </div>
-                            </div>
-
-                        </div>
                     </div>
                     <div class="checkout__body__right__subtotal">
                         <div class="checkout__body__right__subtotal__title">
                             Sub Total
                         </div>
                         <div class="checkout__body__right__subtotal__price">
-                            Rs.5322
+                        £<?php echo $subTotal?>
                         </div>
                     </div>
 

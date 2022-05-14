@@ -27,12 +27,19 @@
     content: "";
     left: 15px;
     top: 25px;
-    height: 75%;
+    height: 70%;
     width: 0.5rem;
     border: 0;
     border-right: 2px solid $gray-400;
     border-style: dashed;
 
+            }
+
+            &--completed{
+                &::before{
+                    border-right: 2px solid $primary-color;     
+                    border-style: solid; 
+                }
             }
             &__step{
                 position: relative;
@@ -177,11 +184,7 @@ margin-bottom: 0.45rem;
 
         margin-top: 1rem;
         &__card{
-    padding: 0.5rem;
-    background: var(--body-light-bg);
-    border-radius: 6px;
-    margin: 0.5rem 0;
-    cursor: pointer;
+   
             input{
 
             }
@@ -189,11 +192,16 @@ margin-bottom: 0.45rem;
     }
 }
 
-.checkout-payment-card{
-    input{
+// .checkout-payment-card{
 
-    }
-}
+//     height: 40px;
+//     width: 90px;
+//     padding: 0.5rem;
+//     border: 1px solid var(--body-light-bg);
+//     input{
+
+//     }
+// }
 .checkout-buttons{
     display: flex;
     gap: 1rem;
@@ -269,4 +277,34 @@ margin-bottom: 0.45rem;
         }
 
     }
+}
+
+.checkout-payment-card{
+    height: 50px;
+    width: 130px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    border-radius: 6px;
+    border: 2px solid var(--body-light-bg);
+    background: url('../images/paypal.png');
+    background-size: 60%;
+    background-position: 60% 55%;
+    cursor: pointer;
+
+    background-repeat: no-repeat;
+    position: relative;
+
+    &::after{
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-color: white;
+        left: 0;
+        border-radius: 6px;
+        z-index: -1;
+
+    }
+
 }

@@ -1,4 +1,12 @@
 <?php
+session_start();
+if((isset($_SESSION['isAuthenticated']) && $_SESSION['isAuthenticated']===True) ){
+
+    header ('location:index.php');
+}
+?>
+<?php
+include("connection.php");
   if(isset($_POST['LoginSubmit'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -16,27 +24,74 @@
     if(empty(trim($password))){
         $passworderr = "Please enter password";
     }
+
+    if(!empty($email) && !empty($password)){
+        $password=md5($password);
+        $sql = "SELECT * FROM USERS WHERE email = '$email' AND password ='$password' AND IS_DISABLED='false' and USER_ROLE='customer'";
+
+        $stid=(oci_parse($conn,$sql));
+        oci_execute($stid, OCI_NO_AUTO_COMMIT);  
+        oci_commit($conn);
+       
+        //Here $res is the response fetched..... 
+        $count= oci_fetch_all($stid,$res);
+        // $count=oci_num_rows($stid);
+
+        // echo $res;
+        // var_dump($res);
+        //  print_r($res);
+        foreach ($res as $key => $value) {
+            if($key=="USER_ID"){
+
+                echo $key;
+                print_r($value);
+                $user_id=$value[0];
+            }
+        }
+        if ($count==1) {
+            $_SESSION['isAuthenticated']=true;
+            $_SESSION['user_id']=$user_id;
+            $passworderr = "";
+            $emailerror = "";
+
+            //Here set up the cart after logging in.... 
+
+            $sql="SELECT * FROM CARTLIST WHERE USER_ID=$user_id";
+            $stid = oci_parse($conn, $sql);
+            oci_execute($stid);
+
+            $nrows = oci_fetch_all($stid, $res);
+
+            for ($i = 0; $i < $nrows; $i++) {
+                $product_id = $res['PRODUCT_ID'][$i];
+                $quantity= $res['QUANTITY'][$i];
+
+                //If the item is already in the cart, we update the item from cartlist
+                if(isset($_SESSION['cart'][$product_id])){
+                    $updateCartListSql ="UPDATE CARTLIST 
+         
+                    SET QUANTITY=:quantity
+                  
+                   WHERE USER_ID=$user_id AND PRODUCT_ID=$product_id" ;
+                    $stidUpdate = oci_parse($conn,$updateCartListSql);
+                    oci_bind_by_name($stidUpdate, ':quantity', $_SESSION['cart'][$product_id]);
+                    oci_execute($stidUpdate, OCI_COMMIT_ON_SUCCESS);
+                }
+                else{
+                    $_SESSION['cart'][$product_id] = $quantity;
+                }
+
+            }
+
+            header ('location:index.php');
+        }else {
+            $_SESSION['isAuthenticated']= false;
+            $passworderr = "Invalid Credential";
+        }
+        oci_free_statement($stid);
+        oci_close($conn);
   }
-?>
-
-<?php
-include("connection.php");
-if(isset($_POST['LoginSubmit'])){
-    
-    $email =trim($_POST['email']);
-    $password =trim($_POST['password']);
-
-
-$sql="SELECT * FROM USERS where email='$email' and password= '$password'";
-$result=mysqli_query($conn,$sql) or die(mysqli_error($sql));
-
-   if (!mysqli_fetch_assoc($result)) {
-    $_SESSION['error']= 'User not recognised';
-    echo $_SESSION['error']."<br>";
-    }
-
 }
-    
 ?>
 
 <!DOCTYPE html>
@@ -149,10 +204,11 @@ $result=mysqli_query($conn,$sql) or die(mysqli_error($sql));
                             <div>
                                <input type="checkbox" id="remember-me"/> <span id="remember-me-text"> Remember me</span>
                             </div>
+                        <a href="forgetPassword.php">
                             <div>
                                 Forgot password?
                             </div>
-
+                    </a>
                         </div>
                     
                         
@@ -169,10 +225,11 @@ $result=mysqli_query($conn,$sql) or die(mysqli_error($sql));
                             </div>
                             
                             <!-- Go to registration page -->
-                            
+                            <a href="registeruser.php">
                             <button class="btn primary-btn form-btn">
                                 Sign Up
                             </button>
+                            </a>
                     </div>
                 </div>
                 </form>

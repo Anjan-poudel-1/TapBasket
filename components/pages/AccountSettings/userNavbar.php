@@ -1,3 +1,21 @@
+<?php
+
+$user_id = $_SESSION['user_id'];
+$sql = "SELECT * FROM USERS WHERE USER_ID=$user_id";
+$stid = oci_parse($conn,$sql );
+oci_execute($stid);
+
+while (($row = oci_fetch_object($stid)) != false) {
+    // Use upper case attribute names for each standard Oracle column
+    $user_name= $row->USERNAME ;
+    $user_email =  $row->EMAIL; 
+}
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,10 +29,16 @@
                     <div class="user-dashboard__menu__profile-details">
                         <div>
                         <div class="user-dashboard__menu__profile-details__name">
-                            Anjan Poudel
+                            <?php
+                            if(isset($user_name))
+                                echo $user_name;
+                            ?>
                         </div>
                         <div class="user-dashboard__menu__profile-details__email">
-                            poudelanjan8@gmail.com
+                            <?php
+                            if(isset($user_email))
+                                echo $user_email;
+                            ?>
                         </div>
                         </div>
                         <div class="mobile-view" style="cursor: pointer;">
@@ -48,7 +72,7 @@
                                     Orders
                                 </div>
                                 <div class="user-dashboard__menu__nav__list__details__sub">
-                                    5 orders
+                                    Purchase Hiistory
                                 </div>
                             </div>
                             <div class="user-dashboard__menu__nav__list__arrow">
@@ -77,7 +101,7 @@
                                      WishList
                                 </div>
                                 <div class="user-dashboard__menu__nav__list__details__sub">
-                                    2 items
+                                    Saved Items
                                 </div>
                             </div>
                             <div class="user-dashboard__menu__nav__list__arrow">
