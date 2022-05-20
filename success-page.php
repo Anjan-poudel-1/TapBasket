@@ -37,6 +37,10 @@ while (($rowUser = oci_fetch_object($stidUser)) != false) {
     $stidOrderUpdate = oci_parse($conn,$updateOrderSql);
     oci_bind_by_name($stidOrderUpdate, ':ORDERPLACE_ID', $orderId);
     oci_execute($stidOrderUpdate, OCI_COMMIT_ON_SUCCESS);
+
+    $insertPaymentSql = "INSERT INTO PAYMENT(MODE_DETAIL,ORDERPLACE_ID) VALUES('paypal',$orderId)";
+    $stidInsertPayment = oci_parse($conn,$insertPaymentSql);
+    oci_execute($stidInsertPayment, OCI_COMMIT_ON_SUCCESS);
 }
 
 
