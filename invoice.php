@@ -18,7 +18,7 @@
 
             <div class="invoice__body">
             <?php 
-                include './components/pages/Invoice/invoice-details.html';
+                include './components/pages/Invoice/invoice-details.php';
                 ?>
                 
                
