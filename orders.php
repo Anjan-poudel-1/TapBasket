@@ -30,6 +30,7 @@ if(!(isset($_SESSION['isAuthenticated']) && $_SESSION['isAuthenticated']===true)
                 <?php
                   $pageName="order";
                 include './components/pages/AccountSettings/userNavbar.php';
+              
                 ?>
 
                 <div class="user-dashboard__content">

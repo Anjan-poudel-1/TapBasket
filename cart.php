@@ -35,7 +35,7 @@ if (isset($_GET['product_id']) && isset($_GET['qty']) && isset($_GET['type'])) {
 
         //if person is logged in.. change in db as well
 
-        if (isset($_SESSION['isAuthenticated'])) {
+        if (isset($_SESSION['isAuthenticated']) && $_SESSION['isAuthenticated']) {
 
             $user_id = $_SESSION['user_id'];
 

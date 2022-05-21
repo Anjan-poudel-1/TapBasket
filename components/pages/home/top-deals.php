@@ -54,6 +54,7 @@
             ?>
                 <div class="product-card">
 
+                <a href="product.php?product-id=<?php echo $res['PRODUCT_ID'][$i];?>">
                     <div class="product-card__image">
 
 
@@ -178,6 +179,7 @@
                         </div>
 
                     </div>
+                    </a>
                     <div class="product-card__details">
 
                         <div class="product-card__details__name">
@@ -250,16 +252,16 @@
                         ?>
                             <div class="product-card__details__cart-btn">
 
-                                <a href=<?php
-                                        echo "index.php?product_id=$product_id&qty=1";
-                                        ?>>
 
-
-                                    <button class="btn primary-btn card-btn">
-                                        Add to Cart
-                                    </button>
-                                </a>
-
+                                        <form method="POST">
+                                        <input name="product_id" hidden value=<?php echo $product_id ?>>
+                                        <input name="qty" hidden value="1">
+                                        <input type="submit" name="add-product" value="Add to Cart" class="btn primary-btn card-btn"/>
+                                        
+                                        
+                                        </form>
+                                     
+           
 
                             </div>
                         <?php
