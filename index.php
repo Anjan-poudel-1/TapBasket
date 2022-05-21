@@ -15,11 +15,10 @@ include('./connection.php');
 
 //YEsma chai .. after login.. check the cartlist...
 //through array add every item to the local i.e. session cart
-if (isset($_GET['product_id']) && isset($_GET['qty'])) {
+if (isset($_POST['add-product'])) {
 
-    $product_id = $_GET['product_id'];
-
-    $quantity = $_GET['qty'];
+    $product_id = $_POST['product_id'];
+    $quantity = 1;
 
 
     //To validate.... check if quantity is int>0, product is in table
