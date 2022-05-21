@@ -3218,6 +3218,64 @@ select {
   font-size: 1.2rem;
 }
 
+.success-page-container {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: auto;
+  text-align: center;
+}
+
+@media only screen and (max-width: 576px) {
+  .success-page-container {
+    padding: 1rem;
+  }
+}
+
+.success-page-container img {
+  height: 120px;
+  width: 120px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.success-page-container__content {
+  margin-top: 2rem;
+}
+
+.success-page-container__content__links {
+  margin-top: 1.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 2rem;
+}
+
+@media only screen and (max-width: 576px) {
+  .success-page-container__content__links {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.success-page-container__content__links .btn {
+  width: 200px;
+}
+
 :root,
 [data-theme="default"] {
   --body-bg: #ffffff;

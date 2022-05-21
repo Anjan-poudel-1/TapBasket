@@ -18,10 +18,7 @@
                 <?php
                   $pageName="order";
                 include './components/pages/AccountSettings/userNavbar.php';
-<<<<<<< HEAD
-=======
               
->>>>>>> ee84d0c7f4fb299f9ae2713785ca77f16b13d240
                 ?>
 
                 <div class="user-dashboard__content">
