@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORders</title>
+    <title>Orders</title>
     <link rel="stylesheet" href="./assets/styles/index.css">
 </head>
 <body data-theme="default" id="get-theme">
@@ -13,37 +13,28 @@
          <?php
         include './components/navbars/primary-navbar.php';
         ?>
-
 <div class="container page__body">
 <div class="user-dashboard">
                 <?php
                   $pageName="order";
                 include './components/pages/AccountSettings/userNavbar.php';
+<<<<<<< HEAD
+=======
               
+>>>>>>> ee84d0c7f4fb299f9ae2713785ca77f16b13d240
                 ?>
+
                 <div class="user-dashboard__content">
-                
-                    <div class="section__header">
-
-                        <div class="section__header__heading">
-                    
-                            My Orders
-                    
-                        </div>
-                    
-                    </div>
-                </div>
+                  <?php 
+                    include './components/pages/OrderHistory/order-history.html';
+                  ?>
+                </div>   
+               
+            </div>
+            
 </div>
-
-
-
-
-
-
-
-
-    </div>
-
+</div>
+</div>
     
  <!-- Page Footers -->
  <?php

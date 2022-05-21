@@ -1,10 +1,30 @@
+<?php
+include 'connection.php';
+SESSION_START();
+
+if(isset($_SESSION['user_id']) && isset($_SESSION['isAuthenticated'])){
+    $user_id=$_SESSION['user_id'];
+}
+else{
+    // $_SESSION['isAuthenticated']=false;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart</title>
+    <?php
+    if(isset($_GET['product-id'])){
+        $id=$_GET['product-id'];
+        
+        $query="SELECT * FROM PRODUCT WHERE PRODUCT_ID=".$id;
+        $result=oci_parse($conn, $query);
+        oci_execute($result);
+        $row=oci_fetch_array($result);
+    }?>
+    <title><?php echo $row['PRODUCT_NAME'].' | TapBasket'; ?></title>
     <link rel="stylesheet" href="./assets/styles/index.css">
 </head>
 <body data-theme="default" id="get-theme">
@@ -14,25 +34,89 @@
         ?>
 
         <div class="container page__body">
+
+        <?php
+        if(isset($_GET['product-id'])){
+            $id=$_GET['product-id'];
+            
+            $query="SELECT * FROM PRODUCT WHERE PRODUCT_ID=".$id;
+            $result=oci_parse($conn, $query);
+            oci_execute($result);
+            $row=oci_fetch_array($result);
+
+            $query2="SELECT SHOP_NAME 
+            FROM SHOP_REQUEST
+            INNER JOIN
+            SHOP ON 
+            SHOP_REQUEST.SHOP_REQUEST_ID = SHOP.SHOP_REQUEST_ID
+            WHERE SHOP.SHOP_ID =". $row['SHOP_ID'];
+            $result2=oci_parse($conn, $query2);
+            oci_execute($result2);
+            $row2=oci_fetch_array($result2);
+        }
+
+        //Wishlist
+        if (isset($_GET['product-id']) && isset($_GET['category']) && isset($_GET['type'])) {
+
+            $wishlist_proId = $_GET['product-id'];
+            $wishlist_category = $_GET['category'];
+            $wishlist_type = $_GET['type'];
+        
+            if ($wishlist_type == 'remove') {
+                $sqlRemove = "DELETE FROM  WISHLIST WHERE USER_ID=" . $_SESSION['user_id'] . " AND PRODUCT_ID=" . $wishlist_proId;
+                $stidWishListRemove = oci_parse($conn, $sqlRemove);
+                oci_execute($stidWishListRemove, OCI_COMMIT_ON_SUCCESS);
+            }
+            if ($wishlist_type == 'add') {
+                $sqlInsert = 'INSERT INTO WISHLIST(USER_ID,PRODUCT_ID) VALUES (:userI_id,:product_id)';
+                $stidWishList = oci_parse($conn, $sqlInsert);
+                oci_bind_by_name($stidWishList, ':userI_id', $_SESSION['user_id']);
+                oci_bind_by_name($stidWishList, ':product_id', $wishlist_proId);
+                oci_execute($stidWishList, OCI_COMMIT_ON_SUCCESS);
+            }
+        }
+
+        //Testing if in wishlist
+        if(isset($_SESSION['user_id'])){
+            $isInWishList = false;
+            $user_id=$_SESSION['user_id'];;
+            $sqlNew = "SELECT PRODUCT_ID FROM WISHLIST WHERE USER_ID='$user_id'";
+            $stidNew = oci_parse($conn, $sqlNew);
+            oci_execute($stidNew, OCI_DEFAULT);
+            oci_commit($conn);
+            $numrows = oci_fetch_all($stidNew, $response);
+            foreach ($response as $key => $value) {
+                foreach ($value as $arrkey => $arrvalue) {
+                    if ($arrvalue == $id) {
+                        $isInWishList = true;
+                    }
+                }
+            }    
+        }   
+        ?>
+
+        <?php
+        
+        ?>
             <div class="ProductMain">
                 <div class="ProductImage-wrapper">
                     <div class="ProductImage image-1">
-                        <img src="assets/images/ProductImage/Carrot1.jpg"/>
+                        <img src="assets/images/ProductImage/<?php echo $row['PRODUCT_IMAGE'];?>"/>
                     </div>
                 </div>
 
                 <div class="ProductDetail-wrapper">
                     <div class="ProductDetail-wrapper__name">
-                        Farm Fresh Huddersfield Carrots (1Kg per Unit)
+                    <?php echo $row['PRODUCT_NAME']?>
                     </div>
                     <div class="ProductDetail-wrapper__shop">
-                        Sold by: <a href="#">Carrothead Company</a>
+                        Sold by: <a href="#"><?php echo $row2['SHOP_NAME']?></a>
                     </div>
                     <div class="ProductDetail-wrapper__price">
-                        Rs. 100
+                        &#163;<?php echo $row['PRICE']?>
                     </div>
                     <div class="ProductDetail-wrapper__information">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eget ipsum diam. Donec sed consequat mi. Vestibulum commodo neque at odio accumsan porta ut ac ante. Nam egestas vel nisl vel pulvinar.
+                    <?php echo $row['PRODUCT_DESCRIPTION']?>
                         <div class="ProductDetail-wrapper__information__see-more">
                             <button class="btn primary-outline-btn card-btn">View More</button>
                         </div>
@@ -69,22 +153,34 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ProductCart-wrapper__quantity__Stock">Out of Stock</div>
+                    <div class="ProductCart-wrapper__quantity__Stock Stock-Hide">Out of Stock</div>
                     <div class="ProductCart-wrapper__Total">
-                        <div class="ProductCart-wrapper__Total__Currency">Total Price: &nbsp; Rs. </div>
-                        <div class="ProductCart-wrapper__Total__Amount">700</div>
+                        <div class="ProductCart-wrapper__Total__Currency">Total Price: &nbsp;&#163;</div>
+                        <div class="ProductCart-wrapper__Total__Amount"><?php echo $row['PRICE']?></div>
                     </div>
                     
                     <div class="ProductCart-wrapper__buttons">
-                        <div class="ProductCart-wrapper__buttons__Wishlist">
-                            <button class="btn primary-outline-btn card-btn">Add to wishlist</button>
-                        </div>
+                        <?php if($isInWishList){
+                            ?>
+                        <a href="product.php?product-id=<?php echo $id; ?>&category=wishList&type=remove">
+                            <div class="ProductCart-wrapper__buttons__Wishlist">
+                                <button class="btn primary-outline-btn card-btn">Remove from wishlist</button>
+                            </div>
+                        </a>
+                        <?php }else{?>
+                            <a href="product.php?product-id=<?php echo $id; ?>&category=wishList&type=add">
+                                <div class="ProductCart-wrapper__buttons__Wishlist">
+                                    <button class="btn primary-outline-btn card-btn">Add to wishlist</button>
+                                </div>
+                            </a>
+                            <?php } ?>
                         <div class="ProductCart-wrapper__buttons__Add-Cart">
                             <button class="btn primary-outline-btn card-btn">Add to Cart</button> 
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <?php
             include './components/pages/Product-Detail/review-section.php';

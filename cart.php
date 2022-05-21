@@ -159,6 +159,8 @@ if (isset($_GET['category']) && isset($_GET['product_id']) && isset($_GET['type'
 ?>
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 

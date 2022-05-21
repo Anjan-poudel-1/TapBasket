@@ -27,7 +27,7 @@ include("connection.php");
 
     if(!empty($email) && !empty($password)){
         $password=md5($password);
-        $sql = "SELECT * FROM USERS WHERE email = '$email' AND password ='$password' AND IS_DISABLED='false'";
+        $sql = "SELECT * FROM USERS WHERE email = '$email' AND password ='$password' AND IS_DISABLED='false' and USER_ROLE='customer'";
 
         $stid=(oci_parse($conn,$sql));
         oci_execute($stid, OCI_NO_AUTO_COMMIT);  
@@ -225,10 +225,11 @@ include("connection.php");
                             </div>
                             
                             <!-- Go to registration page -->
-                            
+                            <a href="registeruser.php">
                             <button class="btn primary-btn form-btn">
                                 Sign Up
                             </button>
+                            </a>
                     </div>
                 </div>
                 </form>
