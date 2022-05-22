@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./assets/styles/index.css">
-</head>
-<body>
+<?php 
+include './connection.php';
+$invoicesql= "SELECT * FROM ORDERPLACE 
+            INNER JOIN USERS ON ORDERPLACE.USER_ID= USERS.USER_ID 
+            WHERE ORDERPLACE_ID=". $_GET['order-id'];
+$result=oci_parse($conn, $invoicesql);
+        oci_execute($result);
+        $row=oci_fetch_array($result);
+?>
+
     <div class="customer-section">
         <div class="container page__body">
             <div class="invoice-print">
@@ -18,22 +18,16 @@
                 </div>
                 <div class="invoice-headings">
                     <div class="invoice-headings__subheading">   
-                        Invoice Number: 
+                        Order Number: 
                      </div>
                     <div class="invoice-headings__number"> 
-                        INNO1
+                        <?php
+                        echo $row['ORDERPLACE_ID'];
+                        ?>
                     </div>
     
                 </div>
-                <div class="invoice-headings">
-                    <div class="invoice-headings__subheading">
-                        Order Number: 
-                    </div>
-                    <div class="invoice-headings__number"> 
-                        000001
-                    </div>
-    
-                </div>
+                
                  <!--Customer Details Section-->
                 <div class="detail-body-section">
                     <div class="invoice-subheading">   
@@ -42,35 +36,51 @@
                     
                     <div class="details-section">
                         <div class="details-section__body">
-                            <div class="invoice-customer-section__heading">
+                            <div class="invoice-customer-section__heading headingbold">
                                 Customer Name: 
                             </div>
                             <div class="invoice-customer-section__description">
-                                Customer Name
+                            <?php
+                            echo $row['USERNAME'];
+                            ?>
                             </div>
                         </div>
 
                         <div class="details-section__body">
-                            <div class="invoice-customer-section__heading">
+                            <div class="invoice-customer-section__heading headingbold">
                                 Customer Email: 
                             </div>
                             <div class="invoice-customer-section__description">
-                                Customer@email.com
+                                <?php
+                                echo $row['EMAIL'];
+                                ?>
+                                
                             </div>
                         </div>
 
                         <div class="details-section__body">
-                            <div class="invoice-customer-section__heading">
+                            <div class="invoice-customer-section__heading headingbold">
                                 Customer Contact Number: 
                             </div>
                             <div class="invoice-customer-section__description">
-                                Number123
+                                <?php
+                             echo $row['PHONE_NO'];
+                                ?>
+                            
                             </div>
                         </div>
 
                     </div>  
                 </div>
+<?php
+$detailsql= "SELECT * FROM ORDERLIST
+            INNER JOIN PRODUCT ON ORDERLIST.PRODUCT_ID= PRODUCT.PRODUCT_ID 
+            WHERE ORDERLIST.ORDERPLACE_ID=". $_GET['order-id'];
+$stid = oci_parse($conn, $detailsql);
+oci_execute($stid);
+$nrows = oci_fetch_all($stid, $res);
 
+?>
                 <!--Order Details Section-->
                     <div class="invoice-subheading">
                         Order Details
@@ -79,108 +89,67 @@
                     <div class="order-details">
                         <div class="order__body__right">
                             <div class="order__body__right__body">
+
+                            <?php 
+                            $total= 0;
+                            for ($j = 0; $j < $nrows; $j++){
+                                $name =$res['PRODUCT_NAME'][$j];
+                                $image =$res['PRODUCT_IMAGE'][$j];
+                                $price =$res['PRICE'][$j];
+                                $quantity =$res['QUANTITY'][$j];
+                                $subtotal=$price*$quantity; 
+                                
+                            ?>
                                 <div class="invoice-product-card">
                                     <div class="invoice-product-card__left">
                                         <div class="invoice-product-card__left__image">
-                                            <img src="assets/images/spinach.jpg"/>
+                                            <img src="assets/images/ProductImage/<?php echo $image;?>"/>
                                         </div>
                                         <div class="invoice-product-card__left__desc">
                                             <div class="checkout-product-card__left__desc__name">
-                                                Spinach Kranrikari
+                                            <?php 
+                                            echo $name;
+                                            ?>
                                             </div>
                                             <div class="invoice-product-card__left__desc__rate">
-                                                Rs.112
+                                             £
+                                            <?php 
+                                            echo  $price;
+                                            ?>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="invoice-product-card__right">
                                         <div class="invoice-product-card__right__quantity">
-                                            x5
+                                            x 
+                                        <?php 
+                                        echo $quantity;
+                                        ?>
                                         </div>
                                         <div class="invoice-product-card__right__total">
-                                            Rs.1000
-                                        </div>
-                                    </div>
-                                </div>
-            
-                                <div class="invoice-product-card">
-                                    <div class="invoice-product-card__left">
-                                        <div class="invoice-product-card__left__image">
-                                            <img src="assets/images/spinach.jpg"/>
-                                        </div>
-                                        <div class="invoice-product-card__left__desc">
-                                            <div class="invoice-product-card__left__desc__name">
-                                                Spinach Kranrikari
-                                            </div>
-                                            <div class="invoice-product-card__left__desc__rate">
-                                                Rs.112
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="invoice-product-card__right">
-                                        <div class="invoice-product-card__right__quantity">
-                                            x5
-                                        </div>
-                                        <div class="invoice-product-card__right__total">
-                                            Rs.1000
-                                        </div>
-                                    </div>
-                                </div>
-            
-                                <div class="invoice-product-card">
-                                    <div class="invoice-product-card__left">
-                                        <div class="invoice-product-card__left__image">
-                                            <img src="assets/images/spinach.jpg"/>
-                                        </div>
-                                        <div class="invoice-product-card__left__desc">
-                                            <div class="invoice-product-card__left__desc__name">
-                                                Spinach Kranrikari
-                                            </div>
-                                            <div class="invoice-product-card__left__desc__rate">
-                                                Rs.112
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="invoice-product-card__right">
-                                        <div class="invoice-product-card__right__quantity">
-                                            x5
-                                        </div>
-                                        <div class="invoice-product-card__right__total">
-                                            Rs.1000
+                                        £
+                                        <?php 
+                                        echo number_format(($subtotal),2);
+                                        $total+= $subtotal; 
+                                        ?>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="invoice-product-card">
-                                    <div class="invoice-product-card__left">
-                                        <div class="invoice-product-card__left__image">
-                                            <img src="assets/images/spinach.jpg"/>
-                                        </div>
-                                        <div class="invoice-product-card__left__desc">
-                                            <div class="invoice-product-card__left__desc__name">
-                                                Spinach Kranrikari
-                                            </div>
-                                            <div class="invoice-product-card__left__desc__rate">
-                                                Rs.112
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="invoice-product-card__right">
-                                        <div class="invoice-product-card__right__quantity">
-                                            x5
-                                        </div>
-                                        <div class="invoice-product-card__right__total">
-                                            Rs.1000
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php 
+                            }
+                            ?>
+                                
 
                                 <div class="order__body__right__subtotal">
                                     <div class="order__body__right__subtotal__title">
                                         Sub Total
                                     </div>
                                     <div class="order__body__right__subtotal__price">
-                                        Rs.5322
+                                     £
+                                     <?php
+                                     echo $total; 
+                                     ?>
                                     </div>
                                 </div>
                             </div>
@@ -198,7 +167,10 @@
                             Order Total
                         </div>
                         <div class="payment-details__number"> 
-                            Rs. 5322
+                        £
+                        <?php
+                         echo $total; 
+                         ?>            
                         </div>
                     </div>
                     <div class="invoice-paymentmode">
@@ -207,7 +179,11 @@
                 </div>
             </div>
 
-
+<?php
+ $date= $row['DATE_OF_COLLECTION'];
+ $time= $row['TIMESLOT'];
+ 
+?>
 
 
             <!--Collection Details Section-->
@@ -218,25 +194,42 @@
                 
                 <div class="details-section">
                     <div class="details-section__body">
-                        <div class="invoice-customer-section__heading">
+                        <div class="invoice-customer-section__heading headingbold">
                             Date of Collection: 
                         </div>
                         <div class="invoice-customer-section__description">
-                            03/01/2022
+                            <?php
+                            echo $date; 
+                            ?>
                         </div>
                     </div>
 
                     <div class="details-section__body">
-                        <div class="invoice-customer-section__heading">
+                        <div class="invoice-customer-section__heading headingbold">
                             Time of Collection: 
                         </div>
                         <div class="invoice-customer-section__description">
-                            10:00 AM -1:00 PM
+                            <?php
+                            switch ($time) {
+                                case "morning": 
+                                    echo '6:00 - 12:00';
+                                    break;
+                                
+                                case "afternoon":
+                                    echo '12:00 - 13:00';
+                                    break;
+                                
+                                case "evening":
+                                    echo "15:00 - 18:00";
+                                    break;
+                            }
+
+                            ?>
                         </div>
                     </div>
 
                     <div class="details-section__body">
-                        <div class="invoice-customer-section__heading">
+                        <div class="invoice-customer-section__heading headingbold">
                             Collection Location: 
                         </div>
                         <div class="invoice-customer-section__description">
@@ -274,8 +267,4 @@
 
         </div>
     </div>
-        
-</body>
-</html>
-
-
+  

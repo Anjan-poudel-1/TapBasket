@@ -2946,6 +2946,10 @@ select {
   margin-top: 0.5rem;
 }
 
+.headingbold {
+  font-weight: 600;
+}
+
 .order-history {
   display: -webkit-box;
   display: -ms-flexbox;
