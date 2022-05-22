@@ -84,13 +84,8 @@
     
          &__right{
             flex: 1.7;
-            background-color: #ececec;
-            
             padding: 1rem;
-            border-left: 1px solid var(--input-border);
-
-        
-
+            
         &__subtotal{
             display: flex;
             font-size: $font-size-md;
