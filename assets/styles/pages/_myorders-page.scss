@@ -1,0 +1,54 @@
+.myorders-page{
+
+}
+
+.order-history{
+    display: flex;
+    gap: 2rem;
+    margin-top: 0.5rem;
+    background-color: var(--body-light-bg);
+
+    @media only screen and (max-width:$screen-md) {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    } 
+
+    &__details{
+       margin-left: 0.5rem;  
+    
+    }
+    &__table {
+    
+        width: 100%;
+    
+      }
+      
+      td, th {   
+        text-align: left;
+        padding: 0.5rem;
+      }
+    
+}
+
+
+
+table {
+    
+    width: 100%;
+
+  }
+  
+  td, th {   
+    text-align: left;
+    padding: 0.5rem;
+  }
+
+.showorder{
+    padding: 2rem;
+    font-size:$font-size-base;
+    font-weight: 700 ;
+    
+}
+
+

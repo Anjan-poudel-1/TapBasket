@@ -34,7 +34,16 @@ if(!(isset($_SESSION['isAuthenticated']) && $_SESSION['isAuthenticated']===true)
                 ?>
 
                 <div class="user-dashboard__content">
-                  
+                  <div class="section__header">
+                    <div class="section__header__heading">
+                       My Orders
+                    </div>
+                  </div>
+
+                  <?php
+                  include "./components/pages/OrderHistory/order-history.html"; 
+                  ?>
+                 
                 </div>   
                 
          </div>
