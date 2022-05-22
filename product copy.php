@@ -157,51 +157,32 @@ if (!(isset($_SESSION['user_id']))) {
                     <div class="ProductCart-wrapper__quantity">
                         <div class="ProductCart-wrapper__quantity__Title">Quantity:</div>
                         <div class="ProductCart-wrapper__quantity__Qty">
-                            <form class="indi-cartitem__right__quantity__button" method="POST">
+                            <div class="indi-cartitem__right__quantity__button">
                                     <!-- Minus button -->
-                                <button class="indi-cartitem__right__quantity__button__change product-cart-qty-button" type="submit" name="qty-button" value="minus">
+                                <div class="indi-cartitem__right__quantity__button__change">
                                         <svg width="10" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M15.5833 3.08334H0.416626V0.916672H15.5833V3.08334Z" fill="currentColor"/>
                                         </svg> 
-                                </button>  
+                                </div>  
                 
                                 <div class="indi-cartitem__right__quantity__button__num">
-                                        <?php
-                                        if(!isset($_POST['qty-button'])){
-                                            $qty=1;
-                                        }else
-                                        if(isset($_POST['qty-button'])){
-                                            $qtyAction=$_POST['qty-button'];
-                                            if($qtyAction=="minus"){
-                                                if($_POST['qty']>1){
-                                                    $qty=$_POST['qty']-1;
-                                                }else{
-                                                    $qty=1;
-                                                }
-                                            }
-                                            if($qtyAction=="plus"){
-                                                $qty=$_POST['qty']+1;
-                                            }
-                                        }
-                                        echo $qty;
-                                        ?>
-                                        <input type="text" name="qty" value="<?php echo $qty?>" hidden>
+                                        7
                                 </div> 
                                 
                                     <!-- Plus button -->
-                                <button class="indi-cartitem__right__quantity__button__change product-cart-qty-button" type="submit" name="qty-button" value="plus">
+                                <div class="indi-cartitem__right__quantity__button__change">
                                         <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M15.7832 9.08333H9.28325V15.5833H7.11658V9.08333H0.616577V6.91667H7.11658V0.416664H9.28325V6.91667H15.7832V9.08333Z" fill="currentColor"/>
                                         </svg>
                                         
-                                </button> 
-                            </form>
+                                </div> 
+                            </div>
                         </div>
                     </div>
                     <div class="ProductCart-wrapper__quantity__Stock Stock-Hide">Out of Stock</div>
                     <div class="ProductCart-wrapper__Total">
                         <div class="ProductCart-wrapper__Total__Currency">Total Price: &nbsp;&#163;</div>
-                        <div class="ProductCart-wrapper__Total__Amount"><?php echo ($row['PRICE']*$qty)?></div>
+                        <div class="ProductCart-wrapper__Total__Amount"><?php echo $row['PRICE']?></div>
                     </div>
                     
                     <div class="ProductCart-wrapper__buttons">
@@ -219,11 +200,9 @@ if (!(isset($_SESSION['user_id']))) {
                                 </div>
                             </a>
                             <?php } ?>
-                        <form class="ProductCart-wrapper__buttons__Add-Cart" method="POST">
-                            <input name="product_id" hidden value="<?php echo $id ?>">
-                            <input name="quantity" hidden value="<?php echo $qty ?>">
-                            <button class="btn primary-outline-btn card-btn" type="submit">Add to Cart</button> 
-                        </form>
+                        <div class="ProductCart-wrapper__buttons__Add-Cart">
+                            <button class="btn primary-outline-btn card-btn">Add to Cart</button> 
+                        </div>
                     </div>
                 </div>
             </div>

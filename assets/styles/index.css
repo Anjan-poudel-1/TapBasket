@@ -2327,12 +2327,14 @@ select {
 .ProductDetail-wrapper__name {
   font-size: 2rem;
   margin-bottom: 5px;
+  margin-top: 10px;
 }
 
 @media only screen and (max-width: 576px) {
   .ProductDetail-wrapper__name {
     font-size: 1.5rem;
     font-weight: 600;
+    margin-top: 0;
   }
 }
 
@@ -2344,7 +2346,7 @@ select {
   font-size: 2rem;
   color: #e1a825;
   margin-top: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .ProductDetail-wrapper__information__see-more button {
@@ -2354,6 +2356,13 @@ select {
   margin-left: 30%;
   border: none;
   margin-bottom: 5px;
+}
+
+.ProductDetail-wrapper__information__AllegryHeader {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .ProductCart-wrapper {
@@ -2703,7 +2712,10 @@ select {
 }
 
 .Review-Section__Existing-Reviews__One-Review__Profile-pic__pic {
-  width: 60%;
+  width: 75px;
+  height: 75px;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 50%;
   float: right;
   margin-right: 15px;
@@ -2743,6 +2755,10 @@ select {
 
 .Stock-Hide {
   display: none;
+}
+
+.product-cart-qty-button {
+  border: 0px;
 }
 
 .user-dashboard__content__wishListPage {
