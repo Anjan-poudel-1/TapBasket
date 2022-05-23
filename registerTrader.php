@@ -64,7 +64,6 @@
         $Tphone = trim($_POST['Tphone']);
         $addr = trim($_POST['addr']);
         $desc = trim($_POST['desc']);
-        $vcode = bin2hex(random_bytes(16));
 
 
         $shopname = trim($_POST['name']);
@@ -83,18 +82,17 @@
 
             if (!empty($Temail) && !empty($Tphone) && !empty($Tname)) {
                 if (!empty($shopaddress) && !empty($shopname) && !empty($shopphone) && !empty($desc) && !empty($product)) {
-                    $sql = "INSERT INTO USERS(username,email,vcode,phone_no,user_role) VALUES (:Tname,:email,:vcode,:phone_no,:Traderrole)";
+                    $sql = "INSERT INTO USERS(username,email,phone_no,user_role) VALUES (:Tname,:email,:phone_no,:Traderrole)";
                     $stid = (oci_parse($conn, $sql));
                     oci_bind_by_name($stid, ":Tname", $Tname);
                     oci_bind_by_name($stid, ":email", $Temail);
                     oci_bind_by_name($stid, ":phone_no", $Tphone);
                     oci_bind_by_name($stid, ":Traderrole", $role);
-                    oci_bind_by_name($stid, ":vcode", $vcode);
                     oci_execute($stid, OCI_NO_AUTO_COMMIT);
                     oci_commit($conn);
                     oci_free_statement($stid);
                     oci_close($conn);
-                    $statement = "INSERT INTO SHOP(shop_name,shop_address,shop_contact,product_category,shop_description) VALUES (:sname,:saddress,:sphone,:product,:sdesc)";
+                    $statement = "INSERT INTO SHOP_REQUEST(shop_name,shop_address,shop_contact,CATEGORY,SHOP_DESCRIPTION) VALUES (:sname,:saddress,:sphone,:product,:sdesc)";
                     $stid = (oci_parse($conn, $statement));
                     oci_bind_by_name($stid, ":sname", $shopname);
                     oci_bind_by_name($stid, ":saddress", $shopaddress);
@@ -105,33 +103,21 @@
                     oci_commit($conn);
                     oci_free_statement($stid);
                     oci_close($conn);
+
+                    if ($sql) {
+                        include './PHPMailer/emailtrader.php';
+                      }
                 }
-
-
-                if ($sql) {
-                    $to = $Temail;
-                    $sender = "shahirabina652@gmail.com";
-                    $subject = "Verify your email address";
-                    // $message = "Please verify your Account  <a href='login.php?id=".$vcode."'><button class='btn'> Click</button></a>";
-
-                    $message = "<a href='http://localhost/TapBasket/TapBasket/login.php?vcode=" . $vcode . "'>Verify Account</a>";
-                    // <button class='btn'> Verify account</button>
-
-
-
-                    // echo "= Please verify your Account <button> <a href='login.php?id=".$vcode."'>Verify</a></button>";
-
-
-
-                    $header = 'Thank you ' . $Tname . ' To register you must verify your account click below for registration.';
-                    if (mail($to, $subject, $message, $header)) {
-                        echo "Email sent";
-                    } else {
-                        echo "unable to send email";
-                    }
-                }
+                
             }
         }
+
+        echo "<script> alert('Register successfull');
+        window.setTimeout(function(){
+            window.location.href = 'index.php';
+
+        });
+        </script>";
     }
 
     ?>

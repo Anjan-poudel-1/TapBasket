@@ -31,3 +31,12 @@
     background-color: var(--cart-aside-border);
     margin-bottom: 1rem;
 }
+
+.empty-data{
+    text-align: center;
+    position: absolute;
+    top: 20%;
+    font-size: 2rem;
+    left: 50%;
+    transform: translate(-50%,-20%);
+}

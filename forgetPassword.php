@@ -1,32 +1,46 @@
 <?php
     include('connection.php');
 
+    function generateNumericOTP($n)
+    {
+    $generator = "1683579024";
+    $result = "";
+
+    for ($i = 1; $i <= $n; $i++) {
+        $result .= substr($generator, (rand() % (strlen($generator))), 1);
+    }
+
+    return $result;
+    }
+
     if(isset($_POST['emailSubmit']) && !empty($_POST['emailSubmit'])){
         $email=$_POST['email'];
+
         $sql= "SELECT * FROM USERS WHERE EMAIL ='$email'";
         $select = oci_parse($conn,$sql);
         oci_execute($select, OCI_NO_AUTO_COMMIT);  
         oci_commit($conn);    
-        
         $count= oci_fetch_all($select,$res);
-  
+
+
+        $vcode=generateNumericOTP(4);
+        $updateVcodeSql = "UPDATE USERS SET VCODE=:vcode WHERE EMAIL=:email";
+        $stidVcodeUpdate = oci_parse($conn,$updateVcodeSql);
+        oci_bind_by_name($stidVcodeUpdate, ':vcode', $vcode);
+        oci_bind_by_name($stidVcodeUpdate, ':email', $email);
+        oci_execute($stidVcodeUpdate, OCI_COMMIT_ON_SUCCESS);
+        oci_commit($conn);
+        oci_free_statement($stidVcodeUpdate);
+        oci_close($conn);
+
+       
+       
+        
+       
+       
     if($count>0){
-            $to=$email;
-            $sender="shahirabina652@gmail.com";
-            $subject="Verify your email address";
-            foreach ($res as $key => $value) {
-                if($key=="VCODE")
-                $vcode=$value[0]; 
-            }
-            $message=$vcode;
-            
-            $headers  = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-            
-            $header='Kindly use the OTP below to verify the account';
-            if(mail($to,$subject,$message, $header)){
-                echo"Email sent";
-            }
+          
+            include './PHPMailer/otpindex.php';
             $email = $_POST['email'];
             $sql= "SELECT * FROM users WHERE email = '$email'";
             $select = oci_parse($conn,$sql);

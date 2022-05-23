@@ -105,11 +105,12 @@ ul{
         margin-top: 1rem;
         display: flex;
         align-items: center;
-        gap: 1rem;
-        justify-content: space-between;
+        gap: 1.5rem;
+        // justify-content: space-between;
 
         @media only screen and (max-width:$screen-lg) {
            overflow: auto;
+           gap: 1rem;
         }
     }
 }

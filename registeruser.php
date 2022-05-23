@@ -13,6 +13,14 @@ function generateNumericOTP($n)
 
     return $result;
 }
+if(isset($_POST['login'])){
+    header('location:login.php');
+}
+if(isset($_POST['registerastrader'])){
+    header('location:registerTrader.php');
+}
+
+
 
 if (isset($_POST['userRegisterSubmit'])) {
     $email = $_POST['email'];
@@ -107,20 +115,7 @@ if (isset($_POST['userRegisterSubmit'])) {
             oci_close($conn);
 
             if ($sqli) {
-                $to = $email;
-                $sender = "shahirabina652@gmail.com";
-                $subject = "Verify your email address";
-                $message = $vcode;
-
-                $headers  = 'MIME-Version: 1.0' . "\r\n";
-                $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-
-                $header = 'Thank you ' . $fname . ' For registration. kindly find the OTP below';
-                if (mail($to, $subject, $message, $header)) {
-                    echo "Email sent";
-                } else {
-                    echo "unable to send email";
-                }
+               include './PHPMailer/otpindex.php';
                 $email = $_POST['email'];
                 $sql = "SELECT * FROM users WHERE email = '$email'";
                 $select = oci_parse($conn, $sql);
@@ -344,18 +339,6 @@ if (isset($_POST['userRegisterSubmit'])) {
                                 </div>
 
 
-                                <div class="login-form__content__body__other">
-
-                                    <div>
-                                        <input type="checkbox" id="remember-me" /> <span id="remember-me-text"> Remember me</span>
-                                    </div>
-                                    <div>
-                                        Forgot password?
-                                    </div>
-
-                                </div>
-
-
                             </div>
 
                             <div class="login-form__content__login">
@@ -373,20 +356,23 @@ if (isset($_POST['userRegisterSubmit'])) {
                                         Already have an account?
                                     </p>
 
-                                    <!-- Go to registration page -->
+                                    <!-- Go to login page -->
 
-                                    <button class="btn primary-btn form-btn">
-                                        Login
-                                    </button>
+                                
+                            <input type="submit" value="Login" class="btn primary-btn form-btn login-form__content__login" name="login">
+                        
+                                    
+                                   
                                 </div>
                                 <div>
                                     <p class="button-desc">
                                         Sell Product on TapBasket?
                                     </p>
-                                    <button class="btn primary-btn form-btn">
-                                        Register as Trader
 
-                                    </button>
+                                    <input type="submit" value="Register as Trader" class="btn primary-btn form-btn login-form__content__login" name="registerastrader">
+                                   
+                                  
+                                    
                                 </div>
                             </div>
                         </div>

@@ -2,7 +2,7 @@
 
 $user_id = $_SESSION['user_id'];
 $sql = "SELECT * FROM USERS WHERE USER_ID=$user_id";
-$stid = oci_parse($conn,$sql );
+$stid = oci_parse($conn,$sql);
 oci_execute($stid);
 
 while (($row = oci_fetch_object($stid)) != false) {

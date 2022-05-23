@@ -15,7 +15,7 @@ if (!(isset($_SESSION['user_id']))) {
     $LHPriceFlag=false;
     
     $search=$_GET['search'];
-    $sql = "SELECT * FROM PRODUCT WHERE PRODUCT_NAME LIKE '%$search%'";
+    $sql = "SELECT * FROM PRODUCT WHERE LOWER(PRODUCT_NAME) LIKE LOWER('%$search%')";
     
     if (isset($_POST['add-product'])) {
 
@@ -187,7 +187,7 @@ if (!(isset($_SESSION['user_id']))) {
                                 }
                             }
                             ?>> 
-                            <label for="Categories-1"><?php echo $category?></label><br>
+                            <label for="Categories-1"><?php echo ucfirst($category);?></label><br>
                             <?php } ?>
                             <br><input type="submit" value="Apply" class="btn primary-outline-btn">
                         </form>
