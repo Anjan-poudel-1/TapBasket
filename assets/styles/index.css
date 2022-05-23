@@ -2992,25 +2992,33 @@ select {
   margin-left: 0.5rem;
 }
 
-.order-history__table {
+.order-history__details__table {
   width: 100%;
 }
 
-.order-history td, .order-history th {
+@media only screen and (max-width: 576px) {
+  .order-history__details__table {
+    display: none;
+  }
+}
+
+.order-history__details__smallTable {
+  width: 100%;
+  display: none;
+}
+
+@media only screen and (max-width: 576px) {
+  .order-history__details__smallTable {
+    display: block;
+  }
+}
+
+.order-history__details td, .order-history__details th {
   text-align: left;
   padding: 0.5rem;
 }
 
-table {
-  width: 100%;
-}
-
-td, th {
-  text-align: left;
-  padding: 0.5rem;
-}
-
-.showorder {
+.order-history .showorder {
   padding: 2rem;
   font-size: 1rem;
   font-weight: 700;
