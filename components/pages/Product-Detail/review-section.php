@@ -67,6 +67,35 @@
                     </div>
 
                     <!--Adding Review Section-->
+                    <?php
+                    $canReviewFlag=false;
+                    if(isset($_SESSION['user_id']) && (isset($_SESSION['isAuthenticated']) && $_SESSION['isAuthenticated'] == true)){
+                        $user=$_SESSION['user_id'];
+                        $checkBoughtSQL="SELECT * FROM ORDERPLACE INNER JOIN ORDERLIST ON ORDERPLACE.ORDERPLACE_ID=ORDERLIST.ORDERPLACE_ID WHERE PRODUCT_ID=$id AND USER_ID=$user";
+                        $Boughtstid = oci_parse($conn, $checkBoughtSQL);
+                        oci_execute($Boughtstid);
+                        $BoughtRow=oci_fetch_all($Boughtstid, $BoughtRes);
+                        if($BoughtRow>=1 && $BoughtRes['PAYMENT_STATUS']==true){
+                            $reviewCheckSQL="SELECT * FROM REVIEW WHERE PRODUCT_ID=$id AND USER_ID=$user";
+                            $ReviewCheckstid = oci_parse($conn, $reviewCheckSQL);
+                            oci_execute($ReviewCheckstid);
+                            $ReviewCheckRow=oci_fetch_all($ReviewCheckstid, $BoughtRes);
+                            if($ReviewCheckRow<1){
+                                $canReviewFlag=true;
+                            }else{
+                                $canReviewFlag=false;
+                            }
+                        }else{
+                            $canReviewFlag=false;
+                        }
+                        
+                    }else{
+                        $canReviewFlag=false;
+                    }
+                    ?>
+
+
+
                     <div class="Review-Section__First-Row__Add-Review">
                         <div class="Review-Section__First-Row__Add-Review__Title">Add a Review</div>
                         <form class="Review-Section__First-Row__Add-Review__Form" type="POST">
@@ -83,8 +112,8 @@
                             <input type="radio" class="Review-Section__First-Row__Add-Review__Form__star-item" value="5" id="star5">
                             <label class="Review-Section__First-Row__Add-Review__Form__star-label" for="star5"> <img src="assets/images/star/filled-star.svg"> </label>
                             </div>
-                            <textarea class="Review-Section__First-Row__Add-Review__Form__Review-Text" placeholder="Write your review" value="Message"></textarea>
-                            <input type="submit" class="btn primary-outline-btn card-btn" id="submit-review">
+                            <textarea class="Review-Section__First-Row__Add-Review__Form__Review-Text" placeholder="Write your review" name="Message"></textarea>
+                            <input type="submit" class="btn primary-outline-btn card-btn" id="submit-review" <?php if(!$canReviewFlag){echo "disabled";}?>>
                         </form>
                     </div>
 

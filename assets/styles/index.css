@@ -2721,6 +2721,13 @@ select {
   margin-right: 15px;
 }
 
+@media only screen and (max-width: 768px) {
+  .Review-Section__Existing-Reviews__One-Review__Profile-pic__pic {
+    width: 50px;
+    height: 50px;
+  }
+}
+
 .Review-Section__Existing-Reviews__One-Review__Review-body {
   padding-top: 10px;
   padding-left: 5px;
@@ -2753,12 +2760,15 @@ select {
   margin-top: 15px;
 }
 
-.Stock-Hide {
-  display: none;
-}
-
 .product-cart-qty-button {
   border: 0px;
+}
+
+#submit-review:disabled {
+  cursor: not-allowed;
+  background-color: #d4d4d4;
+  color: #9e9e9e;
+  border: 1px solid #9e9e9e;
 }
 
 .user-dashboard__content__wishListPage {

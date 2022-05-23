@@ -1,6 +1,15 @@
 <?php
 include 'connection.php';
+if(isset($_GET['product-id'])){
+    $id=$_GET['product-id'];}
 SESSION_START();
+//checking if item is in stock
+$fetchquantityinStockSql2 = "SELECT QUANTITY_IN_STOCK FROM PRODUCT WHERE PRODUCT_ID = $id";
+$stidNew2 = oci_parse($conn, $fetchquantityinStockSql2);
+oci_execute($stidNew2);
+$rowStock=oci_fetch_array($stidNew2);
+$qty_in_stock_check = $rowStock['QUANTITY_IN_STOCK'];
+
 
 if (!(isset($_SESSION['cart']))) {
 
@@ -9,6 +18,104 @@ if (!(isset($_SESSION['cart']))) {
 if (!(isset($_SESSION['user_id']))) {
 
     $_SESSION['user_id'] = false;
+}
+//adding product to cart
+if (isset($_POST['add-product'])) {
+
+    $product_id = $_POST['product-id'];
+    $quantity = $_POST['quantity'];
+
+
+    //To validate.... check if quantity is int>0, product is in table
+    if ($quantity > 0 && filter_var($quantity, FILTER_VALIDATE_INT)) {
+        //if quantity is positive interger, proceed too buy
+
+
+        //We will be checking the stock availability from database. 
+        $fetchquantityinStockSql = "SELECT QUANTITY_IN_STOCK FROM PRODUCT
+        WHERE PRODUCT_ID = $product_id";
+
+        $stidNew = oci_parse($conn, $fetchquantityinStockSql);
+        oci_execute($stidNew);
+
+        while (oci_fetch($stidNew)) {
+            $qty_in_stock = oci_result($stidNew, 'QUANTITY_IN_STOCK');
+        }
+        $currentItemInCart = 0;
+        if (isset($_SESSION['cart'][$product_id])) {
+            $currentItemInCart = $_SESSION['cart'][$product_id];
+        }
+
+
+        //We have fetched current quantity of item in our cart and quantity total in stock.
+        //User should not be able to keep items in cart more than it is in stock.
+
+        if ($qty_in_stock < $currentItemInCart) {
+
+            //If item in stock=item in cart. User should not be able to add more
+
+            echo "<script>alert('You have already kept $qty_in_stock of it in your cart for this product. ITEM OUT OF STOCK!')</script>";
+        } else if($qty_in_stock+1 <= ($currentItemInCart+$quantity)){
+            echo "<script>alert('There are only $qty_in_stock left in stock, You have $currentItemInCart in your cart. Cannot add to cart')</script>";
+        }else {
+
+            if (isset($_SESSION['isAuthenticated']) && $_SESSION['isAuthenticated']) {
+
+                $user_id = $_SESSION['user_id'];
+
+                $sqlCheckIfAlreadyICart = "SELECT PRODUCT_ID,QUANTITY FROM CARTLIST WHERE USER_ID=:user_id AND PRODUCT_ID=:product_id";
+                $stidCheckIfAlreadyICart = oci_parse($conn, $sqlCheckIfAlreadyICart);
+                oci_bind_by_name($stidCheckIfAlreadyICart, ':user_id', $user_id);
+                oci_bind_by_name($stidCheckIfAlreadyICart, ':product_id', $product_id);
+                oci_execute($stidCheckIfAlreadyICart);
+
+
+                while (($row = oci_fetch_object($stidCheckIfAlreadyICart)) != false) {
+
+                    $isProductAlreadyPresent = $row->PRODUCT_ID;
+                    $currentQuantity = $row->QUANTITY;
+                }
+
+                if (isset($isProductAlreadyPresent) && $isProductAlreadyPresent) {
+
+                    //update quantity
+                    $sqlUpdateCart = "UPDATE CARTLIST 
+         
+            SET quantity=:quantity
+          
+           WHERE USER_ID=$user_id AND PRODUCT_ID=$product_id";
+
+                    $stidUpdateCart  = oci_parse($conn, $sqlUpdateCart);
+                    $tempQuantity = $quantity + $currentQuantity;
+                    oci_bind_by_name($stidUpdateCart, ':quantity', $tempQuantity);
+                    oci_execute($stidUpdateCart, OCI_COMMIT_ON_SUCCESS);
+                } else {
+
+                    //else insert
+                    $sqlInsertCart = "INSERT INTO CARTLIST(USER_ID,PRODUCT_ID,QUANTITY) VALUES ($user_id,$product_id,$quantity)";
+                    $stidInsert = oci_parse($conn, $sqlInsertCart);
+                    oci_execute($stidInsert, OCI_COMMIT_ON_SUCCESS);
+                }
+            }
+
+            //Session ma ta jasari pani upload hunu paryo 
+            //We are mapping index and quantity here.. the index represents productId and value represents quantity'
+
+            //If the item is already in the cart .. update it.. else just add to cart
+            if (isset($_SESSION['cart'][$product_id])) {
+                $_SESSION['cart'][$product_id] += $quantity;
+            } else {
+                $_SESSION['cart'][$product_id] = $quantity;
+            }
+        }
+    } else {
+        echo '<script>alert("Invalid input to the cart")</script>';
+    }
+}
+$stockOutFlag=false;
+
+if($qty_in_stock_check<=0){
+    $stockOutFlag=true;
 }
 ?>
 <!DOCTYPE html>
@@ -45,6 +152,7 @@ if (!(isset($_SESSION['user_id']))) {
         <div class="container page__body">
 
         <?php
+        //Getting Product and Shop Details
         if(isset($_GET['product-id'])){
             $id=$_GET['product-id'];
             
@@ -132,8 +240,7 @@ if (!(isset($_SESSION['user_id']))) {
                         $words=str_word_count($str,2);
                         $pos=array_keys($words);
                         echo substr($str,0,$pos[30]).'...';
-                    }
-                    else{
+                    }else{
                         $viewButtonText="Less";
                         echo $row['PRODUCT_DESCRIPTION'];
                     ?>
@@ -198,7 +305,7 @@ if (!(isset($_SESSION['user_id']))) {
                             </form>
                         </div>
                     </div>
-                    <div class="ProductCart-wrapper__quantity__Stock Stock-Hide">Out of Stock</div>
+                    <div class="ProductCart-wrapper__quantity__Stock Stock-Hide" <?php if(!$stockOutFlag){ echo 'hidden';}?>>Out of Stock</div>
                     <div class="ProductCart-wrapper__Total">
                         <div class="ProductCart-wrapper__Total__Currency">Total Price: &nbsp;&#163;</div>
                         <div class="ProductCart-wrapper__Total__Amount"><?php echo ($row['PRICE']*$qty)?></div>
@@ -220,9 +327,9 @@ if (!(isset($_SESSION['user_id']))) {
                             </a>
                             <?php } ?>
                         <form class="ProductCart-wrapper__buttons__Add-Cart" method="POST">
-                            <input name="product_id" hidden value="<?php echo $id ?>">
+                            <input name="product-id" hidden value="<?php echo $id ?>">
                             <input name="quantity" hidden value="<?php echo $qty ?>">
-                            <button class="btn primary-outline-btn card-btn" type="submit">Add to Cart</button> 
+                            <button class="btn primary-outline-btn card-btn" type="submit" name="add-product" <?php if($stockOutFlag){ echo "disabled";} ?>>Add to Cart</button> 
                         </form>
                     </div>
                 </div>
