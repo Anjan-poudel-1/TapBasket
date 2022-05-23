@@ -160,11 +160,6 @@ if (isset($_GET['category']) && isset($_GET['product_id']) && isset($_GET['type'
             include './components/pages/home/banner.php';
             ?>
 
-            <?php
-            echo "<pre>";
-            print_r($_SESSION['cart']);
-            echo "</pre>";
-            ?>
 
             <!-- Top Deals Section -->
             <?php

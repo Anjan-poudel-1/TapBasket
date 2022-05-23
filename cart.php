@@ -184,7 +184,7 @@ if (isset($_GET['category']) && isset($_GET['product_id']) && isset($_GET['type'
 
             if (count($_SESSION['cart']) == 0) {
                 echo
-                "<div class='empty-state'>Your Cart Is Empty</div>";
+                "<div class='empty-data empty-state'>Your Cart Is Empty</div>";
             } else {
 
             ?>

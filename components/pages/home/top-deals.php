@@ -18,20 +18,20 @@
                 Top Deals
 
             </div>
-
+            <a href="maintopdeal.php">
             <div class="section__header__view-all">
 
                 View All
 
             </div>
-
+          </a>
         </div>
 
         <div class="section__card-body">
 
             <?php
 
-            $sql = "SELECT * FROM PRODUCT WHERE IS_DISABLED='false'";
+            $sql = "SELECT * FROM PRODUCT P INNER JOIN DISCOUNT D ON P.PRODUCT_ID=D.PRODUCT_ID WHERE IS_DISABLED='false'";
             $stid = oci_parse($conn, $sql);
             oci_execute($stid);
 

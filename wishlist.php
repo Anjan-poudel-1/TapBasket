@@ -189,7 +189,7 @@ if (isset($_GET['category']) && isset($_GET['product_id']) && isset($_GET['type'
             // $count=0;
 
             if($numrows==0){
-                    echo "No Saved Items";
+                    echo "<div>No Saved Items</div>";
             }
             else{
 

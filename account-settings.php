@@ -250,7 +250,7 @@ while (($row = oci_fetch_object($stid)) != false) {
         </script>";
        
     }else{
-        echo "Couldnot enter the data in database";
+        // echo "Couldnot enter the data in database";
     }
 
   }

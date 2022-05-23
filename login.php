@@ -35,20 +35,14 @@ include("connection.php");
        
         //Here $res is the response fetched..... 
         $count= oci_fetch_all($stid,$res);
-        // $count=oci_num_rows($stid);
-
-        // echo $res;
-        // var_dump($res);
-        //  print_r($res);
-        foreach ($res as $key => $value) {
-            if($key=="USER_ID"){
-
-                echo $key;
-                print_r($value);
-                $user_id=$value[0];
-            }
-        }
+   
+       
         if ($count==1) {
+            foreach ($res as $key => $value) {
+                if($key=="USER_ID"){
+                    $user_id=$value[0];
+                }
+            }
             $_SESSION['isAuthenticated']=true;
             $_SESSION['user_id']=$user_id;
             $passworderr = "";
@@ -91,6 +85,10 @@ include("connection.php");
         oci_free_statement($stid);
         oci_close($conn);
   }
+}
+
+if(isset($_POST['signup'])){
+    header('location:registeruser.php');
 }
 ?>
 
@@ -225,11 +223,9 @@ include("connection.php");
                             </div>
                             
                             <!-- Go to registration page -->
-                            <a href="registeruser.php">
-                            <button class="btn primary-btn form-btn">
-                                Sign Up
-                            </button>
-                            </a>
+                            <div class="login-form__content__login">
+                            <input type="submit" value="Sign Up" class="btn primary-btn form-btn" name="signup">
+                            </div>
                     </div>
                 </div>
                 </form>
