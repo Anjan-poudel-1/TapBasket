@@ -152,7 +152,7 @@ if (isset($_GET['category']) && isset($_GET['product_id']) && isset($_GET['type'
         ?>
 
         <div class="container page__body">
-            
+
 
             <!-- Banner Section -->
 

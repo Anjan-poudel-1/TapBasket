@@ -18,7 +18,7 @@ if (isset($_GET['product_id']) && isset($_GET['qty']) && isset($_GET['type'])) {
     $product_id = $_GET['product_id'];
     $quantity = $_GET['qty'];
     $type = $_GET['type'];
-
+    //Checking stock of product
     $sql = "SELECT * FROM PRODUCT WHERE IS_DISABLED='false' AND PRODUCT_ID=$product_id";
     $stid = oci_parse($conn, $sql);
     oci_execute($stid);

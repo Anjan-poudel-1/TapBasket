@@ -1,3 +1,15 @@
+<?php
+SESSION_START();
+include("connection.php");
+
+if(!(isset($_SESSION['isAuthenticated']) && $_SESSION['isAuthenticated']===true) ){
+
+    header ('location:index.php');
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,8 +25,8 @@
          <?php
         include './components/navbars/primary-navbar.php';
         ?>
-<div class="container page__body">
-<div class="user-dashboard">
+        <div class="container page__body">
+        <div class="user-dashboard">
                 <?php
                   $pageName="order";
                 include './components/pages/AccountSettings/userNavbar.php';
@@ -22,15 +34,22 @@
                 ?>
 
                 <div class="user-dashboard__content">
-                  <?php 
-                    include './components/pages/OrderHistory/order-history.html';
+                  <div class="section__header">
+                    <div class="section__header__heading">
+                       My Orders
+                    </div>
+                  </div>
+
+                  <?php
+                  include "./components/pages/OrderHistory/order-history.html"; 
                   ?>
+                 
                 </div>   
-               
-            </div>
-            
-</div>
-</div>
+                
+         </div>
+        </div>
+          
+      </div>
 </div>
     
  <!-- Page Footers -->

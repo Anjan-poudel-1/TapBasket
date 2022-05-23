@@ -8,44 +8,46 @@
     <link rel="stylesheet" href="./assets/styles/index.css">
 </head>
 <body>
-        <div class="container page__body">
-            <div class="section__header"> 
-                <div class="section__header__heading"> 
-                    Order History 
-                </div>  
-            </div>
-            
-            <div class="order-history-description">
-                Your order history and purchase information    
-            </div>
-            <div class="order_filter">
-                <select>
-                    <option value="">
-                        <div class="filter-title">
-                            Order Filter
-                        </div>
-                        <div class="filter-title">
-                            All Orders
-                        </div>
-                    </option>
-                    <option value="">
-                        7 days
-                    </option>
-                    <option value="">
-                        15 days
-                    </option>
-                    <option value="">
-                       1 month
-                    </option>
-                    <option value="">
-                        3 months
-                    </option>
-                </select>  
-            </div>
-
-
-               
+    
+        <div class="order-history-description">
+            Your order history and purchase information    
         </div>
 
+        
+        <div class="order-history">
+               <div class="order-history__details">
+                   <table class="order-history__details__table" >
+                       <tr>
+                           <th>Order No</th>
+                           <th> Status</th>
+                           <th> Total</th>
+                           <th> Collection Date</th>
+                           <th> Collection Slot</th>
+                       </tr>
+
+                       <tr>
+                           <td> ORD3</td>
+                           <td> Completed</td>
+                           <td> £20.49</td>
+                           <td> 2 June 2022</td>
+                           <td> 6:00 - 12:00</td>
+                       </tr>
+
+                   </table>
+               </div>
+                    
+                 
+                <div class="showorder">
+                    
+                    <a href="../invoice.php">View Invoice</a>
+                    
+                    
+                </div>
+
+               
+
+            
+        </div>
+            
 </body>
 </html>

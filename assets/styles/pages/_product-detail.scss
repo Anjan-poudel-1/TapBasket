@@ -62,10 +62,12 @@
     &__name{
         font-size: $font-size-xl;
         margin-bottom: 5px;
+        margin-top: 10px;
 
         @media only screen and (max-width:$screen-sm){
             font-size: $font-size-lg;
             font-weight: $font-weight-bold;
+            margin-top: 0;
         }
 
     }
@@ -77,7 +79,7 @@
         font-size: $font-size-xl;
         color: $primary-color;
         margin-top: 15px;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
 
     &__information{
@@ -88,6 +90,12 @@
             margin-left: 30%;
             border: none;
             margin-bottom: 5px;
+        }
+        &__AllegryHeader{
+            font-size: $font-size-md;
+            font-weight: 500;
+            margin-top: 20px;
+            margin-bottom: 10px;
         }
         
     }
@@ -351,10 +359,16 @@
                 width: 100%;
 
                 &__pic{
-                    width: 60%;
+                    width: 75px;
+                    height: 75px;
+                    object-fit: cover;
                     border-radius: 50%;
                     float: right;
                     margin-right: 15px;
+                    @media only screen and (max-width:$screen-md){
+                        width: 50px;
+                        height: 50px;
+                    }
                 }
             }
 
@@ -388,8 +402,13 @@
     margin-top: 15px;
 }
 
-.Stock-Hide{
-    display: none;
+.product-cart-qty-button{
+    border: 0px;
 }
 
-
+#submit-review:disabled{
+    cursor: not-allowed;
+    background-color: $gray-300;
+    color: $gray-400;
+    border: 1px solid $gray-400;
+}
