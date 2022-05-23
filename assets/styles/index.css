@@ -115,15 +115,13 @@ ul {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 1rem;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  gap: 1.5rem;
 }
 
 @media only screen and (max-width: 992px) {
   .section__card-body {
     overflow: auto;
+    gap: 1rem;
   }
 }
 
@@ -1833,7 +1831,7 @@ select {
 .empty-data {
   text-align: center;
   position: absolute;
-  top: 50%;
+  top: 20%;
   font-size: 2rem;
   left: 50%;
   -webkit-transform: translate(-50%, -20%);
