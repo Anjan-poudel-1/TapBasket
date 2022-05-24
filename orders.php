@@ -1,6 +1,7 @@
 <?php
 SESSION_START();
 include("connection.php");
+$user_id = $_SESSION['user_id'];
 
 if(!(isset($_SESSION['isAuthenticated']) && $_SESSION['isAuthenticated']===true) ){
 
@@ -41,7 +42,7 @@ if(!(isset($_SESSION['isAuthenticated']) && $_SESSION['isAuthenticated']===true)
                   </div>
 
                   <?php
-                  include "./components/pages/OrderHistory/order-history.html"; 
+                  include "./components/pages/OrderHistory/order-history.php"; 
                   ?>
                  
                 </div>   

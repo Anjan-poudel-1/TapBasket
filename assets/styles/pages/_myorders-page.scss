@@ -17,32 +17,38 @@
     &__details{
        margin-left: 0.5rem;  
     
-    }
+    
     &__table {
     
         width: 100%;
+        @media only screen and (max-width:$screen-sm){
+          display: none;
+         
+      }
     
+      }
+    &__smallTable{
+        width: 100%;
+        display: none;
+        
+        
+        @media only screen and (max-width:$screen-sm){
+          display: block;
+         
+          
+          
+           }
       }
       
-      td, th {   
+      td, th {  
+        
         text-align: left;
         padding: 0.5rem;
-      }
-    
+        
+    }
 }
 
 
-
-table {
-    
-    width: 100%;
-
-  }
-  
-  td, th {   
-    text-align: left;
-    padding: 0.5rem;
-  }
 
 .showorder{
     padding: 2rem;
@@ -50,5 +56,4 @@ table {
     font-weight: 700 ;
     
 }
-
-
+}
