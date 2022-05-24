@@ -3401,6 +3401,23 @@ select {
   width: 200px;
 }
 
+.trader-header {
+  margin-bottom: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.trader-header__title {
+  font-size: 2rem;
+}
+
 .shop-header {
   display: -webkit-box;
   display: -ms-flexbox;

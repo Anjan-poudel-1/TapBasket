@@ -34,6 +34,10 @@ include('connection.php');
         <div class="container page__body">
 
 
+            <div class="trader-header"> 
+                My Products
+            </div>
+
             <?php
             $userId = $_SESSION['user_id'];
             $sql = "SELECT SHOP_NAME,SHOP_ID FROM SHOP_REQUEST INNER JOIN SHOP ON SHOP_REQUEST.SHOP_REQUEST_ID = SHOP.SHOP_REQUEST_ID WHERE SHOP_REQUEST.USER_ID = $userId";
@@ -89,7 +93,7 @@ include('connection.php');
                             <td> Price</td>
                             <td> Unit</td>
                             <td> is Disabled</td>
-                            <td> View</td>
+                            <td> View/Edit</td>
                         </tr>
 
 
