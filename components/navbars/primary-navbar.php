@@ -29,7 +29,7 @@ if( $_SESSION['isAuthenticated']){
         
     }
 }
-
+$isCustomer = true;
 
 //WILL NEED TO REMOVE THISS
 if(isset($_SESSION['role'])){

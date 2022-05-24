@@ -46,6 +46,12 @@
     padding: 0.45rem 1rem;
     width: 400px;
     border-radius: 5px;
+    form{
+        width: 100%;
+        .primary-navbar__content__search__field{
+            width: 100%;
+        }
+    }
 
     @media only screen and (max-width:$screen-lg) {
         display: none;

@@ -301,6 +301,14 @@ a {
   border-radius: 5px;
 }
 
+.primary-navbar__content__search form {
+  width: 100%;
+}
+
+.primary-navbar__content__search form .primary-navbar__content__search__field {
+  width: 100%;
+}
+
 @media only screen and (max-width: 992px) {
   .primary-navbar__content__search {
     display: none;
@@ -489,7 +497,7 @@ a {
 }
 
 .nav-dropdown--products {
-  bottom: -200px;
+  bottom: -250px;
   left: 0;
 }
 
