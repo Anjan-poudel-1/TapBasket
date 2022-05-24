@@ -506,6 +506,10 @@ a {
   left: -182px;
 }
 
+.nav-dropdown--trader {
+  bottom: -100px;
+}
+
 .nav-dropdown__lists {
   background-color: var(--navbar-product-hover-bg);
   border-radius: 0 0 8px 8px;
