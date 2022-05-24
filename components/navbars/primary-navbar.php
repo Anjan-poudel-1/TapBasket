@@ -64,22 +64,20 @@ if( $_SESSION['isAuthenticated']){
                         </div>
                         <div class="nav-dropdown nav-dropdown--products">
                             <ul class="nav-dropdown__lists nav-links__products__lists">
+                                <?php
+                                $navCatSQL = "SELECT SHOP_REQUEST.CATEGORY FROM SHOP INNER JOIN SHOP_REQUEST ON SHOP.SHOP_REQUEST_ID = SHOP_REQUEST.SHOP_REQUEST_ID";
+                                $navParseCat = oci_parse($conn, $navCatSQL);
+                                oci_execute($navParseCat);
+                                $navCatRow = oci_fetch_all($navParseCat, $navResCat);
+
+                                for ($navIt = 0; $navIt < $navCatRow; $navIt++){
+                                $navCategory= $navResCat['CATEGORY'][$navIt];
+                                ?>
+                                <li class="nav-dropdown__lists__list">
+                                    <a href="./filter.php?search=<?php echo $navCategory; ?>"><?php echo ucfirst($navCategory);?></a>
+                                </li>
+                                <?php } ?>  
                                 
-                                <li class="nav-dropdown__lists__list">
-                                    Fish Monger
-                                </li>
-                                <li class="nav-dropdown__lists__list">
-                                    Green Grocesser
-                                </li>
-                                <li class="nav-dropdown__lists__list">
-                                    Aru koi 
-                                </li>
-                                <li class="nav-dropdown__lists__list">
-                                    Mero pasal
-                                </li>
-                                <li class="nav-dropdown__lists__list">
-                                    New shop
-                                </li>
                             </ul>
                        
                         </div>
