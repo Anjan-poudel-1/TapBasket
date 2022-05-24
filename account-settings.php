@@ -278,6 +278,7 @@ while (($row = oci_fetch_object($stid)) != false) {
             <div class="user-dashboard">
                 <?php
                  $pageName="settings";
+                 $isCustomer &&
                 include './components/pages/AccountSettings/userNavbar.php';
                 
                 ?>
@@ -329,6 +330,7 @@ while (($row = oci_fetch_object($stid)) != false) {
 
     <!-- Page Footers -->
     <?php
+     
         include './components/resuables/page-footer.php';
     ?>
 

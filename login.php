@@ -27,7 +27,7 @@ include("connection.php");
 
     if(!empty($email) && !empty($password)){
         $password=md5($password);
-        $sql = "SELECT * FROM USERS WHERE email = '$email' AND password ='$password' AND IS_DISABLED='false' and USER_ROLE='customer'";
+        $sql = "SELECT * FROM USERS WHERE email = '$email' AND password ='$password' AND IS_DISABLED='false'";
 
         $stid=(oci_parse($conn,$sql));
         oci_execute($stid, OCI_NO_AUTO_COMMIT);  
@@ -41,6 +41,9 @@ include("connection.php");
             foreach ($res as $key => $value) {
                 if($key=="USER_ID"){
                     $user_id=$value[0];
+                }
+                if($key=="USER_ROLE"){
+                    $_SESSION['role'] = $value[0];
                 }
             }
             $_SESSION['isAuthenticated']=true;

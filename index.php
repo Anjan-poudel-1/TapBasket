@@ -13,6 +13,10 @@ if (!(isset($_SESSION['user_id']))) {
 
 include('./connection.php');
 
+if( (isset($_SESSION['role']) && $_SESSION['role']=='trader')){
+header('location:./myProducts.php');
+}
+
 //YEsma chai .. after login.. check the cartlist...
 //through array add every item to the local i.e. session cart
 if (isset($_POST['add-product'])) {

@@ -31,6 +31,16 @@ if( $_SESSION['isAuthenticated']){
 }
 
 
+//WILL NEED TO REMOVE THISS
+if(isset($_SESSION['role'])){
+    if($_SESSION['role']=='trader'){
+        $isCustomer=false;
+    }
+    else{
+        $isCustomer = true;
+    }
+}
+
 
 
 ?>

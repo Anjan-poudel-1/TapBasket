@@ -1,0 +1,12 @@
+.shop-header{
+    display: flex;
+    margin-bottom: 2rem;
+    justify-content: space-between;
+    align-items: center;
+    &__info{
+        font-size: 1.5rem;
+    }
+}
+.product-table{
+    margin-bottom: 2rem;
+}
