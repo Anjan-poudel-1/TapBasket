@@ -71,6 +71,7 @@
         $shopphone = trim($_POST['phone']);
         $product = trim($_POST['product']);
         $desc = trim($_POST['desc']);
+        $disable="true";
 
         $sql = "SELECT * FROM users WHERE email = '$Temail'";
         $select = oci_parse($conn, $sql);
@@ -82,16 +83,16 @@
 
             if (!empty($Temail) && !empty($Tphone) && !empty($Tname)) {
                 if (!empty($shopaddress) && !empty($shopname) && !empty($shopphone) && !empty($desc) && !empty($product)) {
-                    $sql = "INSERT INTO USERS(username,email,phone_no,user_role) VALUES (:Tname,:email,:phone_no,:Traderrole)";
+                    $sql = "INSERT INTO USERS(username,email,phone_no,user_role,IS_DISABLED) VALUES (:Tname,:email,:phone_no,:Traderrole,:isdisabled)";
                     $stid = (oci_parse($conn, $sql));
                     oci_bind_by_name($stid, ":Tname", $Tname);
                     oci_bind_by_name($stid, ":email", $Temail);
                     oci_bind_by_name($stid, ":phone_no", $Tphone);
                     oci_bind_by_name($stid, ":Traderrole", $role);
+                    oci_bind_by_name($stid, ":isdisabled", $disable);
                     oci_execute($stid, OCI_NO_AUTO_COMMIT);
-                    oci_commit($conn);
-                    oci_free_statement($stid);
-                    oci_close($conn);
+                    
+
                     $statement = "INSERT INTO SHOP_REQUEST(shop_name,shop_address,shop_contact,CATEGORY,SHOP_DESCRIPTION) VALUES (:sname,:saddress,:sphone,:product,:sdesc)";
                     $stid = (oci_parse($conn, $statement));
                     oci_bind_by_name($stid, ":sname", $shopname);
@@ -107,17 +108,24 @@
                     if ($sql) {
                         include './PHPMailer/emailtrader.php';
                       }
-                }
-                
-            }
-        }
 
-        echo "<script> alert('Register successfull');
+                      echo "<script> alert('Register successfull');
         window.setTimeout(function(){
             window.location.href = 'index.php';
 
         });
         </script>";
+                }else{
+                    echo "Problem inserting shop details";
+                }
+                
+            }else{
+                echo "problem inserting trader details";
+            }
+            
+        }
+
+        
     }
 
     ?>
@@ -193,7 +201,7 @@
                                                                     if (isset($phoneerr)) {
                                                                         echo " form-control__input--error";
                                                                     }
-                                                                    ?>" placeholder="+977" name="Tphone" value="<?php
+                                                                    ?>" placeholder="+44" name="Tphone" value="<?php
                                                                         if (isset($_POST['Tphone'])) {
                                                                             echo $_POST['Tphone'];
                                                                         }
@@ -266,7 +274,7 @@
                                                                     if (isset($phoneerr)) {
                                                                         echo " form-control__input--error";
                                                                     }
-                                                                    ?>" placeholder="+977" name="phone" value="<?php
+                                                                    ?>" placeholder="+44" name="phone" value="<?php
                                                                         if (isset($_POST['phone'])) {
                                                                             echo $_POST['phone'];
                                                                         }

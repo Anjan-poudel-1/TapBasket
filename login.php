@@ -93,6 +93,10 @@ include("connection.php");
 if(isset($_POST['signup'])){
     header('location:registeruser.php');
 }
+
+if(isset($_POST['registerastrader'])){
+    header('location:registerTrader.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -220,16 +224,42 @@ if(isset($_POST['signup'])){
                          
                     </div>
 
-                    <div class="login-form__content__signup">
+                    <!-- <div class="login-form__content__signup">
                             <div class="button-desc">
                                 New to TapBasket?
-                            </div>
+                            </div> -->
                             
                             <!-- Go to registration page -->
-                            <div class="login-form__content__login">
+                            <!-- <div class="login-form__content__login">
                             <input type="submit" value="Sign Up" class="btn primary-btn form-btn" name="signup">
                             </div>
-                    </div>
+                    </div> -->
+
+                    <div class="login-form__content__signup flex_container">
+                                <div>
+                                    <p class="button-desc">
+                                        User Account
+                                    </p>
+
+                                    <!-- Go to login page -->
+
+                                
+                            <input type="submit" value="User Register" class="btn primary-btn form-btn login-form__content__login" name="signup">
+                        
+                                    
+                                   
+                                </div>
+                                <div>
+                                    <p class="button-desc">
+                                        Sell Product on TapBasket?
+                                    </p>
+
+                                    <input type="submit" value="Register as Trader" class="btn primary-btn form-btn login-form__content__login" name="registerastrader">
+                                   
+                                  
+                                    
+                                </div>
+                            </div>
                 </div>
                 </form>
 

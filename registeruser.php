@@ -243,7 +243,7 @@ if (isset($_POST['userRegisterSubmit'])) {
                                                                     if (isset($phoneerr)) {
                                                                         echo " form-control__input--error";
                                                                     }
-                                                                    ?>" placeholder="+977" name="phone" value="<?php
+                                                                    ?>" placeholder="+44" name="phone" value="<?php
                                                                         if (isset($_POST['phone'])) {
                                                                             echo $_POST['phone'];
                                                                         }
