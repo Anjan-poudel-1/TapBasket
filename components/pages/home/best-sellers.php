@@ -34,22 +34,12 @@
             oci_execute($stidorder);
             $nrows = oci_fetch_all($stidorder, $res);
 
+                // echo $nrows;
+                // print_r($res);
+
             // print_r($res);
-            $resId=$res['PRODUCT_ID'];
-            // print_r($resId);
-
-            foreach ($resId as $key => $value) {
-            $sql = "SELECT * FROM PRODUCT WHERE IS_DISABLED='false'and PRODUCT_ID=$value";
-            $stid = oci_parse($conn, $sql);
-            oci_execute($stid);
-
-            $nrows = oci_fetch_all($stid, $res);
-
-
-            // echo($nrows);
-            // $count=0;
-
-
+            $productIds=$res['PRODUCT_ID'];
+            $quantities = $res['MAXPRODUCT'];
 
 
             //To  limit the data to 5 cards ...
@@ -57,7 +47,19 @@
                 $nrows = 5;
             }
 
+
+            // print_r($resId);
+           
             for ($i = 0; $i < $nrows; $i++) {
+
+            $tempId = $productIds[$i];
+             
+            $sql = "SELECT * FROM PRODUCT WHERE IS_DISABLED='false'and PRODUCT_ID=$tempId";
+            $stid = oci_parse($conn, $sql);
+            oci_execute($stid);
+
+            $nrowsNew = oci_fetch_all($stid, $res);
+            // $count=0;
 
             ?>
                 <div class="product-card">
@@ -68,13 +70,13 @@
 
                         <!-- //image -->
                         <?php
-                        $product_name = $res['PRODUCT_NAME'][$i];
-                        $product_id = $res['PRODUCT_ID'][$i];
-                        $product_desc = $res['PRODUCT_DESCRIPTION'][$i];
-                        $product_image = $res['PRODUCT_IMAGE'][$i];
-                        $product_stock = $res['QUANTITY_IN_STOCK'][$i];
-                        $price = $res['PRICE'][$i];
-                        $shop_id = $res['SHOP_ID'][$i];
+                        $product_name = $res['PRODUCT_NAME'][0];
+                        $product_id = $res['PRODUCT_ID'][0];
+                        $product_desc = $res['PRODUCT_DESCRIPTION'][0];
+                        $product_image = $res['PRODUCT_IMAGE'][0];
+                        $product_stock = $res['QUANTITY_IN_STOCK'][0];
+                        $price = $res['PRICE'][0];
+                        $shop_id = $res['SHOP_ID'][0];
                         $discountPrice = 0;
 
                         $fetchShopNameSql = "SELECT SHOP_NAME 
@@ -293,7 +295,7 @@
 
             <?php
             }
-        }
+        
             ?>
 
 
