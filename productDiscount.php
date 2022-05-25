@@ -34,9 +34,14 @@ include('connection.php');
     <div class="trader-header__title">
     Discount Deals
     </div>
+    <a href="productDiscountDetails.php?type=add">
+        
     <div class="btn primary-btn trader-header__button">
+    
     Add Data
     </div>
+    
+    </a>
 </div>
 
 <?php
@@ -69,7 +74,7 @@ include('connection.php');
                             <td> Product Name</td>
                             <td> Actual Price</td>
                             <td> Discount Price</td>
-                            <td> ACtion</td>
+                            <td> Action</td>
                         </tr>
                         <?php
                             for($i =0 ; $i<$numrows;$i++){
@@ -85,7 +90,7 @@ include('connection.php');
                             <td> <?php echo '£'.$product_price ?></td>
                             <td> <?php echo '£'.$product_discount?></td>
                             <td> 
-                            <a href="productDiscountDetails.php?product-id=<?php echo $product_id?>&type=edit">
+                            <a class="btn primary-btn" href="productDiscountDetails.php?product-id=<?php echo $product_id?>&type=edit">
                                 View/Edit
                             </a>
                             </td>

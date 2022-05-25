@@ -35,7 +35,10 @@ include('connection.php');
 
 
             <div class="trader-header"> 
-                My Products
+            <div class="trader-header__title">
+            My Products
+    </div>
+               
             </div>
 
             <?php
@@ -82,7 +85,7 @@ include('connection.php');
 
             ?>
                 <div class="product-table">
-                    <table border="1">
+                    <table>
                         <tr>
                             <td> Id</td>
                             <td> Product Name</td>
@@ -93,7 +96,7 @@ include('connection.php');
                             <td> Price</td>
                             <td> Unit</td>
                             <td> is Disabled</td>
-                            <td> View/Edit</td>
+                            <td> Action</td>
                         </tr>
 
 
@@ -122,8 +125,11 @@ include('connection.php');
                                 <td>
                                     <?php echo $product_names[$i] ?>
                                 </td>
-                                <td>
+                                <td >
+                                    <div class="limit-height">
                                     <?php echo $product_descs[$i] ?>
+                                    </div>
+                                  
                                 </td>
                                 <td>
                                     <?php echo $product_images[$i] ?>
@@ -144,8 +150,8 @@ include('connection.php');
                                     <?php echo $product_disableds[$i] ?>
                                 </td>
                                 <td>
-                                <a href="myProductDetails.php?product-id=<?php echo $product_ids[$i]?>&type=edit">
-                                    Details    
+                                <a class="btn primary-btn" href="myProductDetails.php?product-id=<?php echo $product_ids[$i]?>&type=edit">
+                                    View/Edit   
                                 </a>
                                 </td>
                                 
