@@ -241,7 +241,7 @@
                                     <img src="assets/images/star/filled-star.svg" />
                                 </div>
                             <?php } ?>
-                                <div class="indi-star">
+                                <div class="indi-star half-star">
                                     <img src="assets/images/star/half-star.svg"/>
                                 </div>
                                 <?php
@@ -269,7 +269,7 @@
                                         <div class="indi-star">
                                             <img src="assets/images/star/filled-star.svg"/>
                                         </div> <?php } ?>
-                                        <div class="indi-star">
+                                        <div class="indi-star half-star">
                                             <img src="assets/images/star/half-star.svg"/>
                                         </div>
                                         <?php
@@ -283,7 +283,7 @@
                                 <!-- 4 stars -->
                             </div>
 
-                            <span class="product-card__details__star-rating__count">(<?php echo $currentRating; ?>)</span>
+                            <span class="product-card__details__star-rating__count">(<?php if($currentRating!=null){echo $currentRating;} else{echo "NA";} ?>)</span>
 
                         </div>
 

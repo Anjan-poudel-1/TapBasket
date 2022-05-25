@@ -750,6 +750,10 @@ a {
   padding-bottom: 0.5rem;
 }
 
+.half-star img {
+  height: 15px;
+}
+
 .page-footer {
   background-color: var(--footer-bg);
   margin-top: 2rem;
