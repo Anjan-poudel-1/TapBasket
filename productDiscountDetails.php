@@ -1,7 +1,7 @@
 <?php
 SESSION_START();
 if ((isset($_SESSION['role']) && $_SESSION['role'] == 'customer')) {
-    header('location:index.php');
+    header('location:productDiscount.php');
 }
 
 include('connection.php');
@@ -21,9 +21,9 @@ if(isset($_GET['product-id'])){
 $product_name =  '';
 $price = 0;
 $discount_price = 0;
-
+$userId = $_SESSION['user_id'];
 if(isset($product_id)){
-    $sql = "SELECT PRODUCT_NAME,PRICE,DISCOUNT_RATE FROM PRODUCT P INNER JOIN DISCOUNT D ON D.PRODUCT_ID=P.PRODUCT_ID";
+    $sql = "SELECT PRODUCT_NAME,PRICE,DISCOUNT_RATE FROM PRODUCT P INNER JOIN DISCOUNT D ON D.PRODUCT_ID=P.PRODUCT_ID AND P.PRODUCT_ID=$product_id";
     $stid = oci_parse($conn, $sql);
     oci_execute($stid);
     while (($row = oci_fetch_object($stid)) != false) {
@@ -40,13 +40,27 @@ if (isset($_POST['saveDiscountDetail'])) {
     $discount_price = $_POST['discount_price'];
     $errCount=0;
 
+    
+
+    $sqlGetProductId = "SELECT PRODUCT_ID,PRICE FROM PRODUCT WHERE PRODUCT_NAME=:product_name";
+    $stidGetProductId = oci_parse($conn, $sqlGetProductId);
+    oci_bind_by_name($stidGetProductId, ':product_name',$product_name);
+    oci_execute($stidGetProductId);
+    while (($row = oci_fetch_object($stidGetProductId)) != false) {
+      
+        $input_product_id = $row->PRODUCT_ID;
+        $act_price = $row->PRICE;
+      
+    }
+
     $sqlCheckDiscount = "SELECT PRICE,P.PRODUCT_ID FROM PRODUCT P INNER JOIN DISCOUNT D ON D.PRODUCT_ID=P.PRODUCT_ID WHERE P.PRODUCT_NAME=:product_name";
     $stidCheckDiscount = oci_parse($conn, $sqlCheckDiscount);
-    oci_bind_by_name($stidCheckDiscount, ':product_name', $product_name);
+    oci_bind_by_name($stidCheckDiscount, ':product_name',$product_name);
     oci_execute($stidCheckDiscount);
     while (($row = oci_fetch_object($stidCheckDiscount)) != false) {
-        $act_price = $row->PRICE;
+        $discounted_price = $row->PRICE;
         $input_product_id = $row->PRODUCT_ID;
+       
     }
     
     if (empty(trim($product_name))) {
@@ -54,7 +68,7 @@ if (isset($_POST['saveDiscountDetail'])) {
         $errCount++;
     }else{
         //If discount already exists
-        if(isset($act_price) && $discount_price>=$act_price && isset($type) && $type=='add'){
+        if(isset($discounted_price) && isset($type) && $type=='add'){
             $product_name_error = "Discount already exists for the data";
             $errCount++;
         }
@@ -88,12 +102,14 @@ if (isset($_POST['saveDiscountDetail'])) {
          header('location:productDiscount.php');
     }
     if($errCount==0 && $type =='add'){
-        // $userId = $_SESSION['user_id'];
+        
         //$shop_id
         $sqliInsertDiscount = "INSERT INTO DISCOUNT(DISCOUNT_RATE,PRODUCT_ID) 
         VALUES(:discount_rate,:product_id)";
         
         $stidInsertDiscount = oci_parse($conn, $sqliInsertDiscount);
+        echo $discount_price;
+        echo $input_product_id;
        
         oci_bind_by_name($stidInsertDiscount, ':discount_rate', $discount_price);
         oci_bind_by_name($stidInsertDiscount, ':product_id', $input_product_id);
@@ -103,6 +119,13 @@ if (isset($_POST['saveDiscountDetail'])) {
          header('location:myProducts.php');
 
     }
+}
+
+if(isset($_POST['deleteDiscountDetail'])){
+    $sqlDelete = "DELETE FROM DISCOUNT WHERE PRODUCT_ID=$product_id";
+    $stidDelete = oci_parse($conn, $sqlDelete);
+    oci_execute($stidDelete);
+    header('location:productDiscount.php');
 }
 
 ?>
@@ -156,8 +179,37 @@ if (isset($_POST['saveDiscountDetail'])) {
                     <?php
                 }else{
                     ?>
-                    Add mode
+                    <select style="width: 100%;" name="product_name" class="form-control__input <?php
+                                                    if (isset($product_name_error)) {
+                                                        echo " form-control__input--error";
+                                                    }
+                                                    ?>" placeholder="Enter the product name" name="product_name" value="<?php
+                                                                                            if ($product_name) {
+                                                                                                echo $product_name;
+                                                                                            }
+                                                                                            ?>">
+                        <option value="">
+                            Select product 
+                        </option>
+                        <?php
+                            $sqlGetItems = "SELECT PRODUCT_ID,PRODUCT_NAME FROM PRODUCT P INNER JOIN SHOP S ON S.SHOP_ID=P.SHOP_ID INNER JOIN SHOP_REQUEST SR ON SR.SHOP_REQUEST_ID=S.SHOP_REQUEST_ID WHERE SR.USER_ID=$userId";
+                            $stidGetItems = oci_parse($conn, $sqlGetItems);
+                            oci_execute($stidGetItems, OCI_COMMIT_ON_SUCCESS); 
+                            
+                            $numrows = oci_fetch_all($stidGetItems, $responseall);
+                            for($i = 0 ;$i<$numrows;$i++){
+                                ?>
+                                <option <?php if($product_name==$responseall['PRODUCT_NAME'][$i]) echo 'selected'?> value="<?php echo $responseall['PRODUCT_NAME'][$i] ?>">
+                                    <?php echo $responseall['PRODUCT_NAME'][$i] ?>
+                                </option>
+                                <?php
+                            }
+                            
+                            
+                        ?>
+                    </select>
                     <?php 
+                    
                     }
                     ?>
               
@@ -175,13 +227,15 @@ if (isset($_POST['saveDiscountDetail'])) {
             </div>
 
 
-
-            <div class="form-control">
+            <?php
+            if($type=="edit"){
+                ?>
+ <div class="form-control">
                 <p class="form-control__label">
-                    Product Price
+                    Product Price (£)
                 </p>
        
-                <input class="form-control__input" placeholder="Enter the product price" name="product_price" value="<?php
+                <input readonly class="form-control__input" placeholder="Enter the product price" name="product_price" value="<?php
                                                                                             if ($price) {
                                                                                                 echo $price;
                                                                                             }
@@ -189,6 +243,10 @@ if (isset($_POST['saveDiscountDetail'])) {
                 
 
             </div>
+                <?php
+            }
+            ?>
+           
 
 
             <div class="form-control">

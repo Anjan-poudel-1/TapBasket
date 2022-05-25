@@ -4,8 +4,9 @@
 
 .order-history{
     display: flex;
-    gap: 2rem;
-    margin-top: 0.5rem;
+    align-items: center;
+    // gap: 2rem;
+    margin: 0.75rem 0;
     background-color: var(--body-light-bg);
 
     @media only screen and (max-width:$screen-md) {
@@ -16,6 +17,7 @@
 
     &__details{
        margin-left: 0.5rem;  
+       flex-grow: 1;
     
     
     &__table {
@@ -52,8 +54,12 @@
 
 .showorder{
     padding: 2rem;
-    font-size:$font-size-base;
-    font-weight: 700 ;
+    font-size: 1rem;
+    font-weight: 700;
+    width: fit-content;
     
 }
+}
+.order-history-description{
+    margin-bottom: 1.25rem;
 }

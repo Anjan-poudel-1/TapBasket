@@ -36,6 +36,7 @@ include('connection.php');
     </div>
 </div>
 
+<<<<<<< HEAD
 <?php
 $TraderReviewSQL="SELECT R.NO_OF_STARS AS STAR, R.MESSAGE AS MSG, R.USER_ID AS REVIEWER_ID, P.PRODUCT_NAME AS PNAME, P.PRODUCT_IMAGE AS PIMAGE 
                     FROM SHOP_REQUEST SR 
@@ -71,10 +72,7 @@ $nrowsTraderReview = oci_fetch_all($TraderReviewParse, $TraderReviewRes);
     <?php
     }
     ?>
-</div>
-
-           
-
+</div> 
 
 </div>
     </div>

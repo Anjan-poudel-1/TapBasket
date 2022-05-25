@@ -8,5 +8,36 @@
     }
 }
 .product-table{
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
+    overflow-x: auto;
+
+    table{
+        width: $xxl;
+        border-collapse: collapse;
+        tr{
+            &:first-child{
+                td{
+                    background-color: $primary-color;
+                    color: white;
+                    
+                    font-weight: 600;
+                }
+            }
+        }
+        td{
+            padding:  0.75rem;
+            max-width: 350px;
+            text-align: center;
+            border: 1px solid var(--table-border);
+            line-height: 1.75rem;
+            
+            .limit-height{
+                // width: 300px;
+                @include truncate(2);
+            }
+        }
+        
+    }
+    
+    
 }
