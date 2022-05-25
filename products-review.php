@@ -80,7 +80,7 @@ $nrowsTraderReview = oci_fetch_all($TraderReviewParse, $TraderReviewRes);
                 <td><?php echo $pName; ?></td>
                 <td><?php echo $reviewerName; ?></td>
                 <td><?php echo $starsNo; ?><img src="assets/images/star/filled-star.svg"></td>
-                <td class="review-left-align"><?php echo $msg; ?></td>
+                <td class=""><?php echo $msg; ?></td>
             </tr>
         </table>
     </div>

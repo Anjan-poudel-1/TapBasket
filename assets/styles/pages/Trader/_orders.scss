@@ -1,0 +1,69 @@
+.Order-table{
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    border: 1px solid var(--table-border);
+    text-align: center;
+    width: 100%;
+
+    & th{
+        background-color: $primary-color;
+        color: white;
+        height: 30px;
+    }
+    & td{
+        height: 30px;
+    }
+    &__Details{
+        font-weight: $font-weight-bold;
+
+        &__button{
+            border: none;
+            background-color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            cursor: pointer;
+            height: 60px;
+            width: 100%;
+            color: var(--text-color);
+
+            &:hover{
+                color: white;
+                transition: 0.3s ease-in-out;
+                background-color: $primary-color;
+            }
+        }
+    }
+
+    &__detail-table{
+        border-collapse: collapse;
+        margin-top: 5px;
+        border: 1px solid var(--table-border);
+        width: 100%;
+
+        &__pImage{
+            height: 100px;
+        }
+
+        &__dCol1{
+            width: 3%;
+        }
+        &__dCol2{
+            width: 15%;
+        }
+        &__dCol3{
+            width: 7%;
+        }
+        &__dCol4{
+            width: 20%;
+        }
+        &__dCol5{
+            width: 10%;
+        }
+        &__dCol6{
+            width: 10%;
+        }
+    }
+}
+.table-img-container{
+    background-color: white;
+}
