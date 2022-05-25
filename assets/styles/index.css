@@ -1781,7 +1781,7 @@ select {
 
 .item-card {
   position: relative;
-  width: 300PX;
+  width: 220PX;
   -webkit-box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.03), -1px -1px 10px 1px rgba(0, 0, 0, 0.03);
           box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.03), -1px -1px 10px 1px rgba(0, 0, 0, 0.03);
   border-radius: 8px;
