@@ -2,9 +2,11 @@
     display: flex;
      align-items: center;
     gap: 2rem;
-    background-color: var(--body-light-bg);
+    background-color: var(--product-card-bg);
     padding: 1rem;
     flex-direction: row;
+    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.06);
+    border-radius: 5px;
 
     @media only screen and (max-width:$screen-md) {
 

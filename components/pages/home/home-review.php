@@ -20,15 +20,15 @@
                 </div>
                 <div class="home-review__card">
                     <div class="home-review__card__image">
-                        <img src='assets/images/meat.jpg'/>
+                        <img src='assets/images/ProductImage/apple.jpg'/>
                     </div>
                     <div class="home-review__card__content">
                         <div class="home-review__card__content__details">
                             <div class="home-review__card__content__details__name">
-                                Name of Products
+                                Apple
                             </div>
                             <div class="home-review__card__content__details__price">
-                                Rs.1000
+                                £2.48
                             </div>
                         </div>
                         <div class="home-review__card__content__buttons">
