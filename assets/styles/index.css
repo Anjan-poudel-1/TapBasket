@@ -3531,6 +3531,85 @@ select {
   padding-left: 5px;
 }
 
+.Order-table {
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  border: 1px solid var(--table-border);
+  text-align: center;
+  width: 100%;
+}
+
+.Order-table th {
+  background-color: #e1a825;
+  color: white;
+  height: 30px;
+}
+
+.Order-table td {
+  height: 30px;
+}
+
+.Order-table__Details {
+  font-weight: 600;
+}
+
+.Order-table__Details__button {
+  border: none;
+  background-color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+  height: 60px;
+  width: 100%;
+  color: var(--text-color);
+}
+
+.Order-table__Details__button:hover {
+  color: white;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  background-color: #e1a825;
+}
+
+.Order-table__detail-table {
+  border-collapse: collapse;
+  margin-top: 5px;
+  border: 1px solid var(--table-border);
+  width: 100%;
+}
+
+.Order-table__detail-table__pImage {
+  height: 100px;
+}
+
+.Order-table__detail-table__dCol1 {
+  width: 3%;
+}
+
+.Order-table__detail-table__dCol2 {
+  width: 15%;
+}
+
+.Order-table__detail-table__dCol3 {
+  width: 7%;
+}
+
+.Order-table__detail-table__dCol4 {
+  width: 20%;
+}
+
+.Order-table__detail-table__dCol5 {
+  width: 10%;
+}
+
+.Order-table__detail-table__dCol6 {
+  width: 10%;
+}
+
+.table-img-container {
+  background-color: white;
+}
+
 :root,
 [data-theme="default"] {
   --body-bg: #ffffff;
