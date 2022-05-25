@@ -131,7 +131,7 @@ if (isset($_POST['savePRoductDetail'])) {
         // $userId = $_SESSION['user_id'];
         //$shop_id
         $sqli = "INSERT INTO PRODUCT(PRODUCT_NAME,PRODUCT_DESCRIPTION,PRODUCT_IMAGE,QUANTITY_IN_STOCK,ALERGYINFORMATION,PRICE,UNIT,SHOP_ID,IS_DISABLED) 
-        VALUES(:product_name,:description1,:image1,:quantity,:allergyInfo,:price,:unit,:shop_id,false)";
+        VALUES(:product_name,:description1,:image1,:quantity,:allergyInfo,:price,:unit,:shop_id,'false')";
         
         $stid = oci_parse($conn, $sqli);
        
@@ -146,7 +146,7 @@ if (isset($_POST['savePRoductDetail'])) {
         oci_execute($stid, OCI_COMMIT_ON_SUCCESS);
 
         echo ("<script>Product Inserted</script>");
-         header('location:myProducts.php');
+          header('location:myProducts.php');
 
     }
 }

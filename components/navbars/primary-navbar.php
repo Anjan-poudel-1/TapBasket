@@ -1,5 +1,6 @@
 <?php
 $count = 0;
+
 if (isset($_SESSION['cart'])) {
     $cartData = $_SESSION['cart'];
 
