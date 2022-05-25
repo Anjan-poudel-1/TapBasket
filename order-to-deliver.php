@@ -39,8 +39,25 @@ include('connection.php');
     </div> -->
 </div>
 
-
-           
+<div class="trader-order">
+    <div class="trader-order__one-order">
+        <table border="1px solid black">
+            <tr>
+                <th>Order No</th>
+                <th>Collection Date</th>
+                <th>Collection Slot</th>
+                <th>Earnings</th>
+                <th rowspan="2">View Details</th>
+            </tr>
+            <tr>
+                <td>1234</td>
+                <td>May 25,2022</td>
+                <td>12:00 - 13:00</td>
+                <td>£ 2.57</td>
+            </tr>
+        </table>
+    </div>
+</div>       
 
 
 </div>
