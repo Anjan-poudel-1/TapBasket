@@ -223,15 +223,14 @@ if (isset($_POST['savePRoductDetail'])) {
                 <p class="form-control__label">
                     Description
                 </p>
-                <input class="form-control__input <?php
+                <textarea rows="5" style="resize:vertical;" class="form-control__input <?php
                                                     if (isset($descriptionerr)) {
                                                         echo " form-control__input--error";
                                                     }
-                                                    ?>" placeholder="Enter the product Description" name="description"  value="<?php
-                                                                                                    if ($description) {
-                                                                                                        echo $description;
+                                                    ?>" placeholder="Enter the product Description" name="description" ><?php if ($description) {echo trim($description);
                                                                                                     }
-                                                                                                    ?>" />
+                                                                                                    ?>
+                </textarea>
                 <!-- Error show  -->
                 <?php
                 if (isset($descriptionerr)) {
