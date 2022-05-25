@@ -52,12 +52,12 @@ while (($row = oci_fetch_object($stid)) != false) {
 
 
 
-if(isset($_POST['deleteProductDetail'])){
-    $sqli = "DELETE from PRODUCT  WHERE PRODUCT_ID=$product_id";
-    $stid = oci_parse($conn, $sqli);
-    oci_execute($stid, OCI_COMMIT_ON_SUCCESS);
-    header('location:myProducts.php');
-}
+// if(isset($_POST['deleteProductDetail'])){
+//     $sqli = "DELETE from PRODUCT  WHERE PRODUCT_ID=$product_id";
+//     $stid = oci_parse($conn, $sqli);
+//     oci_execute($stid, OCI_COMMIT_ON_SUCCESS);
+//     // header('location:myProducts.php');
+// }
 
 
 if (isset($_POST['savePRoductDetail'])) {
@@ -387,7 +387,7 @@ if($type=='edit'){
                 }
                 else{?>
                 <input type="submit" value="Update data" name="savePRoductDetail" class="btn primary-btn form-btn" />
-                <input type="submit" value="Delete data" name="deleteProductDetail" class="btn danger-btn form-btn" />
+                <!-- <input type="submit" value="Delete data" name="deleteProductDetail" class="btn danger-btn form-btn" /> -->
                 <?php
                 }
                 ?>

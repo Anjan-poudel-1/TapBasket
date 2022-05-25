@@ -56,7 +56,7 @@ include('connection.php');
  ON P.SHOP_ID=S.SHOP_ID 
  INNER JOIN SHOP_REQUEST SR
  ON SR.SHOP_REQUEST_ID = S.SHOP_REQUEST_ID
- WHERE SR.USER_ID = 111";
+ WHERE SR.USER_ID = $userId";
 
             $stid = oci_parse($conn, $sql);
             oci_execute($stid);
