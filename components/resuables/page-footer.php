@@ -19,7 +19,7 @@
                 <img src="./assets/images/logo-01.png"/>
             </div>
             <div class="page-footer__desc__content">
-                Tap basket is a really nice website made by very nice people and is made for the people of Cleckshudderfax which is the area.
+                Most convinent way to get groceries at huddersfield where you can get all Locally produced items.
 
             </div>
 
