@@ -35,10 +35,8 @@ include('connection.php');
     Products Review
     </div>
 </div>
-
-<<<<<<< HEAD
 <?php
-$TraderReviewSQL="SELECT R.NO_OF_STARS AS STAR, R.MESSAGE AS MSG, R.USER_ID AS REVIEWER_ID, P.PRODUCT_NAME AS PNAME, P.PRODUCT_IMAGE AS PIMAGE 
+$TraderReviewSQL="SELECT R.NO_OF_STARS AS STAR, R.MESSAGE AS MSG, R.USER_ID AS REVIEWER_ID, P.PRODUCT_NAME AS PNAME, P.PRODUCT_IMAGE AS PIMAGE, P.PRODUCT_ID AS PID 
                     FROM SHOP_REQUEST SR 
                     INNER JOIN SHOP S ON SR.SHOP_REQUEST_ID=S.SHOP_REQUEST_ID 
                     INNER JOIN PRODUCT P ON S.SHOP_ID=P.SHOP_ID 
@@ -51,11 +49,12 @@ $nrowsTraderReview = oci_fetch_all($TraderReviewParse, $TraderReviewRes);
 <div class="Trader-Review">
     <?php
     for($TReviewIt=0; $TReviewIt<$nrowsTraderReview; $TReviewIt++){
+        $pId=$TraderReviewRes['PID'][$TReviewIt];
         $pName= $TraderReviewRes['PNAME'][$TReviewIt];
         $pImage= $TraderReviewRes['PIMAGE'][$TReviewIt];
         $reviewer= $TraderReviewRes['REVIEWER_ID'][$TReviewIt];
-        $msg=$pName= $TraderReviewRes['MSG'][$TReviewIt];
-        $starsNo=$pName= $TraderReviewRes['STAR'][$TReviewIt];
+        $msg= $TraderReviewRes['MSG'][$TReviewIt];
+        $starsNo= $TraderReviewRes['STAR'][$TReviewIt];
 
         $reviewerSQL="SELECT USERNAME FROM USERS WHERE USER_ID=$reviewer";
         $reviewerstid = oci_parse($conn, $reviewerSQL);
@@ -64,9 +63,25 @@ $nrowsTraderReview = oci_fetch_all($TraderReviewParse, $TraderReviewRes);
 
         $reviewerName=$reviewerRows['USERNAME'];
     ?>
-    <div class="Trader-Review__One Review">
-        <table border="1px solid black">
-            
+    <div class="Trader-Review__One-Review">
+        <table class="review-table" border="1px solid black">
+            <tr>
+                <td rowspan="2" class="review-table__col1">
+                    <img src="assets/images/ProductImage/<?php echo $pImage?>" class="review-table__product-image">
+                </td>
+                <th class="review-table__col2">Product ID</th>
+                <th class="review-table__col3">Product Name</th>
+                <th class="review-table__col4">Customer Name</th>
+                <th class="review-table__col5">Rating Recieved</th>
+                <th class="review-table__col6">Review Message</th>
+            </tr>
+            <tr>
+                <td><?php echo $pId; ?></td>
+                <td><?php echo $pName; ?></td>
+                <td><?php echo $reviewerName; ?></td>
+                <td><?php echo $starsNo; ?><img src="assets/images/star/filled-star.svg"></td>
+                <td class="review-left-align"><?php echo $msg; ?></td>
+            </tr>
         </table>
     </div>
     <?php
