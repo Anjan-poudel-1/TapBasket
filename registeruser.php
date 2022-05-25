@@ -124,9 +124,7 @@ if (isset($_POST['userRegisterSubmit'])) {
                     header("location:otp.php?id=" . $row['USER_ID']);
                 }
             }
-        } else {
-            echo "problem in statement";
-        }
+        } 
     }
 }
 
