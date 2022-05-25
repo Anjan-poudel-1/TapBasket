@@ -56,8 +56,7 @@ if (isset($_POST['submitPickDetails'])) {
     if ($errCount == 0) {
         $isStepOneCompleted = true;
     }
-    echo $selectedDate;
-    echo $selectedTime;
+    
 }
 
 
@@ -78,7 +77,10 @@ if (isset($_GET['collectionSlot']) && (isset($_GET['timing']) && isset($_GET['pa
     $year = date("Y");
     $selectedTime = $_GET['timing'];
     $paymentstatus = "false";
-    $selectedDate = $tempData . ", " . $year;
+    $selectedDate = $tempData . " " . $year;
+     
+     
+    $selectedDate= date('Y/m/d', strtotime($selectedDate));
     $subtotal = 0;
 
     foreach ($myCart as $product_id => $quantity) {
@@ -108,7 +110,7 @@ if (isset($_GET['collectionSlot']) && (isset($_GET['timing']) && isset($_GET['pa
     }
 
 
-    $insertOrderPlace = "INSERT INTO ORDERPLACE(TIMESLOT,DATE_OF_COLLECTION,DAY,PAYMENT_STATUS,USER_ID,subtotal) VALUES (:selectedTime,:selecteddate,:tempday,:paymentstatus,:userid,:subtotal)";
+    $insertOrderPlace = "INSERT INTO ORDERPLACE(TIMESLOT,DATE_OF_COLLECTION,DAY,PAYMENT_STATUS,USER_ID,subtotal) VALUES (:selectedTime,TO_DATE(:selecteddate, 'yyyy/mm/dd'),:tempday,:paymentstatus,:userid,:subtotal)";
     $collectionslotstid = (oci_parse($conn, $insertOrderPlace));
     oci_bind_by_name($collectionslotstid, ":userid", $user_id);
     oci_bind_by_name($collectionslotstid, ":subtotal", $subtotal);
@@ -146,26 +148,29 @@ if (isset($_GET['collectionSlot']) && (isset($_GET['timing']) && isset($_GET['pa
         $_SESSION['cart'] = [];
 
         ?>
-             <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" id="paypal-submit" method="post" class="paypal">
-      <!-- Paypal business test account email id so that you can collect the payments. -->
-      <input type="hidden" name="business" value="sb-knnls16326444@business.example.com">
-      <!-- Buy Now button. -->
-      <input type="hidden" name="cmd" value="_xclick">
-      <!-- Details about the item that buyers will purchase. -->
-      <input type="hidden" name="item_name" value="3000">
-      <input type="hidden" name="item_number" value="1000"> 
-      <!-- //user_id -->
-      <input type="hidden" name="amount" value="<?php echo  $subtotal?>">
-      <!-- PUT THE PRICE IN SESSION -->
-      <input type="hidden" name="currency_code" value="GBP">
-      <input type="hidden" name="rm" value="2">
-      <!-- URLs -->
-      <input type='hidden' name='cancel_return' value='http://localhost/TapBasket/error-page.php'>
-      <input type='hidden' name='return' value='http://localhost/TapBasket/success-page.php?userId=<?php echo $user_id?>&payment=true&orderId=<?php echo $orderplace_id?>'>
-      <!-- payment button. -->
-      <input type="image" name="submit" border="0" src="sandbox/paypal.svg" alt="PayPal - The safer, easier way to pay online">
-      <img alt="" border="0" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
-    </form>       
+              <!-- Form here -->
+
+
+              <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" id="paypal-submit" method="post" class="paypal">
+    <!-- Paypal business test account email id so that you can collect the payments. -->
+    <input type="hidden" name="business" value="sb-knnls16326444@business.example.com">
+    <!-- Buy Now button. -->
+    <input type="hidden" name="cmd" value="_xclick">
+    <!-- Details about the item that buyers will purchase. -->
+    <input type="hidden" name="item_name" value="3000">
+    <input type="hidden" name="item_number" value="1000"> 
+    <!-- //user_id -->
+    <input type="hidden" name="amount" value="<?php echo  $subtotal?>">
+    <!-- PUT THE PRICE IN SESSION -->
+    <input type="hidden" name="currency_code" value="GBP">
+    <input type="hidden" name="rm" value="2">
+    <!-- URLs -->
+    <input type='hidden' name='cancel_return' value='http://localhost/TapBasket/error-page.php'>
+    <input type='hidden' name='return' value='http://localhost/TapBasket/success-page.php?userId=<?php echo $user_id?>&payment=true&orderId=<?php echo $orderplace_id?>'>
+    <!-- payment button. -->
+    <input type="image" name="submit" border="0" src="sandbox/paypal.svg" alt="PayPal - The safer, easier way to pay online">
+    <img alt="" border="0" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
+  </form>    
         <?php
         
         echo '<script>
