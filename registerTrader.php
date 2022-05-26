@@ -58,7 +58,7 @@
     <?php
     include("connection.php");
     if (isset($_POST['TraderRegisterSubmit'])) {
-        $role = "Trader";
+        $role = "trader";
         $Temail = $_POST['Temail'];
         $Tname = trim($_POST['Tname']);
         $Tphone = trim($_POST['Tphone']);
@@ -93,7 +93,7 @@
                     oci_execute($stid, OCI_NO_AUTO_COMMIT);
                     
 
-                    $statement = "INSERT INTO SHOP_REQUEST(shop_name,shop_address,shop_contact,CATEGORY,SHOP_DESCRIPTION) VALUES (:sname,:saddress,:sphone,:product,:sdesc)";
+                    $statement = "INSERT INTO SHOP_REQUEST(shop_name,shop_address,shop_contact,CATEGORY,PURPOSAL_MESSAGE,IS_APPROVED) VALUES (:sname,:saddress,:sphone,:product,:sdesc,'false')";
                     $stid = (oci_parse($conn, $statement));
                     oci_bind_by_name($stid, ":sname", $shopname);
                     oci_bind_by_name($stid, ":saddress", $shopaddress);
