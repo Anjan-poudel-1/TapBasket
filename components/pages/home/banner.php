@@ -24,16 +24,16 @@
     <!-- after adding php.. we will dynamically change classname -->
     
     <div class="banner-wrapper__images__image image-1">
-        <img src="assets/images/intro1.png"/>
+        <img src="assets/images/intro1.jpg"/>
     </div>
     <div class="banner-wrapper__images__image image-2">
-        <img src="assets/images/intro2.png"/>
+        <img src="assets/images/intro2.jpg"/>
     </div>
     <div class="banner-wrapper__images__image image-3">
-        <img src="assets/images/intro3.png"/>
+        <img src="assets/images/intro3.jpg"/>
     </div>
     <div class="banner-wrapper__images__image image-4">
-        <img src="assets/images/intro4.png"/>
+        <img src="assets/images/intro4.jpg"/>
     </div>
     
 </div>
