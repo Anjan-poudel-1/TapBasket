@@ -10,11 +10,11 @@
 <div class="homepage__advertisement-wrap">
 
 <div class="homepage__advertisement-wrap__ad">
-    <img src="assets/images/ads 2.jpg"/>
+    <img src="assets/images/ads2.jpg"/>
 </div>
 
 <div class="homepage__advertisement-wrap__ad">
-    <img src="assets/images/ads 1.jpg"/>
+    <img src="assets/images/ads1.jpg"/>
 </div>
 
 </div>
