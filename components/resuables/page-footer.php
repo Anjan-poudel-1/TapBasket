@@ -19,7 +19,7 @@
                 <img src="./assets/images/logo-01.png"/>
             </div>
             <div class="page-footer__desc__content">
-                Most convinent way to get groceries at huddersfield where you can get all Locally produced items.
+            The most convinent way to shop for locally produced products. Bought to you by the traders of Cleckhudderfax. Shop from anywhere, at any time.
 
             </div>
 
