@@ -28,11 +28,25 @@
         // order list bata count garne group by product id where orderplace ko table sanga join garne payment status=true 
 
         $nrows=0;
-            $sqlorder='select sum(QUANTITY) as MAXPRODUCT, O.PRODUCT_ID from ORDERLIST O where product_id=product_id and  rownum <= 500  GROUP BY O.PRODUCT_ID ORDER BY MAXPRODUCT DESC';
+            
+            $sqlorder="SELECT P.PRODUCT_ID,PRODUCT_NAME,SUM(QUANTITY) AS MAXPRODUCT FROM ORDERLIST OL 
+            INNER JOIN ORDERPLACE O 
+            ON OL.ORDERPLACE_ID=O.ORDERPLACE_ID
+            INNER JOIN PRODUCT P
+            ON P.PRODUCT_ID=OL.PRODUCT_ID
+            INNER JOIN SHOP S ON
+            S.SHOP_ID=P.SHOP_ID
+            INNER JOIN SHOP_REQUEST SR 
+            ON SR.SHOP_REQUEST_ID=S.SHOP_REQUEST_ID
+            WHERE O.PAYMENT_STATUS='true' and 
+            IS_DISABLED='false'
+            group by product_name,P.PRODUCT_ID
+            order by MAXPRODUCT desc";
             
             $stidorder = oci_parse($conn, $sqlorder);
             oci_execute($stidorder);
             $nrows = oci_fetch_all($stidorder, $res);
+            // print_r($res);
 
                 // echo $nrows;
                 // print_r($res);
@@ -49,6 +63,7 @@
 
 
             // print_r($resId);
+            // echo $nrows;
            
             for ($i = 0; $i < $nrows; $i++) {
 
@@ -67,9 +82,10 @@
                 <a href="product.php?product-id=<?php echo $res['PRODUCT_ID'][$i];?>">
                     <div class="product-card__image">
 
-
+                    
                         <!-- //image -->
                         <?php
+                        // print_r($res);
                         $product_name = $res['PRODUCT_NAME'][0];
                         $product_id = $res['PRODUCT_ID'][0];
                         $product_desc = $res['PRODUCT_DESCRIPTION'][0];

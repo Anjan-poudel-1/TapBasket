@@ -11,6 +11,14 @@ require 'vendor/autoload.php';
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
 
+
+if(isset($_GET['email']) && isset($_GET['name'])){
+   
+    $Temail = $_GET['email'];
+
+    $Tname=$_GET['name'];
+    $PASSWORD='Password1';
+
 try {
     //Server settings
     $mail->SMTPDebug = 0;                      //Enable verbose debug output
@@ -34,26 +42,26 @@ try {
   
      $mail->Body="
    <h1 style='font: bold 100% sans-serif; padding:10px; width:50%; text-align: center; text-transform: uppercase;background-color:#E1A825;color:white; font-size: 18px;'>Trader Registration Successfull</h1>
-   <P>Dear $Tname,<br>
+   <P style=' font-size: 15px;'>Dear $Tname,<br>
    Your Registration as a trader has been accepted.<br> 
    Credentials are provided below:</P> 
    
-    <p style=' font-size: 20px;'>Trader email: $Temail</p>
-   <p style=' font-size: 20px;'>Password:  $PASS</p>
-   <p style=' font-size: 20px;'>Trader email: You will be able to change your password once you log in to our interface.</p> 
-   <p style=' font-size: 20px;'>Password:   Thank You,<br>
+    <p style=' font-size: 15px;'>Trader email: $Temail</p>
+   <p style=' font-size: 15px;'>Password: $PASSWORD</p>
+   <p style=' font-size: 15px;'> You will be able to change your password once you log in to our interface.</p> 
+   <p style=' font-size: 15px;'> Thank You,<br>
    TapBasket</p>
- 
-
-        ";
+         ";
 
  
   if($mail->send()){
-    echo "Email sent";
+    echo "You have accepted this email address";
+    
+    header("location:../updateuser.php?email=$Temail");
   }
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 
-
+}
     
 }

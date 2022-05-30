@@ -147,25 +147,8 @@
     }
 
     //generating password for trader and veryfying trader account
-    if (isset($_POST['TraderRegisterSubmit'])) {
-        if(isset($_POST['verifytraderaccount'])){
-            $Temail = $_POST['Temail'];
-            $PASS=md5('Password1');
-            $isdisable='false';
-            $Tname = trim($_POST['Tname']);
-            include './PHPMailer/traderaccountVerified.php';
-
-            $updateVcodeSql = "UPDATE USERS SET PASSWORD=:passwords,IS_DISABLED=:isdisable WHERE EMAIL=:email";
-            $stidVcodeUpdate = oci_parse($conn,$updateVcodeSql);
-            oci_bind_by_name($stidVcodeUpdate, ':passwords', $PASS);
-            oci_bind_by_name($stidVcodeUpdate, ':email', $Temail);
-            oci_bind_by_name($stidVcodeUpdate, ':isdisable', $isdisable);
-            oci_execute($stidVcodeUpdate, OCI_COMMIT_ON_SUCCESS);
-            oci_commit($conn);
-            oci_free_statement($stidVcodeUpdate);
-            oci_close($conn);
-        }
-    }
+   
+      
 
     ?>
     <div class="page login-page">
