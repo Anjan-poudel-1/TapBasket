@@ -38,10 +38,11 @@ try {
    <p style=' font-size: 18px;'>Trader name: $Tname</p>
    <p style=' font-size: 18px;'>Shop name:  $shopname</p>
    <p style=' font-size: 18px;'>Product type:  $product</p>  
-   <p style=' font-size: 18px;'>Product type:  $product</p> 
    <p style=' font-size: 18px;'>Purposal mesage:  $desc</p> 
-   <input  style=' padding: 15px 32px;
-   text-align: center; background-color:#E1A825; color:white;  border: none;border-radius: 12px; ' type='submit' value='Veryfy account' name='verifytraderaccount' class='btn primary-btn form-btn' />
+   <a href='http://localhost/TapBasket/phpMailer/AdminRequestApprove.php?email=".$Temail."&name=".$Tname."'>Approve Request</a>
+
+
+
         ";
 
   if($mail->send()){
@@ -51,5 +52,8 @@ try {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 
 
-    
+    // <form method='POST' action=''>
+    // <input  style=' padding: 15px 32px;
+    // text-align: center; background-color:#E1A825; color:white;  border: none;border-radius: 12px; ' type='submit' value='Verify account' name='verifytraderaccount' class='btn primary-btn form-btn' />
+    // </form>
 }

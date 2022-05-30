@@ -28,7 +28,8 @@
         // order list bata count garne group by product id where orderplace ko table sanga join garne payment status=true 
 
         $nrows=0;
-            $sqlorder='SELECT R.PRODUCT_ID, AVG(R.NO_OF_STARS) AS PID FROM PRODUCT P INNER JOIN REVIEW R ON P.PRODUCT_ID=R.PRODUCT_ID GROUP BY R.PRODUCT_ID ORDER BY AVG(R.NO_OF_STARS) DESC';
+            $sqlorder="SELECT R.PRODUCT_ID, AVG(R.NO_OF_STARS) AS PID FROM PRODUCT P INNER JOIN REVIEW R ON P.PRODUCT_ID=R.PRODUCT_ID and  IS_DISABLED='false'  GROUP BY R.PRODUCT_ID ORDER BY AVG(R.NO_OF_STARS) DESC";
+
             
             $stidorder = oci_parse($conn, $sqlorder);
             oci_execute($stidorder);
