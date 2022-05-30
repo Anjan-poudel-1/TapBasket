@@ -32,7 +32,7 @@ foreach ($myCart as $product_id => $quantity) {
         $product_price = $row->PRICE;
         $shop_id = $row->SHOP_ID;
 
-        $subTotal+=$product_price*$quantity;
+       
         $discountPrice=0;
 
         $stidDiscount = "SELECT DISCOUNT_RATE FROM DISCOUNT WHERE PRODUCT_ID=$product_id";
@@ -44,6 +44,8 @@ foreach ($myCart as $product_id => $quantity) {
                         $discountPrice = oci_result($stidDiscount, 'DISCOUNT_RATE');
                         
                     }
+
+                    $subTotal+=($product_price-$discountPrice)*$quantity;
     }
 ?>
 
@@ -66,7 +68,7 @@ foreach ($myCart as $product_id => $quantity) {
                                     x<?php echo $quantity?>
                                 </div>
                                 <div class="checkout-product-card__right__total">
-                                £<?php echo $quantity*$product_price?>
+                                £<?php echo $quantity*($product_price-$discountPrice)?>
                                 <span>
                                  <!-- If discount data is available -->
                            <?php
@@ -75,7 +77,7 @@ foreach ($myCart as $product_id => $quantity) {
                            
                             <b><strike>
                             £<?php
-                                echo ($product_price+$discountPrice)* $quantity;
+                                echo ($product_price)* $quantity;
                            
                                 ?>
                             </strike></b>
