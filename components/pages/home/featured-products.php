@@ -64,7 +64,7 @@
             ?>
                 <div class="product-card">
 
-                <a href="product.php?product-id=<?php echo $res['PRODUCT_ID'][$i];?>">
+                <a href="product.php?product-id=<?php echo $res['PRODUCT_ID'][0];?>">
                     <div class="product-card__image">
 
 

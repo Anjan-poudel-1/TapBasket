@@ -313,7 +313,7 @@ for ($i = 0; $i < $nrows; $i++) {
 
             <div class="product-card__details__price">
                 <b>£<?php
-                    echo ($price);
+                    echo ($price-$discountPrice);
                     ?></b>
 
                     <!-- If discount data is available -->
@@ -323,7 +323,7 @@ for ($i = 0; $i < $nrows; $i++) {
                 <span class="product-card__details__price__discount-price">
                 <b><strike>
                 £<?php
-                    echo ($price+$discountPrice);
+                    echo ($price);
                     ?>
                 </strike></b>
                 </span>
