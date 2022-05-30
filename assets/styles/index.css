@@ -2704,10 +2704,12 @@ select {
 
 .Review-Section__First-Row__Add-Review__Form__star-item {
   display: none !important;
+  cursor: pointer;
 }
 
 .Review-Section__First-Row__Add-Review__Form__star-label {
   opacity: 0.4;
+  cursor: pointer;
 }
 
 .Review-Section__First-Row__Add-Review__Form__star-label img {

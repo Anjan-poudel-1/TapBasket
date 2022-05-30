@@ -301,9 +301,11 @@
 
                 &__star-item{
                     display: none !important;
+                    cursor: pointer;
                 }
                 &__star-label{
                     opacity: 0.4;
+                    cursor: pointer;
                 }
                 &__star-label img{
                     width: 25px;

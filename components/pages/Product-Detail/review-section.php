@@ -1,3 +1,10 @@
+<?php
+if(isset($_POST['submit-review'])){
+    echo("<script>alert('hello')</script>");
+}
+
+?>
+
 <div class="Review-Section">
                 <div class="Review-Section__Header">
                     Reviews and Comments
@@ -101,19 +108,19 @@
                         <form class="Review-Section__First-Row__Add-Review__Form" type="POST">
                             <div class="Review-Section__First-Row__Add-Review__Form__Rating">
                             Select Rating:
-                            <input type="radio" class="Review-Section__First-Row__Add-Review__Form__star-item" value="1" id="star1">
+                            <input type="checkbox" class="Review-Section__First-Row__Add-Review__Form__star-item" value="1" id="star1">
                             <label class="Review-Section__First-Row__Add-Review__Form__star-label" for="star1"> <img src="assets/images/star/filled-star.svg"> </label>
-                            <input type="radio" class="Review-Section__First-Row__Add-Review__Form__star-item" value="2" id="star2">
+                            <input type="checkbox" class="Review-Section__First-Row__Add-Review__Form__star-item" value="2" id="star2">
                             <label class="Review-Section__First-Row__Add-Review__Form__star-label" for="star2"> <img src="assets/images/star/filled-star.svg"> </label>
-                            <input type="radio" class="Review-Section__First-Row__Add-Review__Form__star-item" value="3" id="star3">
+                            <input type="checkbox" class="Review-Section__First-Row__Add-Review__Form__star-item" value="3" id="star3">
                             <label class="Review-Section__First-Row__Add-Review__Form__star-label" for="star3"> <img src="assets/images/star/filled-star.svg"> </label>
-                            <input type="radio" class="Review-Section__First-Row__Add-Review__Form__star-item" value="4" id="star4">
+                            <input type="checkbox" class="Review-Section__First-Row__Add-Review__Form__star-item" value="4" id="star4">
                             <label class="Review-Section__First-Row__Add-Review__Form__star-label" for="star4"> <img src="assets/images/star/filled-star.svg"> </label>
-                            <input type="radio" class="Review-Section__First-Row__Add-Review__Form__star-item" value="5" id="star5">
+                            <input type="checkbox" class="Review-Section__First-Row__Add-Review__Form__star-item" value="5" id="star5">
                             <label class="Review-Section__First-Row__Add-Review__Form__star-label" for="star5"> <img src="assets/images/star/filled-star.svg"> </label>
                             </div>
                             <textarea class="Review-Section__First-Row__Add-Review__Form__Review-Text" placeholder="Write your review" name="Message"></textarea>
-                            <input type="submit" class="btn primary-outline-btn card-btn" id="submit-review" <?php if(!$canReviewFlag){echo "disabled";}?>>
+                            <input type="submit" value="Submit Review" class="btn primary-outline-btn card-btn" name="submit-review" <?php if(!$canReviewFlag){echo "disabled";}?>>
                         </form>
                     </div>
 
