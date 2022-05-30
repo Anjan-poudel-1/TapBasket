@@ -2706,19 +2706,13 @@ select {
   display: none !important;
 }
 
-.Review-Section__First-Row__Add-Review__Form__star-label {
-  opacity: 0.4;
-}
-
 .Review-Section__First-Row__Add-Review__Form__star-label img {
   width: 25px;
+  opacity: 0.4;
+  cursor: pointer;
 }
 
-.Review-Section__First-Row__Add-Review__Form__star-item:checked + label {
-  opacity: 1;
-}
-
-.Review-Section__First-Row__Add-Review__Form__star-item:not(checked) {
+.Review-Section__First-Row__Add-Review__Form__star-item {
   opacity: 0.1;
 }
 
@@ -2830,6 +2824,10 @@ select {
   background-color: #d4d4d4;
   color: #9e9e9e;
   border: 1px solid #9e9e9e;
+}
+
+.star-item-selected {
+  opacity: 1;
 }
 
 .user-dashboard__content__wishListPage {
