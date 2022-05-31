@@ -115,31 +115,22 @@ if (!(isset($_SESSION['user_id']))) {
         $Cat=$_POST['Category'];
 
         if(isset($_GET['search'])){
-<<<<<<< HEAD
+
             $sql = "SELECT * FROM PRODUCT INNER JOIN SHOP ON PRODUCT.SHOP_ID=SHOP.SHOP_ID INNER JOIN SHOP_REQUEST ON SHOP.SHOP_REQUEST_ID=SHOP_REQUEST.SHOP_REQUEST_ID WHERE (LOWER(PRODUCT.PRODUCT_NAME) LIKE LOWER('%$search%')) AND (LOWER(SHOP_REQUEST.CATEGORY)=LOWER('".$Cat[0]."'))";
-=======
-            $sql = "SELECT * FROM PRODUCT 
-            INNER JOIN SHOP ON PRODUCT.SHOP_ID=SHOP.SHOP_ID 
-            INNER JOIN SHOP_REQUEST ON SHOP.SHOP_REQUEST_ID=SHOP_REQUEST.SHOP_REQUEST_ID 
-            WHERE (LOWER(PRODUCT.PRODUCT_NAME) LIKE LOWER('%$search%')) AND (LOWER(SHOP_REQUEST.CATEGORY)=LOWER('".$Cat[0]."')) AND LOWER(IS_DISABLED)='false'";
->>>>>>> bfd05e3132f9ddd988b0a87ae2dfba5ff828ca1e
             for($CatIterator=1; $CatIterator < count($Cat); $CatIterator++){
                 $sql =$sql . " OR (SHOP_REQUEST.CATEGORY='".$Cat[$CatIterator]."')";
             }
             // $sql=$sql . ")";
               
         }else{
-<<<<<<< HEAD
+
             $sql="SELECT * FROM PRODUCT INNER JOIN SHOP ON PRODUCT.SHOP_ID=SHOP.SHOP_ID INNER JOIN SHOP_REQUEST ON SHOP.SHOP_REQUEST_ID=SHOP_REQUEST.SHOP_REQUEST_ID WHERE (SHOP_REQUEST.CATEGORY='".$Cat[0]."')";
             for($CatIterator=1; $CatIterator < count($Cat); $CatIterator++){
                 $sql =$sql . " OR (SHOP_REQUEST.CATEGORY='".$Cat[$CatIterator]."')";
-=======
-            $sql="SELECT * FROM PRODUCT INNER JOIN SHOP ON PRODUCT.SHOP_ID=SHOP.SHOP_ID INNER JOIN SHOP_REQUEST ON SHOP.SHOP_REQUEST_ID=SHOP_REQUEST.SHOP_REQUEST_ID WHERE (SHOP_REQUEST.CATEGORY='".$Cat[0]."') AND LOWER(IS_DISABLED)='false'";
->>>>>>> bfd05e3132f9ddd988b0a87ae2dfba5ff828ca1e
             }
             // $sql=$sql . ")";
 
-        }
+        }}
 
     if(isset($_POST['sort'])){
         $sort=$_POST['sort'];
