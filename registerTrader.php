@@ -58,7 +58,7 @@
     <?php
     include("connection.php");
     if (isset($_POST['TraderRegisterSubmit'])) {
-        $role = "Trader";
+        $role = "trader";
         $Temail = $_POST['Temail'];
         $Tname = trim($_POST['Tname']);
         $Tphone = trim($_POST['Tphone']);
@@ -90,32 +90,49 @@
                     oci_bind_by_name($stid, ":phone_no", $Tphone);
                     oci_bind_by_name($stid, ":Traderrole", $role);
                     oci_bind_by_name($stid, ":isdisabled", $disable);
-                    oci_execute($stid, OCI_NO_AUTO_COMMIT);
-                    
+                    oci_execute($stid, OCI_COMMIT_ON_SUCCESS);
 
-                    $statement = "INSERT INTO SHOP_REQUEST(shop_name,shop_address,shop_contact,CATEGORY,SHOP_DESCRIPTION) VALUES (:sname,:saddress,:sphone,:product,:sdesc)";
-                    $stid = (oci_parse($conn, $statement));
-                    oci_bind_by_name($stid, ":sname", $shopname);
-                    oci_bind_by_name($stid, ":saddress", $shopaddress);
-                    oci_bind_by_name($stid, ":sphone", $shopphone);
-                    oci_bind_by_name($stid, ":product", $product);
-                    oci_bind_by_name($stid, ":sdesc", $desc);
-                    oci_execute($stid, OCI_NO_AUTO_COMMIT);
-                    oci_commit($conn);
-                    oci_free_statement($stid);
-                    oci_close($conn);
+
+                    $sqlFETCH = "SELECT USER_ID FROM USERS WHERE EMAIL=:Temail";
+                    $stidFETCH = oci_parse($conn,$sqlFETCH );
+                    oci_bind_by_name($stidFETCH, ":Temail", $Temail);
+                    
+                    oci_execute($stidFETCH, OCI_COMMIT_ON_SUCCESS);
+
+                    while (($row = oci_fetch_object($stidFETCH)) != false) {
+                        $newUserID=  $row->USER_ID ;
+
+
+
+                        $statement = "INSERT INTO SHOP_REQUEST(shop_name,shop_address,shop_contact,CATEGORY,PURPOSAL_MESSAGE,IS_APPROVED,USER_ID) VALUES (:sname,:saddress,:sphone,:product,:sdesc,'false',:user_id1)";
+                        $stid = (oci_parse($conn, $statement));
+                        oci_bind_by_name($stid, ":sname", $shopname);
+                        oci_bind_by_name($stid, ":saddress", $shopaddress);
+                        oci_bind_by_name($stid, ":sphone", $shopphone);
+                        oci_bind_by_name($stid, ":product", $product);
+                        oci_bind_by_name($stid, ":sdesc", $desc);
+                        oci_bind_by_name($stid, ":user_id1", $newUserID);
+                        oci_execute($stid, OCI_NO_AUTO_COMMIT);
+                        oci_commit($conn);
+                        oci_free_statement($stid);
+                        oci_close($conn);
+
+                        echo "<script> alert('Register successfull');
+                        window.setTimeout(function(){
+                            window.location.href = 'index.php';
+                
+                        });
+                        </script>";
+                        
+                    }
+
 
                     if ($sql) {
                         include './PHPMailer/emailtrader.php';
                         include './PHPMailer/emailAdmin.php';
                       }
 
-                      echo "<script> alert('Register successfull');
-        window.setTimeout(function(){
-            window.location.href = 'index.php';
-
-        });
-        </script>";
+                     
                 }else{
                     echo "Problem inserting shop details";
                 }
@@ -130,25 +147,8 @@
     }
 
     //generating password for trader and veryfying trader account
-    if (isset($_POST['TraderRegisterSubmit'])) {
-        if(isset($_POST['verifytraderaccount'])){
-            $Temail = $_POST['Temail'];
-            $PASS=md5('Password1');
-            $isdisable='false';
-            $Tname = trim($_POST['Tname']);
-            include './PHPMailer/traderaccountVerified.php';
-
-            $updateVcodeSql = "UPDATE USERS SET PASSWORD=:passwords,IS_DISABLED=:isdisable WHERE EMAIL=:email";
-            $stidVcodeUpdate = oci_parse($conn,$updateVcodeSql);
-            oci_bind_by_name($stidVcodeUpdate, ':passwords', $PASS);
-            oci_bind_by_name($stidVcodeUpdate, ':email', $Temail);
-            oci_bind_by_name($stidVcodeUpdate, ':isdisable', $isdisable);
-            oci_execute($stidVcodeUpdate, OCI_COMMIT_ON_SUCCESS);
-            oci_commit($conn);
-            oci_free_statement($stidVcodeUpdate);
-            oci_close($conn);
-        }
-    }
+   
+      
 
     ?>
     <div class="page login-page">
