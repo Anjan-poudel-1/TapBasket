@@ -116,10 +116,10 @@ if (isset($_SESSION['role'])) {
                 } else {
 
                 ?>
-                    <a href="productDiscount.php" class="nav-links">
+                    <a href="productDiscount.php" class="nav-links nav-links--desktop">
                         Deals
                     </a>
-                    <a href="products-review.php" class="nav-links">
+                    <a href="products-review.php" class="nav-links nav-links--desktop">
                         Reviews
                     </a>
                 <?php

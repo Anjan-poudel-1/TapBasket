@@ -157,6 +157,14 @@ $nrowsTraderOrder = oci_fetch_all($TraderOrderParse, $TraderOrderRes);
     <?php
     include './components/resuables/copyright.php';
     ?>
+
+    <!--Bottom Nav-->
+
+    <?php
+    include './components/navbars/bottom-navbar.php';
+    ?> 
+
+    
 </body>
 <script src="app.js">
 

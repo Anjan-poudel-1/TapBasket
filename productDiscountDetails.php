@@ -316,6 +316,14 @@ if(isset($_POST['deleteDiscountDetail'])){
     <?php
     include './components/resuables/copyright.php';
     ?>
+
+    <!--Bottom Nav-->
+
+    <?php
+    include './components/navbars/bottom-navbar.php';
+    ?> 
+
+    
 </body>
 <script src="app.js">
 
