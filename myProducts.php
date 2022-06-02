@@ -191,7 +191,7 @@ include('connection.php');
     <!--Bottom Nav-->
 
     <?php
-    // include './components/navbars/bottom-navbar.php';
+    include './components/navbars/bottom-navbar.php';
     ?> 
 
 </body>

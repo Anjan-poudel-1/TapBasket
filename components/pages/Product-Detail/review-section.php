@@ -7,7 +7,7 @@ if(isset($_POST['submit-review'])){
 
     if(isset($_POST['star-rating'])){
         $rating = $_POST['star-rating'];
-        echo("<script>alert('Your review  $rating has been submitted!')</script>");
+        echo("<script>alert('Your review  of $rating stars has been submitted!')</script>");
     }
     else{
         echo("<script>alert('Please Provide rating!')</script>");
@@ -117,10 +117,10 @@ if(isset($_POST['submit-review'])){
 
                     <div class="Review-Section__First-Row__Add-Review">
                         <div class="Review-Section__First-Row__Add-Review__Title">Add a Review</div>
-                        <form class="Review-Section__First-Row__Add-Review__Form" method="POST">
+                        <form class="Review-Section__First-Row__Add-Review__Form" method="POST" action="./product.php?product-id=<?php echo $id;?>">
                             <div class="Review-Section__First-Row__Add-Review__Form__Rating">
                             Select Rating:
-                            <input type="radio" class="Review-Section__First-Row__Add-Review__Form__star-item" name="star-rating" value="1" id="star1"  onchange="changeRating(1)">
+                            <input type="radio" class="Review-Section__First-Row__Add-Review__Form__star-item" name="star-rating" value="1" id="star1"  onchange="changeRating(1)" required>
                             <label class="Review-Section__First-Row__Add-Review__Form__star-label" for="star1"  > <img src="assets/images/star/filled-star.svg" id="star-number1" > </label>
                             <input type="radio" class="Review-Section__First-Row__Add-Review__Form__star-item" name="star-rating" value="2" id="star2"  onchange="changeRating(2)">
                             <label class="Review-Section__First-Row__Add-Review__Form__star-label" for="star2"> <img src="assets/images/star/filled-star.svg" id="star-number2"> </label>
@@ -131,11 +131,27 @@ if(isset($_POST['submit-review'])){
                             <input type="radio" class="Review-Section__First-Row__Add-Review__Form__star-item" name="star-rating" value="5" id="star5"  onchange="changeRating(5)">
                             <label class="Review-Section__First-Row__Add-Review__Form__star-label" for="star5"> <img src="assets/images/star/filled-star.svg" id="star-number5"> </label>
                             </div>
-                            <textarea class="Review-Section__First-Row__Add-Review__Form__Review-Text" placeholder="Write your review" name="message"></textarea>
-                            <input type="submit" value="Submit Review" class="btn primary-outline-btn card-btn" name="submit-review" <?php if(!$canReviewFlag){echo "disabled";}?>>
+                            <textarea class="Review-Section__First-Row__Add-Review__Form__Review-Text" placeholder="Write your review" name="message" required style="color: black;"></textarea>
+                            <input hidden type="text" name="product-id" value="<?php echo $id;?>">
+                            <input hidden type="text" name="user-id" value="<?php echo $user;?>">
+                            <input type="submit" value="Submit Review" class="btn primary-outline-btn card-btn" name="submit-review" id="submit-review" <?php if(!$canReviewFlag){echo "disabled";}?>>
                         </form>
                     </div>
 
+                    <?php if(isset($_POST['submit-review'])){
+                        $message=$_POST['message'];
+                        $NoOfStar=$_POST['star-rating'];
+                        $reviewUser=$_POST['user-id'];
+                        $reviewProduct=$_POST['product-id'];
+
+                        if($canReviewFlag){
+
+                        $addReviewsql="INSERT INTO REVIEW (MESSAGE,NO_OF_STARS,PRODUCT_ID,USER_ID) VALUES ('$message',$NoOfStar, $reviewProduct, $reviewUser) ";
+                        $insertReviewstid = oci_parse($conn, $addReviewsql);
+                        oci_execute($insertReviewstid);
+                        }
+                    }
+                    ?>
 
                 </div>
 
