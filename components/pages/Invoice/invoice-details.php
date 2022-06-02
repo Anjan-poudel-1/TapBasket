@@ -1,8 +1,9 @@
 <?php 
 include './connection.php';
 $invoicesql= "SELECT * FROM ORDERPLACE 
-            INNER JOIN USERS ON ORDERPLACE.USER_ID= USERS.USER_ID 
-            WHERE ORDERPLACE_ID=". $_GET['order-id'] ;
+            INNER JOIN USERS ON ORDERPLACE.USER_ID= USERS.USER_ID           
+            WHERE ORDERPLACE_ID=". $_GET['order-id'] ."
+            ORDER BY ORDERPLACE_ID DESC"; 
 $result=oci_parse($conn, $invoicesql);
         oci_execute($result);
         $row=oci_fetch_array($result);
