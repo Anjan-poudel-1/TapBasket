@@ -83,6 +83,13 @@ $stid = oci_parse($conn, $detailsql);
 oci_execute($stid);
 $nrows = oci_fetch_all($stid, $res);
 
+$paymentsql="SELECT * FROM ORDERPLACE WHERE ORDERPLACE_ID=".$_GET['order-id'];
+$paymentstid= oci_parse($conn, $paymentsql);
+oci_execute($paymentstid);
+while (oci_fetch($paymentstid)) {
+    $paymentstatus = oci_result($paymentstid, 'PAYMENT_STATUS'); 
+}
+
 ?>
                 <!--Order Details Section-->
                     <div class="invoice-subheading">
@@ -190,8 +197,20 @@ $nrows = oci_fetch_all($stid, $res);
                          ?>            
                         </div>
                     </div>
+                    
                     <div class="invoice-paymentmode">
-                        Paid Via PayPal
+                        <?php 
+                        
+                        if ($paymentstatus =="true"){
+    
+                            echo "Paid Via PayPal";
+                        }
+                        else{?>
+                        <span style="color:red;">Order Cancelled </span>
+                        <?php 
+
+                        }?>
+                        
                     </div>
                 </div>
             </div>

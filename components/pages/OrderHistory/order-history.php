@@ -32,7 +32,7 @@ $orderRows = oci_fetch_all($orderStid, $orderRes);
                        <tr>
                            <td><?php echo $orderRes['ORDERPLACE_ID'][$j]?></td>
                            <td><?php
-                           if($orderRes['PAYMENT_STATUS'])
+                           if($orderRes['PAYMENT_STATUS'][$j]=="true")
                            {
                                echo 'Completed';
                            }else{
@@ -72,7 +72,7 @@ $orderRows = oci_fetch_all($orderStid, $orderRes);
                         <tr>
                            <th> Status</th> 
                            <td><?php
-                           if($orderRes['PAYMENT_STATUS'])
+                           if($orderRes['PAYMENT_STATUS'][$j]=="true")
                            {
                                echo 'Completed';
                            }else{
@@ -117,7 +117,8 @@ $orderRows = oci_fetch_all($orderStid, $orderRes);
                  
                 <div class="showorder">
                     
-                    <a href="./invoice.php?order-id=<?php echo $orderRes['ORDERPLACE_ID'][$j];  ?>">View Invoice</a>
+                    <a href="./invoice.php?order-id=<?php echo $orderRes['ORDERPLACE_ID'][$j]; ?>" 
+                   >View Invoice</a>
                                
                 </div>
             </div>
