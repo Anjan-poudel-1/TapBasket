@@ -114,7 +114,10 @@
                     </div>
 
                 </div>
-                <?php }}?>
+                <?php }else{?>
+                    <span class="no-review-left">No reviews left to give!</span>
+                    
+                    <?php } } ?>
 
             </div>
 </body>

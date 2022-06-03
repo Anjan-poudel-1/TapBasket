@@ -1882,6 +1882,19 @@ select {
           transform: translate(-50%, -20%);
 }
 
+.no-review-left {
+  width: 50%;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #e1a825;
+}
+
+@media only screen and (max-width: 768px) {
+  .no-review-left {
+    width: 100%;
+  }
+}
+
 .checkout__body {
   display: -webkit-box;
   display: -ms-flexbox;

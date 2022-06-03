@@ -18,7 +18,7 @@ if (!(isset($_SESSION['user_id']))) {
     if(isset($_GET['search'])){
         $search=$_GET['search'];
     }
-    $sql = "SELECT * FROM PRODUCT INNER JOIN SHOP ON PRODUCT.SHOP_ID=SHOP.SHOP_ID INNER JOIN SHOP_REQUEST ON SHOP.SHOP_REQUEST_ID=SHOP_REQUEST.SHOP_REQUEST_ID WHERE (LOWER(PRODUCT.PRODUCT_NAME) LIKE LOWER('%$search%')) OR (LOWER(SHOP_REQUEST.CATEGORY) LIKE LOWER('%$search%'))";
+    $sql = "SELECT * FROM PRODUCT INNER JOIN SHOP ON PRODUCT.SHOP_ID=SHOP.SHOP_ID INNER JOIN SHOP_REQUEST ON SHOP.SHOP_REQUEST_ID=SHOP_REQUEST.SHOP_REQUEST_ID WHERE PRODUCT.IS_DISABLED='false' AND (LOWER(PRODUCT.PRODUCT_NAME) LIKE LOWER('%$search%')) OR (LOWER(SHOP_REQUEST.CATEGORY) LIKE LOWER('%$search%'))";
 
     if (isset($_POST['add-product'])) {
 
@@ -116,7 +116,7 @@ if (!(isset($_SESSION['user_id']))) {
 
         if(isset($_GET['search'])){
 
-            $sql = "SELECT * FROM PRODUCT INNER JOIN SHOP ON PRODUCT.SHOP_ID=SHOP.SHOP_ID INNER JOIN SHOP_REQUEST ON SHOP.SHOP_REQUEST_ID=SHOP_REQUEST.SHOP_REQUEST_ID WHERE (LOWER(PRODUCT.PRODUCT_NAME) LIKE LOWER('%$search%')) AND (LOWER(SHOP_REQUEST.CATEGORY)=LOWER('".$Cat[0]."'))";
+            $sql = "SELECT * FROM PRODUCT INNER JOIN SHOP ON PRODUCT.SHOP_ID=SHOP.SHOP_ID INNER JOIN SHOP_REQUEST ON SHOP.SHOP_REQUEST_ID=SHOP_REQUEST.SHOP_REQUEST_ID WHERE PRODUCT.IS_DISABLED='false' AND (LOWER(PRODUCT.PRODUCT_NAME) LIKE LOWER('%$search%')) AND (LOWER(SHOP_REQUEST.CATEGORY)=LOWER('".$Cat[0]."'))";
             for($CatIterator=1; $CatIterator < count($Cat); $CatIterator++){
                 $sql =$sql . " OR (SHOP_REQUEST.CATEGORY='".$Cat[$CatIterator]."')";
             }
@@ -124,7 +124,7 @@ if (!(isset($_SESSION['user_id']))) {
               
         }else{
 
-            $sql="SELECT * FROM PRODUCT INNER JOIN SHOP ON PRODUCT.SHOP_ID=SHOP.SHOP_ID INNER JOIN SHOP_REQUEST ON SHOP.SHOP_REQUEST_ID=SHOP_REQUEST.SHOP_REQUEST_ID WHERE (SHOP_REQUEST.CATEGORY='".$Cat[0]."')";
+            $sql="SELECT * FROM PRODUCT INNER JOIN SHOP ON PRODUCT.SHOP_ID=SHOP.SHOP_ID INNER JOIN SHOP_REQUEST ON SHOP.SHOP_REQUEST_ID=SHOP_REQUEST.SHOP_REQUEST_ID WHERE PRODUCT.IS_DISABLED='false' AND (SHOP_REQUEST.CATEGORY='".$Cat[0]."')";
             for($CatIterator=1; $CatIterator < count($Cat); $CatIterator++){
                 $sql =$sql . " OR (SHOP_REQUEST.CATEGORY='".$Cat[$CatIterator]."')";
             }
@@ -285,9 +285,10 @@ if (!(isset($_SESSION['user_id']))) {
                                                     echo ' checked ';
                                                 }
                                             }
-                                        }
-                                    }
-                                        ?>>
+                                        }?>>
+                                        
+                                    <?php }
+                                        ?>
                                     </form>
                             </div>
                         </div>
