@@ -207,7 +207,35 @@ if (!(isset($_SESSION['user_id']))) {
                     <div class="filter-page__Top-Row">
 
                         <div class="filter-page__Top-Row__Res-Num">Showing <?php echo $nrows;?> Results<?php if(isset($_GET['search'])){echo ' for "'.$_GET['search'].'"';}?></div>
-                        <div class="filter-page-categories">
+                        <div class="filter-page__Top-Row__Categories">
+                            <button class="filter-page__Top-Row__Categories__dropdown-button">Categories</button>
+                            <form class="Categories-filter-page__Form dropdown-form" method="POST">
+                            <?php
+                                $queryCat = "SELECT SHOP_REQUEST.CATEGORY FROM SHOP INNER JOIN SHOP_REQUEST ON SHOP.SHOP_REQUEST_ID = SHOP_REQUEST.SHOP_REQUEST_ID";
+                                $parseCat = oci_parse($conn, $queryCat);
+                                oci_execute($parseCat);
+                                $nrowsCat = oci_fetch_all($parseCat, $resCat);
+
+                                for ($j = 0; $j < $nrowsCat; $j++){
+                                $category= $resCat['CATEGORY'][$j];
+                            ?>
+                            <input type="checkbox" value="<?php echo $category?>" name="Category[]" <?php
+                            if(isset($_POST['Category'])){
+                                for($CheckIterator=0; $CheckIterator<count($Cat);$CheckIterator++){
+                                    if($Cat[$CheckIterator]==$category){
+                                        echo ' checked ';
+                                    }
+                                }
+                            }
+                            ?>> 
+                            <label for="Categories-1"><?php echo ucfirst($category);?></label><br>
+                            <?php } ?>
+                            
+                            <br><input type="submit" value="Apply" class="btn primary-outline-btn">
+                            <input type="text" name="sort" value="<?php if(isset($_POST['sort'])){
+                                echo $_POST['sort'];
+                            } ?>" hidden>
+                        </form>
                         </div>
                     
                         <div class="filter-page__Top-Row__Sort">
