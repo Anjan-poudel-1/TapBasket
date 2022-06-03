@@ -7,8 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <?php $user_id = $_SESSION['user_id'];?>
+    <?php $user_id = $_SESSION['user_id'];
+    ?>
 <div class="section home-review">
+    <?php if($_SESSION['user_id']!=NULL){?>
                 <div class="home-review__text">
 
                     <div class="home-review__text__header">
@@ -21,46 +23,46 @@
                 </div>
 
                 <?php
-                $userBoughtsql="SELECT DISTINCT(OL.PRODUCT_ID) AS PID FROM ORDERPLACE OP INNER JOIN ORDERLIST OL ON OP.ORDERPLACE_ID=OL.ORDERPLACE_ID INNER JOIN PRODUCT P ON OL.PRODUCT_ID=P.PRODUCT_ID WHERE OP.PAYMENT_STATUS='true' AND OP.USER_ID=$user_id";
-                $parseBought = oci_parse($conn, $userBoughtsql);
-                oci_execute($parseBought);
-                $BoughtRows = oci_fetch_all($parseBought, $BoughtArray);
+                    $userBoughtsql="SELECT DISTINCT(OL.PRODUCT_ID) AS PID FROM ORDERPLACE OP INNER JOIN ORDERLIST OL ON OP.ORDERPLACE_ID=OL.ORDERPLACE_ID INNER JOIN PRODUCT P ON OL.PRODUCT_ID=P.PRODUCT_ID WHERE OP.PAYMENT_STATUS='true' AND OP.USER_ID=$user_id";
+                    $parseBought = oci_parse($conn, $userBoughtsql);
+                    oci_execute($parseBought);
+                    $BoughtRows = oci_fetch_all($parseBought, $BoughtArray);
 
-                $userReviewedsql="SELECT P.PRODUCT_ID AS PID FROM PRODUCT P INNER JOIN REVIEW R ON P.PRODUCT_ID=R.PRODUCT_ID WHERE R.USER_ID=$user_id";
-                $parseReviewed = oci_parse($conn, $userReviewedsql);
-                oci_execute($parseReviewed);
-                $ReviewedRows = oci_fetch_all($parseReviewed, $ReviewedArray);
+                    $userReviewedsql="SELECT P.PRODUCT_ID AS PID FROM PRODUCT P INNER JOIN REVIEW R ON P.PRODUCT_ID=R.PRODUCT_ID WHERE R.USER_ID=$user_id";
+                    $parseReviewed = oci_parse($conn, $userReviewedsql);
+                    oci_execute($parseReviewed);
+                    $ReviewedRows = oci_fetch_all($parseReviewed, $ReviewedArray);
 
-                $index=0;
-                for($i=0;$i<$BoughtRows;$i++){
-                    for($j=0;$j<$ReviewedRows;$j++){
-                        $reviewFlag=false;
-                        if($BoughtArray['PID'][$i]==$ReviewedArray['PID'][$j]){
-                            break;
-                        }else{
-                            $reviewFlag=true;
+                    $index=0;
+                    for($i=0;$i<$BoughtRows;$i++){
+                        for($j=0;$j<$ReviewedRows;$j++){
+                            $reviewFlag=false;
+                            if($BoughtArray['PID'][$i]==$ReviewedArray['PID'][$j]){
+                                break;
+                            }else{
+                                $reviewFlag=true;
+                            }
+                        }
+                        if($reviewFlag){
+                            $unreviewedArray[$index]=$BoughtArray['PID'][$i];
+                            $index++;
                         }
                     }
-                    if($reviewFlag){
-                        $unreviewedArray[$index]=$BoughtArray['PID'][$i];
-                        $index++;
-                    }
-                }
-                if(!isset($_POST['skip'])){
-                    $newIndex=0;
-                }else{
-                    $newIndex=$_POST['skip-index']+1;
-                    if($newIndex<sizeof($unreviewedArray)){
-                        
-                    }else{
+                    if(!isset($_POST['skip'])){
                         $newIndex=0;
+                    }else{
+                        $newIndex=$_POST['skip-index']+1;
+                        if($newIndex<sizeof($unreviewedArray)){
+                            
+                        }else{
+                            $newIndex=0;
+                        }
                     }
-                }
 
-                $stidReviewProduct = "SELECT * FROM PRODUCT WHERE PRODUCT_ID=".$unreviewedArray[$newIndex];
-                $stidReview = oci_parse($conn, $stidReviewProduct);
-                oci_execute($stidReview);
-                $ProductToReview=oci_fetch_array($stidReview);
+                    $stidReviewProduct = "SELECT * FROM PRODUCT WHERE PRODUCT_ID=".$unreviewedArray[$newIndex];
+                    $stidReview = oci_parse($conn, $stidReviewProduct);
+                    oci_execute($stidReview);
+                    $ProductToReview=oci_fetch_array($stidReview);
                 ?>
 
                 <div class="home-review__card">
@@ -108,6 +110,7 @@
                     </div>
 
                 </div>
+                <?php }?>
 
             </div>
 </body>
