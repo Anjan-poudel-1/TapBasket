@@ -35,13 +35,17 @@
 
                     $index=0;
                     for($i=0;$i<$BoughtRows;$i++){
-                        for($j=0;$j<$ReviewedRows;$j++){
-                            $reviewFlag=false;
-                            if($BoughtArray['PID'][$i]==$ReviewedArray['PID'][$j]){
-                                break;
-                            }else{
-                                $reviewFlag=true;
+                        if($ReviewedRows!=0){
+                            for($j=0;$j<=$ReviewedRows;$j++){
+                                $reviewFlag=false;
+                                if($BoughtArray['PID'][$i]==$ReviewedArray['PID'][$j]){
+                                    break;
+                                }else{
+                                    $reviewFlag=true;
+                                }
                             }
+                        }else if($BoughtRows>0){
+                            $reviewFlag=true;
                         }
                         if($reviewFlag){
                             $unreviewedArray[$index]=$BoughtArray['PID'][$i];
@@ -58,7 +62,7 @@
                             $newIndex=0;
                         }
                     }
-
+                    if($index!=0){
                     $stidReviewProduct = "SELECT * FROM PRODUCT WHERE PRODUCT_ID=".$unreviewedArray[$newIndex];
                     $stidReview = oci_parse($conn, $stidReviewProduct);
                     oci_execute($stidReview);
@@ -110,7 +114,7 @@
                     </div>
 
                 </div>
-                <?php }?>
+                <?php }}?>
 
             </div>
 </body>
