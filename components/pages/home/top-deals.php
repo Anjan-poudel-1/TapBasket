@@ -291,7 +291,7 @@
 
                         if ($product_stock != 0) {
                         ?>
-                            <div class="product-card__details__cart-btn">
+                            <div class="product-card__details__cart-btn" id="review-home">
 
 
                                         <form method="POST">

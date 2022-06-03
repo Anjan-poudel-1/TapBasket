@@ -1,0 +1,10 @@
+.no-review-left{
+    width: 50%;
+    text-align: center;
+    font-size: $font-size-md;
+    color: $primary-color;
+    
+    @media only screen and (max-width:$screen-md){
+        width: 100%;
+    }
+}
