@@ -340,7 +340,7 @@ if($qty_in_stock_check<=0){
                                 </div>
                             </a>
                             <?php } ?>
-                        <form class="ProductCart-wrapper__buttons__Add-Cart" method="POST">
+                        <form class="ProductCart-wrapper__buttons__Add-Cart" method="POST" id="review">
                             <input name="product-id" hidden value="<?php echo $id ?>">
                             <input name="quantity" hidden value="<?php echo $qty ?>">
                             <button class="btn primary-outline-btn card-btn" type="submit" name="add-product" <?php if($stockOutFlag){ echo "disabled";} ?>>Add to Cart</button> 
