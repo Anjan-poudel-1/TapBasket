@@ -1,12 +1,15 @@
 <?php 
 include './connection.php';
 $invoicesql= "SELECT * FROM ORDERPLACE 
-            INNER JOIN USERS ON ORDERPLACE.USER_ID= USERS.USER_ID 
-            WHERE ORDERPLACE_ID=". $_GET['order-id'];
+            INNER JOIN USERS ON ORDERPLACE.USER_ID= USERS.USER_ID           
+            WHERE ORDERPLACE_ID=". $_GET['order-id'] ."
+            ORDER BY ORDERPLACE_ID DESC"; 
 $result=oci_parse($conn, $invoicesql);
         oci_execute($result);
         $row=oci_fetch_array($result);
-?>
+
+     $user_id = $_SESSION['user_id'];
+ ?>          
 
     <div class="customer-section">
         <div class="container page__body">
@@ -93,11 +96,12 @@ $nrows = oci_fetch_all($stid, $res);
                             <?php 
                             $total= 0;
                             for ($j = 0; $j < $nrows; $j++){
+                                $productid =$res['PRODUCT_ID'][$j];
                                 $name =$res['PRODUCT_NAME'][$j];
                                 $image =$res['PRODUCT_IMAGE'][$j];
                                 $price =$res['PRICE'][$j];
                                 $quantity =$res['QUANTITY'][$j];
-                                $subtotal=$price*$quantity; 
+                                
                                 
                             ?>
                                 <div class="invoice-product-card">
@@ -113,9 +117,21 @@ $nrows = oci_fetch_all($stid, $res);
                                             </div>
                                             <div class="invoice-product-card__left__desc__rate">
                                              £
-                                            <?php 
-                                            echo  $price;
+                                    
+                                            <?php
+                                            $oldPrice=$res['PRICE'][$j];
+                                            $discountPrice=0;
+                                            $stidDiscount = "SELECT DISCOUNT_RATE FROM DISCOUNT WHERE PRODUCT_ID=$productid";
+                                            $stidDiscount = oci_parse($conn, $stidDiscount);
+                                                    oci_execute($stidDiscount);
+                                                    while (oci_fetch($stidDiscount)) {
+                                                        $discountPrice = oci_result($stidDiscount, 'DISCOUNT_RATE');               
+                                                        }
+                                            if($discountPrice>0){?><i><strike><?php echo $oldPrice; 
+                                                ?></strike></i> <?php echo ($oldPrice-$discountPrice); 
+                                            }else{ echo $price;}
                                             ?>
+                                
                                             </div>
                                         </div>
                                     </div>
@@ -128,7 +144,8 @@ $nrows = oci_fetch_all($stid, $res);
                                         </div>
                                         <div class="invoice-product-card__right__total">
                                         £
-                                        <?php 
+                                        <?php
+                                        $subtotal=($price-$discountPrice)*$quantity;  
                                         echo number_format(($subtotal),2);
                                         $total+= $subtotal; 
                                         ?>
