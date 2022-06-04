@@ -78,6 +78,10 @@
                 font-size: $font-size-base;
                 font-weight: 450;
                 margin-right: 10px;
+
+                @media only screen and (max-width:$screen-sm){
+                    display: none;
+                }
             }
             &__Sort-Dropdown{
                 display: inline-block;
