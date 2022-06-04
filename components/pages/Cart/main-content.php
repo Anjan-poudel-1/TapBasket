@@ -132,7 +132,7 @@
 
                                         <!-- Plus button -->
                                         <a href="cart.php?product_id=<?php echo $product_id ?>&qty=<?php
-                                                                                                    echo $quantity ?>&type=subs">
+                                                                                                    echo $quantity ?>&type=add">
                                             <div class="indi-cartitem__right__quantity__button__change">
 
                                                 <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
