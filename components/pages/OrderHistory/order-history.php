@@ -1,7 +1,7 @@
 <?php 
 $myordersql= "SELECT * FROM ORDERPLACE 
-            WHERE ORDERPLACE.USER_ID = $user_id 
-            ORDER BY ORDERPLACE_ID DESC" ; 
+            WHERE ORDERPLACE.USER_ID = $user_id"; 
+            
 $orderStid = oci_parse($conn, $myordersql);
 oci_execute($orderStid);
 $orderRows = oci_fetch_all($orderStid, $orderRes);
