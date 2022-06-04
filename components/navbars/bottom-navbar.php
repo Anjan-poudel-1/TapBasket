@@ -221,7 +221,7 @@ if ($_SESSION['isAuthenticated']) {
             if (isset($userImage) && strlen($userImage) > 0) {
             ?>
                 <a href="account-settings.php">
-                    <img class='navbar-profile-picture navbar-profile-picture--mobile' src='./assets/images/profiles/$userImage' />";
+                    <img class='navbar-profile-picture navbar-profile-picture--mobile' src='./assets/images/profiles/<?php echo $userImage?>' />
                 </a>
             <?php
             } else {
