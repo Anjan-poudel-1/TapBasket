@@ -145,7 +145,7 @@ if (isset($_GET['collectionSlot']) && (isset($_GET['timing']) && isset($_GET['pa
             oci_commit($conn);
             oci_free_statement($orderliststid);
         }
-        $_SESSION['cart'] = [];
+            $_SESSION['cart'] = []; 
 
             $sqlEndCartList = "DELETE FROM CARTLIST WHERE USER_ID=$user_id";
             $EndCartListstid = (oci_parse($conn, $sqlEndCartList));
@@ -172,7 +172,7 @@ if (isset($_GET['collectionSlot']) && (isset($_GET['timing']) && isset($_GET['pa
     <input type='hidden' name='cancel_return' value='http://localhost/TapBasket/error-page.php'>
     <input type='hidden' name='return' value='http://localhost/TapBasket/success-page.php?userId=<?php echo $user_id?>&payment=true&orderId=<?php echo $orderplace_id?>'>
     <!-- payment button. -->
-    <input type="image" name="submit" border="0" src="sandbox/paypal.svg" alt="PayPal - The safer, easier way to pay online">
+    <input type="image" name="submit" border="0" src="sandbox/paypal.svg" alt="Loading....Payment">
     <img alt="" border="0" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
   </form>    
         <?php
