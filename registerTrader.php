@@ -146,9 +146,13 @@
         
     }
 
-    //generating password for trader and veryfying trader account
+    if(isset($_POST['signup_customer'])){
+        header('location:registeruser.php');
+    }
    
-      
+    if(isset($_POST['login'])){
+        header('location:login.php');
+    }
 
     ?>
     <div class="page login-page">
@@ -372,19 +376,25 @@
 
                                     <!-- Go to registration page -->
 
-                                    <button class="btn primary-btn form-btn">
+                                    <input type="submit" value="Log-in" class="btn primary-btn form-btn login-form__content__login" name="login">
+                        
+                                  
+                                    <!-- <button class="btn primary-btn form-btn">
                                         Log-in
 
-                                    </button>
+                                    </button> -->
+                                    
                                 </div><br>
                                 <div>
                                     <p class="button-desc">
                                         Sign Up as Customer
                                     </p>
-                                    <button class="btn primary-btn form-btn">
+
+                                    <input type="submit" value="Signup as Customer" class="btn primary-btn form-btn login-form__content__login" name="signup_customer">
+                                    <!-- <button class="btn primary-btn form-btn">
                                         signup as customer
 
-                                    </button>
+                                    </button> -->
                                 </div>
                             </div>
                         </div>
