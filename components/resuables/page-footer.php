@@ -34,18 +34,21 @@
             </div>
             <div class="page-footer__quick-links__links">
                 <ul>
+                    <a href="index.php">
                     <li>
                         Home
                     </li>
+                    </a>
+                    <a href="filter.php">
                     <li>
                         Products
                     </li>
+                    </a>
+                    <a href="maintopdeal.php">
                     <li>
                         Top deals
                     </li>
-                    <li>
-                        Contact Us
-                    </li>
+                    </a>
                 </ul>
 
             </div>

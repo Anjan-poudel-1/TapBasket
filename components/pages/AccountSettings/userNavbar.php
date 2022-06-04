@@ -141,6 +141,7 @@ while (($row = oci_fetch_object($stid)) != false) {
                         </div>
                         </a>
 
+                        <a href="logout.php">
                         <div class="user-dashboard__menu__nav__list user-dashboard__menu__nav__list--logout">
                             <div class="user-dashboard__menu__nav__list__icon">
                             <svg width="18" height="18" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -149,6 +150,7 @@ while (($row = oci_fetch_object($stid)) != false) {
 
 
                             </div>
+
                             <div class="user-dashboard__menu__nav__list__details">
                                 <div class="user-dashboard__menu__nav__list__details__name desktop-view">
                                     Logout
@@ -156,6 +158,7 @@ while (($row = oci_fetch_object($stid)) != false) {
                             </div>
                             
                         </div>
+                        </a>
 
 
                     </div>

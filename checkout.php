@@ -147,7 +147,11 @@ if (isset($_GET['collectionSlot']) && (isset($_GET['timing']) && isset($_GET['pa
         }
         $_SESSION['cart'] = [];
 
-        ?>
+            $sqlEndCartList = "DELETE FROM CARTLIST WHERE USER_ID=$user_id";
+            $EndCartListstid = (oci_parse($conn, $sqlEndCartList));
+            oci_execute($EndCartListstid, OCI_NO_AUTO_COMMIT);
+
+            ?>
               <!-- Form here -->
 
 

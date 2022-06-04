@@ -36,7 +36,7 @@
                     $index=0;
                     for($i=0;$i<$BoughtRows;$i++){
                         if($ReviewedRows!=0){
-                            for($j=0;$j<=$ReviewedRows;$j++){
+                            for($j=0;$j<$ReviewedRows;$j++){
                                 $reviewFlag=false;
                                 if($BoughtArray['PID'][$i]==$ReviewedArray['PID'][$j]){
                                     break;

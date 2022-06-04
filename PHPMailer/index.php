@@ -79,20 +79,33 @@ try {
     ";
     $totalPrice=0;
      while($row=oci_fetch_array($stiEmailSelect, OCI_ASSOC+OCI_RETURN_NULLS)){
+        
+        $disselect='select DISCOUNT_RATE from DISCOUNT where product_id='.$row['PRODUCT_ID'];
+        $stidis=oci_parse($conn,$disselect);
+        oci_execute($stidis,OCI_NO_AUTO_COMMIT); 
+
+        // $discount=0;
+        while($disrow=oci_fetch_array($stidis,OCI_ASSOC+OCI_RETURN_NULLS)){
+        $discount=0;
+        $discount=$disrow['DISCOUNT_RATE'];
+        // echo $row['PRODUCT_ID'];
+        // echo $discount;
 
         $selectprice='select price from Product where product_id='.$row['PRODUCT_ID'];
         $stiPrice=oci_parse($conn,$selectprice);
-        oci_execute($stiPrice,OCI_NO_AUTO_COMMIT);  
+        oci_execute($stiPrice,OCI_NO_AUTO_COMMIT); 
+        
         while($rows=oci_fetch_array($stiPrice, OCI_ASSOC+OCI_RETURN_NULLS)){
-            $Price=$rows['PRICE']*$row['QUANTITY'];
-            $totalPrice=$totalPrice+$Price;
+            $priceWithdiscount=($rows['PRICE']*$row['QUANTITY'])-($discount*$row['QUANTITY']);
+            $totalPrice=$totalPrice+$priceWithdiscount;
              $mail->Body .="  <tr>
             <td style=' padding: 15px;'>".$row['PRODUCT_NAME']."</td>
             <td style=' padding: 15px;'>".$row['QUANTITY']."</td>
-            <td style=' padding: 15px;'>".$Price."</td>
+            <td style=' padding: 15px;'>".$priceWithdiscount."</td>
             </tr>
           ";  
-        }    
+        }  
+    }  
            }
         
 
@@ -103,7 +116,6 @@ try {
         </tbody>
         </table>
         <p style='text-align: center;'><b>We will look forward to serve you again... HAPPY SHOPPING<b></p>
-        <img src='./assets/images/logo-01.png'/>
         
         ";
         // <img src='./dark_logo.jpeg' alt='Logo' width='100' height='100' style='margin-left: auto;
@@ -111,9 +123,9 @@ try {
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
     
     $mail->send();
-    echo 'Message has been sent';
+    // echo 'Message has been sent';
 } catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 
 
     
