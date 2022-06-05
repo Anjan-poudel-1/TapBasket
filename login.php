@@ -76,6 +76,11 @@ include("connection.php");
                 }
                 else{
                     $_SESSION['cart'][$product_id] = $quantity;
+                    $insertCartListSql ="INSERT INTO  CARTLIST() VALUES()";
+                    
+                    $stidinsert = oci_parse($conn,$insertCartListSql);
+                    oci_bind_by_name($stidinsert, ':quantity', $_SESSION['cart'][$product_id]);
+                    oci_execute($stidinsert, OCI_COMMIT_ON_SUCCESS);
                 }
 
             }
