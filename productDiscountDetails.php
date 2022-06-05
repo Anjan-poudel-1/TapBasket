@@ -1,7 +1,10 @@
 <?php
 SESSION_START();
-if ((isset($_SESSION['role']) && $_SESSION['role'] == 'customer')) {
-    header('location:productDiscount.php');
+if(!isset($_SESSION['role'])){
+    header('location:index.php');
+}
+if ((isset($_SESSION['role']) && $_SESSION['role'] != 'trader')) {
+    header('location:index.php');
 }
 
 include('connection.php');
@@ -39,8 +42,6 @@ if (isset($_POST['saveDiscountDetail'])) {
     $product_name =  $_POST['product_name'];
     $discount_price = $_POST['discount_price'];
     $errCount=0;
-
-    
 
     $sqlGetProductId = "SELECT PRODUCT_ID,PRICE FROM PRODUCT WHERE PRODUCT_NAME=:product_name";
     $stidGetProductId = oci_parse($conn, $sqlGetProductId);
@@ -84,7 +85,7 @@ if (isset($_POST['saveDiscountDetail'])) {
         }
         //Also check if discount price exceeds product price
         if(isset($act_price) && $discount_price>=$act_price){
-            $discount_price_err = "Discount Price Should not be greaterr than product price";
+            $discount_price_err = "Discount Price Should not be greater than product price";
             $errCount++;
         }
     }

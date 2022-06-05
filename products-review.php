@@ -1,6 +1,9 @@
 <?php
 SESSION_START();
-if ((isset($_SESSION['role']) && $_SESSION['role'] == 'customer')) {
+if(!isset($_SESSION['role'])){
+    header('location:index.php');
+}
+if ((isset($_SESSION['role']) && $_SESSION['role'] != 'trader')) {
     header('location:index.php');
 }
 $userId= $_SESSION['user_id'];

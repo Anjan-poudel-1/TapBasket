@@ -1698,6 +1698,12 @@ select {
   }
 }
 
+@media only screen and (max-width: 992px) {
+  .user-dashboard__menu__nav a:last-child {
+    display: none;
+  }
+}
+
 .user-dashboard__menu__nav__list {
   display: -webkit-box;
   display: -ms-flexbox;
