@@ -32,7 +32,6 @@ if (isset($_GET['product_id']) && isset($_GET['qty'])) {
 
         $stidNew = oci_parse($conn, $fetchquantityinStockSql);
         oci_execute($stidNew);
-        echo $stidNew;
 
         while (oci_fetch($stidNew)) {
             $qty_in_stock = oci_result($stidNew, 'QUANTITY_IN_STOCK');

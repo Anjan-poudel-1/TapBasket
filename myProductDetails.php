@@ -65,7 +65,7 @@ while (($row = oci_fetch_object($stid)) != false) {
 
 if (isset($_POST['savePRoductDetail'])) {
 
-    $product_name =  $_POST['product_name'];
+    $product_name =$_POST['product_name'];
     $description = $_POST['description'];
     $image = $_POST['image'];
     $quantity = $_POST['quantity'];

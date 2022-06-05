@@ -22,10 +22,7 @@
         $addr = trim($_POST['addr']);
         $desc = trim($_POST['desc']);
 
-        if (!preg_match('/^[\+0-9\-\(\)\s]*$/', $phone)) {
-
-            $phoneerr = "Please enter valid phone number";
-        }
+   
 
         if (empty(trim($desc))) {
             $descerr = "Please add Product description";
@@ -45,14 +42,29 @@
         if (empty(trim($product))) {
             $producterr = "Please enter products types";
         }
-        if (empty($name) || empty($tradername)) {
+        if (empty($name)) {
             $nameerr = "Please enter name";
         }
-
-
-        if (empty($phone) || empty($Traderphone)) {
-            $phoneerr = "Please enter phone number";
+        if(empty($tradername)){
+            $Tnameerr = "Please enter name";
         }
+
+
+        if (empty($phone)) {
+            $phoneerr = "Please enter phone number";
+        }else  if (!preg_match('/^[\+0-9\-\(\)\s]*$/', $phone)) {
+
+            $phoneerr = "Please enter valid phone number";
+        }
+
+        if (empty($Traderphone)) {
+            $Tphoneerr = "Please enter phone number";
+        }else if (!preg_match('/^[\+0-9\-\(\)\s]*$/', $Traderphone)) {
+
+            $Tphoneerr = "Please enter valid phone number";
+        }
+       
+        
     }
     ?>
     <?php
@@ -133,12 +145,8 @@
                       }
 
                      
-                }else{
-                    echo "Problem inserting shop details";
                 }
                 
-            }else{
-                echo "problem inserting trader details";
             }
             
         }
@@ -172,7 +180,7 @@
                             <div class="form-control">
                                 <p class="form-control__label">Name</p>
                                 <input class="form-control__input <?php
-                                                                    if (isset($nameerr)) {
+                                                                    if (isset($Tnameerr)) {
                                                                         echo " form-control__input--error";
                                                                     }
                                                                     ?>" placeholder="FirstName" name="Tname" value="<?php
@@ -181,10 +189,10 @@
                                                                             }
                                                                             ?>" />
                                 <?php
-                                if (isset($nameerr)) {
+                                if (isset($Tnameerr)) {
                                 ?>
                                     <div class="input-error">
-                                        <?php echo $nameerr ?>
+                                        <?php echo $Tnameerr ?>
                                     </div>
                                 <?php
                                 }
@@ -224,7 +232,7 @@
                                     Phone Number
                                 </p>
                                 <input class="form-control__input <?php
-                                                                    if (isset($phoneerr)) {
+                                                                    if (isset($Tphoneerr)) {
                                                                         echo " form-control__input--error";
                                                                     }
                                                                     ?>" placeholder="+44" name="Tphone" value="<?php
@@ -234,10 +242,10 @@
                                                                         ?>" />
 
                                 <?php
-                                if (isset($phoneerr)) {
+                                if (isset($Tphoneerr)) {
                                 ?>
                                     <div class="input-error">
-                                        <?php echo $phoneerr ?>
+                                        <?php echo $Tphoneerr ?>
                                     </div>
                                 <?php
                                 }
