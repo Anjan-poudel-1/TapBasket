@@ -22,10 +22,7 @@
         $addr = trim($_POST['addr']);
         $desc = trim($_POST['desc']);
 
-        if (!preg_match('/^[\+0-9\-\(\)\s]*$/', $phone)) {
-
-            $phoneerr = "Please enter valid phone number";
-        }
+   
 
         if (empty(trim($desc))) {
             $descerr = "Please add Product description";
@@ -45,14 +42,29 @@
         if (empty(trim($product))) {
             $producterr = "Please enter products types";
         }
-        if (empty($name) || empty($tradername)) {
+        if (empty($name)) {
             $nameerr = "Please enter name";
         }
-
-
-        if (empty($phone) || empty($Traderphone)) {
-            $phoneerr = "Please enter phone number";
+        if(empty($tradername)){
+            $Tnameerr = "Please enter name";
         }
+
+
+        if (empty($phone)) {
+            $phoneerr = "Please enter phone number";
+        }else  if (!preg_match('/^[\+0-9\-\(\)\s]*$/', $phone)) {
+
+            $phoneerr = "Please enter valid phone number";
+        }
+
+        if (empty($Traderphone)) {
+            $Tphoneerr = "Please enter phone number";
+        }else if (!preg_match('/^[\+0-9\-\(\)\s]*$/', $Traderphone)) {
+
+            $Tphoneerr = "Please enter valid phone number";
+        }
+       
+        
     }
     ?>
     <?php
@@ -133,12 +145,8 @@
                       }
 
                      
-                }else{
-                    echo "Problem inserting shop details";
                 }
                 
-            }else{
-                echo "problem inserting trader details";
             }
             
         }
@@ -146,25 +154,12 @@
         
     }
 
-    //generating password for trader and veryfying trader account
-    if (isset($_POST['TraderRegisterSubmit'])) {
-        if(isset($_POST['verifytraderaccount'])){
-            $Temail = $_POST['Temail'];
-            $PASS=md5('Password1');
-            $isdisable='false';
-            $Tname = trim($_POST['Tname']);
-            include './PHPMailer/traderaccountVerified.php';
-
-            $updateVcodeSql = "UPDATE USERS SET PASSWORD=:passwords,IS_DISABLED=:isdisable WHERE EMAIL=:email";
-            $stidVcodeUpdate = oci_parse($conn,$updateVcodeSql);
-            oci_bind_by_name($stidVcodeUpdate, ':passwords', $PASS);
-            oci_bind_by_name($stidVcodeUpdate, ':email', $Temail);
-            oci_bind_by_name($stidVcodeUpdate, ':isdisable', $isdisable);
-            oci_execute($stidVcodeUpdate, OCI_COMMIT_ON_SUCCESS);
-            oci_commit($conn);
-            oci_free_statement($stidVcodeUpdate);
-            oci_close($conn);
-        }
+    if(isset($_POST['signup_customer'])){
+        header('location:registeruser.php');
+    }
+   
+    if(isset($_POST['login'])){
+        header('location:login.php');
     }
 
     ?>
@@ -185,7 +180,7 @@
                             <div class="form-control">
                                 <p class="form-control__label">Name</p>
                                 <input class="form-control__input <?php
-                                                                    if (isset($nameerr)) {
+                                                                    if (isset($Tnameerr)) {
                                                                         echo " form-control__input--error";
                                                                     }
                                                                     ?>" placeholder="FirstName" name="Tname" value="<?php
@@ -194,10 +189,10 @@
                                                                             }
                                                                             ?>" />
                                 <?php
-                                if (isset($nameerr)) {
+                                if (isset($Tnameerr)) {
                                 ?>
                                     <div class="input-error">
-                                        <?php echo $nameerr ?>
+                                        <?php echo $Tnameerr ?>
                                     </div>
                                 <?php
                                 }
@@ -237,7 +232,7 @@
                                     Phone Number
                                 </p>
                                 <input class="form-control__input <?php
-                                                                    if (isset($phoneerr)) {
+                                                                    if (isset($Tphoneerr)) {
                                                                         echo " form-control__input--error";
                                                                     }
                                                                     ?>" placeholder="+44" name="Tphone" value="<?php
@@ -247,10 +242,10 @@
                                                                         ?>" />
 
                                 <?php
-                                if (isset($phoneerr)) {
+                                if (isset($Tphoneerr)) {
                                 ?>
                                     <div class="input-error">
-                                        <?php echo $phoneerr ?>
+                                        <?php echo $Tphoneerr ?>
                                     </div>
                                 <?php
                                 }
@@ -389,19 +384,25 @@
 
                                     <!-- Go to registration page -->
 
-                                    <button class="btn primary-btn form-btn">
+                                    <input type="submit" value="Log-in" class="btn primary-btn form-btn login-form__content__login" name="login">
+                        
+                                  
+                                    <!-- <button class="btn primary-btn form-btn">
                                         Log-in
 
-                                    </button>
+                                    </button> -->
+                                    
                                 </div><br>
                                 <div>
                                     <p class="button-desc">
                                         Sign Up as Customer
                                     </p>
-                                    <button class="btn primary-btn form-btn">
+
+                                    <input type="submit" value="Signup as Customer" class="btn primary-btn form-btn login-form__content__login" name="signup_customer">
+                                    <!-- <button class="btn primary-btn form-btn">
                                         signup as customer
 
-                                    </button>
+                                    </button> -->
                                 </div>
                             </div>
                         </div>

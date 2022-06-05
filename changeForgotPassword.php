@@ -23,8 +23,6 @@ if (isset($_GET['id'])) {
             $errCount++;
         }
 
-
-        echo $user_id;
         if ($errCount == 0) {
             $Passwordnew = md5($newPassword);
             $sqli = "UPDATE USERS 
@@ -54,9 +52,6 @@ if (isset($_GET['id'])) {
 
                 $header = 'Your password was changed. ';
                 if (mail($to, $subject, $header)) {
-                    echo "Email sent";
-                } else {
-                    echo "unable to send email";
                 }
             }
             echo "<script> alert('Password Changed');

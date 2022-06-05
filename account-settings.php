@@ -213,35 +213,25 @@ while (($row = oci_fetch_object($stid)) != false) {
         $errCount++;
     }
 
-  
-    echo $user_id;
     if($errCount==0){
         $Passwordnew=md5($newPassword);
+        $TraderPassword1=md5($newPassword);
         $sqli="UPDATE USERS 
         SET PASSWORD=:newpassword WHERE USER_ID='$user_id'";
           
          $stid = oci_parse($conn,$sqli);
-         oci_bind_by_name($stid, ':newpassword', $Passwordnew);
+         $temp=$_SESSION['role'];
+         if($temp=='customer'){
+            oci_bind_by_name($stid, ':newpassword', $Passwordnew);
+         }else{
+            oci_bind_by_name($stid, ':newpassword', $TraderPassword1);
+         }
+      
          oci_execute($stid, OCI_COMMIT_ON_SUCCESS); 
         //  echo '<script>alert("Password Changed")</script>'; 
         // header ('location:logout.php');
 
-        if($sqli){  
-            $to=$email;
-            $sender="shahirabina652@gmail.com";
-            $subject="Security alert";
-
-            $headers  = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-            
-            $header='Your password was changed. ';
-            if(mail($to,$subject,$message, $header)){
-                echo"Email sent";
-            }else{
-                echo "unable to send email";
-            }
-
-        }
+   
         echo "<script> alert('Password Changed');
         window.setTimeout(function(){
             window.location.href = 'logout.php';

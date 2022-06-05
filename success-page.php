@@ -90,7 +90,7 @@ if($insertPaymentSql){
 
                 <div class="success-page-container__content__links">
                     <div>
-                    <a>
+                    <a href="index.php">
                     <button class="btn primary-btn ">
                         Go to Home
                     </button>
@@ -98,7 +98,7 @@ if($insertPaymentSql){
                     </div>
 
                     <div>
-                    <a>
+                    <a href="orders.php">
                     <button class="btn primary-outline-btn">
                         My Orders
                     </button>

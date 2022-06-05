@@ -227,11 +227,11 @@
     <script>
         const changePicture = (event) => {
 
-            console.log(event);
+           
             let image = (event.target.files[0]);
             let imageUrl = URL.createObjectURL(image);
             let profileImage = document.getElementById('profile-image');
-            console.log("profileImage", profileImage)
+            
             profileImage.setAttribute('src', imageUrl);
 
 

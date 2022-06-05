@@ -191,7 +191,7 @@
 
                         <div class="product-card__details__price">
                             <b>£<?php
-                                echo ($price);
+                                echo ($price-$discountPrice);
                                 ?></b>
 
                                 <!-- If discount data is available -->
@@ -201,7 +201,7 @@
                             <span class="product-card__details__price__discount-price">
                             <b><strike>
                             £<?php
-                                echo ($price+$discountPrice);
+                                echo ($price);
                                 ?>
                             </strike></b>
                             </span>
@@ -291,7 +291,7 @@
 
                         if ($product_stock != 0) {
                         ?>
-                            <div class="product-card__details__cart-btn">
+                            <div class="product-card__details__cart-btn" id="review-home">
 
 
                                         <form method="POST">

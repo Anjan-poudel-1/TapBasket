@@ -2,7 +2,10 @@
 
 
 SESSION_START();
-if ((isset($_SESSION['role']) && $_SESSION['role'] == 'customer')) {
+if(!isset($_SESSION['role'])){
+    header('location:index.php');
+}
+if ((isset($_SESSION['role']) && $_SESSION['role'] != 'trader')) {
     header('location:index.php');
 }
 
@@ -62,7 +65,7 @@ while (($row = oci_fetch_object($stid)) != false) {
 
 if (isset($_POST['savePRoductDetail'])) {
 
-    $product_name =  $_POST['product_name'];
+    $product_name =$_POST['product_name'];
     $description = $_POST['description'];
     $image = $_POST['image'];
     $quantity = $_POST['quantity'];
@@ -110,14 +113,14 @@ if (isset($_POST['savePRoductDetail'])) {
     if ($errCount == 0 && $type =='edit') {
         //If  no errors... connect to database,, update data 
 
-        $sqli = "UPDATE PRODUCT SET PRODUCT_NAME=:product_name1,PRODUCT_DESCRIPTION=:description1,PRODUCT_IMAGE=:image1,QUANTITY_IN_STOCK=:quantity1,ALERGYINFORMATION=:allergyInfo1,PRICE=:price1,UNIT=:unit1 WHERE PRODUCT_ID=$product_id";
+        $sqli = "UPDATE PRODUCT SET PRODUCT_NAME=:product_name1,PRODUCT_DESCRIPTION=:description1,PRODUCT_IMAGE=:image1,QUANTITY_IN_STOCK=:quantity1,ALERGYINFORMATION=:allergyInfo1,PRICE=:price1,UNIT=:unit1,IS_DISABLED=:isdissable WHERE PRODUCT_ID=$product_id";
 
         $stid = oci_parse($conn, $sqli);
         oci_bind_by_name($stid, ':product_name1', $product_name);
         oci_bind_by_name($stid, ':description1', $description);
         oci_bind_by_name($stid, ':image1', $image);
         oci_bind_by_name($stid, ':quantity1', $quantity);
-
+        oci_bind_by_name($stid, ':isdissable', $is_disabled);
         oci_bind_by_name($stid, ':allergyInfo1', $allergyInfo);
         oci_bind_by_name($stid, ':price1', $price);
         oci_bind_by_name($stid, ':unit1', $unit);
@@ -361,7 +364,7 @@ if($type=='edit'){
                 <p class="form-control__label">
                     Is Disabled
                 </p>
-                <input class="form-control__input" readonly  name="is_disabled" value="<?php
+                <input class="form-control__input"  name="is_disabled" value="<?php
                                                                                                 if ($is_disabled) {
                                                                                                     echo $is_disabled;
                                                                                                 }

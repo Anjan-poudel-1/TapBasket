@@ -171,8 +171,7 @@
             margin-left: 1%;
         }
 
-        &__Currency{
-        }
+        
         &__Amount{
             color: $primary-color;
             font-weight: $font-weight-bold;
@@ -301,22 +300,22 @@
 
                 &__star-item{
                     display: none !important;
-                    cursor: pointer;
+                    
                 }
-                &__star-label{
+                // &__star-label{
+                //     opacity: 0.4;
+                // }
+                &__star-label img{
+                    width: 25px;
                     opacity: 0.4;
                     cursor: pointer;
                 }
-                &__star-label img{
-                    width: 25px;
-                }
 
-                &__star-item:checked+label{
-                    opacity: 1;
-                }
-                &__star-item:not(checked){
+               
+                &__star-item{
                     opacity: 0.1;
                 }
+                
 
                 &__Review-Text{
                     width: 100%;
@@ -413,4 +412,8 @@
     background-color: $gray-300;
     color: $gray-400;
     border: 1px solid $gray-400;
+}
+
+.star-item-selected{
+    opacity: 1;
 }

@@ -28,6 +28,7 @@
                 $product_image =  $row->PRODUCT_IMAGE;
                 $qty_in_stock = $row->QUANTITY_IN_STOCK;
                 $product_price = $row->PRICE;
+                $product_id= $row->PRODUCT_ID;
                 $shop_id = $row->SHOP_ID;
             }
 
@@ -48,6 +49,16 @@
 
             $discountPrice = 0;
 
+            $stidDiscount = "SELECT DISCOUNT_RATE FROM DISCOUNT WHERE PRODUCT_ID=$product_id";
+            $stidDiscount = oci_parse($conn, $stidDiscount);
+            oci_execute($stidDiscount);
+
+
+            while (oci_fetch($stidDiscount)) {
+                $discountPrice = oci_result($stidDiscount, 'DISCOUNT_RATE');
+                
+            }
+
            
 
         ?>
@@ -66,8 +77,20 @@
                         <div class="indi-cartitem__left__details__price mobile-view">
 
                             <?php
-                            echo "£" . $product_price * $quantity;
+                            echo "£" . ($product_price-$discountPrice) * $quantity;
                             ?>
+                             <?php
+                           if($discountPrice>0){
+                               ?>
+                            <span class="product-card__details__price__discount-price">
+                            <b><strike>
+                            £<?php
+                                echo ($product_price*$quantity);
+                                ?>
+                            </strike></b>
+                            </span>
+                               <?php
+                           }?>
                            
                         </div>
 
@@ -109,7 +132,7 @@
 
                                         <!-- Plus button -->
                                         <a href="cart.php?product_id=<?php echo $product_id ?>&qty=<?php
-                                                                                                    echo $quantity ?>&type=subs">
+                                                                                                    echo $quantity ?>&type=add">
                                             <div class="indi-cartitem__right__quantity__button__change">
 
                                                 <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -159,7 +182,7 @@
                     <div class="indi-cartitem__right__others">
                         <div class="indi-cartitem__right__others__price">
                             <?php
-                            echo "£" . $product_price * $quantity;
+                            echo "£" . ($product_price-$discountPrice) * $quantity;
                             ?>
                             
                         </div>

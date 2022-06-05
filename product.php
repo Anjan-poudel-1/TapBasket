@@ -229,17 +229,35 @@ if($qty_in_stock_check<=0){
                     <div class="ProductDetail-wrapper__shop">
                         Sold by: <a href="#"><?php echo $row2['SHOP_NAME']?></a>
                     </div>
+
+                    <?php 
+                    $discountPrice=0;
+
+                    $stidDiscount = "SELECT DISCOUNT_RATE FROM DISCOUNT WHERE PRODUCT_ID=$id";
+                    $stidDiscount = oci_parse($conn, $stidDiscount);
+                    oci_execute($stidDiscount);
+                    while (oci_fetch($stidDiscount)) {
+                        $discountPrice = oci_result($stidDiscount, 'DISCOUNT_RATE');
+                        
+                    }
+                    $oldPrice=$row['PRICE'];
+                    ?>
+
                     <div class="ProductDetail-wrapper__price">
-                        &#163;<?php echo $row['PRICE']?>
+                        &#163; <?php if($discountPrice>0){?><i><strike><?php echo $oldPrice; ?></strike></i> <?php echo ($oldPrice-$discountPrice); }else{ echo $row['PRICE'];}?>
                     </div>
                     <div class="ProductDetail-wrapper__information">
                     <?php
                     if($more=="Less"){
                         $viewButtonText="More";
                         $str=$row['PRODUCT_DESCRIPTION'];
-                        $words=str_word_count($str,2);
-                        $pos=array_keys($words);
-                        echo substr($str,0,$pos[30]).'...';
+                        if(str_word_count($str)<30){
+                            echo $str;
+                        }else{
+                            $words=str_word_count($str,2);
+                            $pos=array_keys($words);
+                            echo substr($str,0,$pos[30]).'...';
+                        }
                     }else{
                         $viewButtonText="Less";
                         echo $row['PRODUCT_DESCRIPTION'];
@@ -308,7 +326,7 @@ if($qty_in_stock_check<=0){
                     <div class="ProductCart-wrapper__quantity__Stock Stock-Hide" <?php if(!$stockOutFlag){ echo 'hidden';}?>>Out of Stock</div>
                     <div class="ProductCart-wrapper__Total">
                         <div class="ProductCart-wrapper__Total__Currency">Total Price: &nbsp;&#163;</div>
-                        <div class="ProductCart-wrapper__Total__Amount"><?php echo ($row['PRICE']*$qty)?></div>
+                        <div class="ProductCart-wrapper__Total__Amount"><?php echo (($oldPrice-$discountPrice)*$qty)?></div>
                     </div>
                     
                     <div class="ProductCart-wrapper__buttons">
@@ -326,7 +344,7 @@ if($qty_in_stock_check<=0){
                                 </div>
                             </a>
                             <?php } ?>
-                        <form class="ProductCart-wrapper__buttons__Add-Cart" method="POST">
+                        <form class="ProductCart-wrapper__buttons__Add-Cart" method="POST" id="review">
                             <input name="product-id" hidden value="<?php echo $id ?>">
                             <input name="quantity" hidden value="<?php echo $qty ?>">
                             <button class="btn primary-outline-btn card-btn" type="submit" name="add-product" <?php if($stockOutFlag){ echo "disabled";} ?>>Add to Cart</button> 

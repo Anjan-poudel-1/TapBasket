@@ -76,6 +76,11 @@ include("connection.php");
                 }
                 else{
                     $_SESSION['cart'][$product_id] = $quantity;
+                    $insertCartListSql ="INSERT INTO  CARTLIST() VALUES()";
+                    
+                    $stidinsert = oci_parse($conn,$insertCartListSql);
+                    oci_bind_by_name($stidinsert, ':quantity', $_SESSION['cart'][$product_id]);
+                    oci_execute($stidinsert, OCI_COMMIT_ON_SUCCESS);
                 }
 
             }
@@ -224,17 +229,7 @@ if(isset($_POST['registerastrader'])){
                          
                     </div>
 
-                    <!-- <div class="login-form__content__signup">
-                            <div class="button-desc">
-                                New to TapBasket?
-                            </div> -->
-                            
-                            <!-- Go to registration page -->
-                            <!-- <div class="login-form__content__login">
-                            <input type="submit" value="Sign Up" class="btn primary-btn form-btn" name="signup">
-                            </div>
-                    </div> -->
-
+       
                     <div class="login-form__content__signup flex_container">
                                 <div>
                                     <p class="button-desc">

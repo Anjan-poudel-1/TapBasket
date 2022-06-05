@@ -80,6 +80,7 @@ if (isset($_SESSION['role'])) {
                         </div>
                         <div class="nav-dropdown nav-dropdown--products">
                             <ul class="nav-dropdown__lists nav-links__products__lists">
+                            <form method="POST" action="./filter.php">
                                 <?php
                                 $navCatSQL = "SELECT SHOP_REQUEST.CATEGORY FROM SHOP INNER JOIN SHOP_REQUEST ON SHOP.SHOP_REQUEST_ID = SHOP_REQUEST.SHOP_REQUEST_ID";
                                 $navParseCat = oci_parse($conn, $navCatSQL);
@@ -89,11 +90,13 @@ if (isset($_SESSION['role'])) {
                                 for ($navIt = 0; $navIt < $navCatRow; $navIt++) {
                                     $navCategory = $navResCat['CATEGORY'][$navIt];
                                 ?>
-                                    <li class="nav-dropdown__lists__list">
-                                        <a href="./filter.php?search=<?php echo $navCategory; ?>"><?php echo ucfirst($navCategory); ?></a>
-                                    </li>
+                                    
+                                        <li class="nav-dropdown__lists__list">
+                                            <button type="submit" name="Category[]" value="<?php echo $navCategory;?>" class="nav-cat-button"><?php echo ucfirst($navCategory); ?></button>
+                                        </li>
+                                    
                                 <?php } ?>
-
+                                </form>
                             </ul>
 
                         </div>
@@ -113,10 +116,10 @@ if (isset($_SESSION['role'])) {
                 } else {
 
                 ?>
-                    <a href="productDiscount.php" class="nav-links">
+                    <a href="productDiscount.php" class="nav-links nav-links--desktop">
                         Deals
                     </a>
-                    <a href="products-review.php" class="nav-links">
+                    <a href="products-review.php" class="nav-links nav-links--desktop">
                         Reviews
                     </a>
                 <?php

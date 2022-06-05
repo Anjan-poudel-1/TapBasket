@@ -52,7 +52,7 @@
                     }
                 }
 
-                $subtotal += $product_price * $quantity;
+                $subtotal += ($product_price-$discountPrice) * $quantity;
 
             ?>
 
@@ -67,7 +67,7 @@
 
                     <div class="cart-aside__body__list__price">
                         <?php
-                        echo "£" . $product_price * $quantity;
+                        echo "£" . ($product_price-$discountPrice) * $quantity;
                         ?>
                         <span>
                                  <!-- If discount data is available -->
@@ -77,7 +77,7 @@
                            
                             <b><strike>
                             £<?php
-                                echo ($product_price+$discountPrice)* $quantity;
+                                echo ($product_price)* $quantity;
                            
                                 ?>
                             </strike></b>

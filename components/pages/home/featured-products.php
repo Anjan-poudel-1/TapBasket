@@ -28,7 +28,8 @@
         // order list bata count garne group by product id where orderplace ko table sanga join garne payment status=true 
 
         $nrows=0;
-            $sqlorder='SELECT R.PRODUCT_ID, AVG(R.NO_OF_STARS) AS PID FROM PRODUCT P INNER JOIN REVIEW R ON P.PRODUCT_ID=R.PRODUCT_ID GROUP BY R.PRODUCT_ID ORDER BY AVG(R.NO_OF_STARS) DESC';
+            $sqlorder="SELECT R.PRODUCT_ID, AVG(R.NO_OF_STARS) AS PID FROM PRODUCT P INNER JOIN REVIEW R ON P.PRODUCT_ID=R.PRODUCT_ID and  IS_DISABLED='false'  GROUP BY R.PRODUCT_ID ORDER BY AVG(R.NO_OF_STARS) DESC";
+
             
             $stidorder = oci_parse($conn, $sqlorder);
             oci_execute($stidorder);
@@ -63,7 +64,7 @@
             ?>
                 <div class="product-card">
 
-                <a href="product.php?product-id=<?php echo $res['PRODUCT_ID'][$i];?>">
+                <a href="product.php?product-id=<?php echo $res['PRODUCT_ID'][0];?>">
                     <div class="product-card__image">
 
 
@@ -200,7 +201,7 @@
 
                         <div class="product-card__details__price">
                             <b>£<?php
-                                echo ($price);
+                                echo ($price-$discountPrice);
                                 ?></b>
 
                                 <!-- If discount data is available -->
@@ -210,7 +211,7 @@
                             <span class="product-card__details__price__discount-price">
                             <b><strike>
                             £<?php
-                                echo ($price+$discountPrice);
+                                echo ($price);
                                 ?>
                             </strike></b>
                             </span>

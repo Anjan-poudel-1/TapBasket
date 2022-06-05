@@ -1,6 +1,9 @@
 <?php
 SESSION_START();
-if ((isset($_SESSION['role']) && $_SESSION['role'] == 'customer')) {
+if(!isset($_SESSION['role'])){
+    header('location:index.php');
+}
+if ((isset($_SESSION['role']) && $_SESSION['role'] != 'trader')) {
     header('location:index.php');
 }
 
@@ -127,6 +130,14 @@ include('connection.php');
     <?php
     include './components/resuables/copyright.php';
     ?>
+
+    <!--Bottom Nav-->
+
+    <?php
+    include './components/navbars/bottom-navbar.php';
+    ?> 
+
+    
 </body>
 <script src="app.js">
 

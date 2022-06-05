@@ -51,6 +51,12 @@
                 @media only screen and (max-width:$screen-lg) {
                     flex: 1;
                 }
+                @media only screen and (max-width:$screen-lg) {
+                    &:last-child{
+                        display: none;
+                    }
+                }
+
             }
 
 

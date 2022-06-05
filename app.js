@@ -3,7 +3,7 @@ let sliderImagesCount = document.querySelectorAll('.banner-wrapper__images__imag
 let nextbtn =document.getElementById('nextBtn');
 let prevbtn =document.getElementById('prevBtn');
 
-console.log(sliderImagesCount);
+
 let currentdisplay= null;
 let timer = 6000;
 let myVar = null;
@@ -84,6 +84,7 @@ resetimage(imagetrack,currentdisplay);
 
 
 
+//Themes
 
 
 
@@ -92,7 +93,6 @@ let themeChanger = document.getElementById('theme-change');
 let bodyTheme = document.getElementById('get-theme');
 let darkThemeSvg =document.getElementById('dark-mode');
 let lightThemeSvg =document.getElementById('light-mode');
-
 
 
 
@@ -106,7 +106,7 @@ function setTheme(themeName) {
  function toggleTheme() {
    
     let currentTheme = bodyTheme.getAttribute('data-theme');
-    console.log(currentTheme);
+   
     if (localStorage.getItem('theme') === 'dark'){
         setTheme('default');
         darkThemeSvg.style.display="none";
@@ -159,7 +159,7 @@ function setTheme(themeName) {
  showPasswordBtn.onclick= ()=>{
     showPasswordBtn.style.display="none";
     hidePasswordBtn.style.display="block";
-    console.log(loginPasswordData)
+    
     loginPasswordData.setAttribute('type','text');
  }
 
@@ -172,10 +172,18 @@ function setTheme(themeName) {
 
 
  //toast
-const callData = (message)=>{
 
-    console.log("messsage");
-}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

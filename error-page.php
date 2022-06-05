@@ -25,7 +25,7 @@
 
                 <div class="success-page-container__content__links">
                     <div>
-                    <a>
+                    <a href="index.php">
                     <button class="btn primary-btn ">
                         Go to Home
                     </button>

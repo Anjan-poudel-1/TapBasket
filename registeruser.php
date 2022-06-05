@@ -49,7 +49,7 @@ if (isset($_POST['userRegisterSubmit'])) {
     }
 
     if (!preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/", $password)) {
-        $passworderr = "password must contain Minimum eight characters, at least one lowercase, one uppercase letter and one number";
+        $passworderr = "Password must contain minimum eight characters, at least one lowercase, one uppercase letter and one number";
         $errCount = 1;
     }
 
@@ -59,7 +59,7 @@ if (isset($_POST['userRegisterSubmit'])) {
     }
 
     if ($password != $rpassword) {
-        $rpassworderr = "please recheck the password";
+        $rpassworderr = "Passwords do not match";
         $errCount = 1;
     }
 
@@ -305,7 +305,7 @@ if (isset($_POST['userRegisterSubmit'])) {
 
                             <div class="form-control">
                                 <p class="form-control__label">
-                                    Conform Password
+                                    Confirm Password
                                 </p>
                                 <div class="form-control__password">
                                     <input id="password-field" class="form-control__input form-control__input
