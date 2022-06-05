@@ -25,9 +25,9 @@ try {
 
     $mail->setFrom('shahirabina652@gmail.com', 'Rabina');
 
-    $mail->addAddress('srabina19@tbc.edu.np');   //Add a recipient
+    $mail->addAddress('tapbasket1@gmail.com');   //Add a recipient
 
-    $mail->addReplyTo("shahirabina652@gmail.com", "Rabina");
+    $mail->addReplyTo("tapbasket1@gmail.com", "TapBasket");
     //Content
     $mail->isHTML(true);    
     $mail->Subject = 'Veryfy New Trader Account';

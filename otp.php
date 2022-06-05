@@ -17,7 +17,7 @@ if (isset($_GET['id'])) {
         if ($key == "VCODE")
             $vcode = $value[0];
     }
-    echo "vcode is: " . $vcode;
+    // echo "vcode is: " . $vcode;
 
     // while($row = oci_fetch_array($select, OCI_ASSOC+OCI_RETURN_NULLS)){
     //     $vcode=$row['vcode'];

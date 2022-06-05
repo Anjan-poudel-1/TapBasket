@@ -215,6 +215,7 @@ while (($row = oci_fetch_object($stid)) != false) {
 
     if($errCount==0){
         $Passwordnew=md5($newPassword);
+        $TraderPassword1=md5($newPassword);
         $sqli="UPDATE USERS 
         SET PASSWORD=:newpassword WHERE USER_ID='$user_id'";
           
@@ -223,7 +224,7 @@ while (($row = oci_fetch_object($stid)) != false) {
          if($temp=='customer'){
             oci_bind_by_name($stid, ':newpassword', $Passwordnew);
          }else{
-            oci_bind_by_name($stid, ':newpassword', $newPassword);
+            oci_bind_by_name($stid, ':newpassword', $TraderPassword1);
          }
       
          oci_execute($stid, OCI_COMMIT_ON_SUCCESS); 
