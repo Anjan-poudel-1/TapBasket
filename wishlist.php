@@ -244,7 +244,6 @@ if (isset($_GET['category']) && isset($_GET['product_id']) && isset($_GET['type'
                     
                 }
 
-                    
 
                     ?>
                         <div class="product-card">
@@ -346,7 +345,7 @@ if (isset($_GET['category']) && isset($_GET['product_id']) && isset($_GET['type'
         
                                 <div class="product-card__details__price">
                                     <b>£<?php
-                                        echo ($price);
+                                        echo ($price-$discountPrice);
                                         ?></b>
         
                                         <!-- If discount data is available -->
@@ -356,7 +355,7 @@ if (isset($_GET['category']) && isset($_GET['product_id']) && isset($_GET['type'
                                     <span class="product-card__details__price__discount-price">
                                     <b><strike>
                                     £<?php
-                                        echo ($price+$discountPrice);
+                                        echo ($price);
                                         ?>
                                     </strike></b>
                                     </span>
