@@ -251,9 +251,13 @@ if($qty_in_stock_check<=0){
                     if($more=="Less"){
                         $viewButtonText="More";
                         $str=$row['PRODUCT_DESCRIPTION'];
-                        $words=str_word_count($str,2);
-                        $pos=array_keys($words);
-                        echo substr($str,0,$pos[30]).'...';
+                        if(str_word_count($str)<30){
+                            echo $str;
+                        }else{
+                            $words=str_word_count($str,2);
+                            $pos=array_keys($words);
+                            echo substr($str,0,$pos[30]).'...';
+                        }
                     }else{
                         $viewButtonText="Less";
                         echo $row['PRODUCT_DESCRIPTION'];

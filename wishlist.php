@@ -244,7 +244,6 @@ if (isset($_GET['category']) && isset($_GET['product_id']) && isset($_GET['type'
                     
                 }
 
-                    
 
                     ?>
                         <div class="product-card">
@@ -346,7 +345,7 @@ if (isset($_GET['category']) && isset($_GET['product_id']) && isset($_GET['type'
         
                                 <div class="product-card__details__price">
                                     <b>£<?php
-                                        echo ($price);
+                                        echo ($price-$discountPrice);
                                         ?></b>
         
                                         <!-- If discount data is available -->
@@ -356,7 +355,7 @@ if (isset($_GET['category']) && isset($_GET['product_id']) && isset($_GET['type'
                                     <span class="product-card__details__price__discount-price">
                                     <b><strike>
                                     £<?php
-                                        echo ($price+$discountPrice);
+                                        echo ($price);
                                         ?>
                                     </strike></b>
                                     </span>
@@ -376,29 +375,65 @@ if (isset($_GET['category']) && isset($_GET['product_id']) && isset($_GET['type'
                                 </div>
         
                                 <div class="product-card__details__star-rating">
-        
-                                    <div class="product-card__details__star-rating__stars">
-        
+                                <?php
+                            $currentRatingSQL="SELECT ROUND(AVG(NO_OF_STARS),1) FROM REVIEW WHERE PRODUCT_ID= ".$product_id;
+                            $currentRatingstid = oci_parse($conn, $currentRatingSQL);
+                            oci_execute($currentRatingstid);
+                            $currentRatingRows=oci_fetch_array($currentRatingstid);
+                            
+                            $currentRating=$currentRatingRows['ROUND(AVG(NO_OF_STARS),1)'];
+                        ?>
+                            <div class="product-card__details__star-rating__stars">
+                            <?php
+                                $roundedRating=round($currentRating);
+                                if(($roundedRating-$currentRating)<0){
+                                    for($starCounter=0;$starCounter<$roundedRating;$starCounter++){
+                            ?>
+                                <div class="indi-star">
+                                    <img src="assets/images/star/filled-star.svg" />
+                                </div>
+                            <?php } ?>
+                                <div class="indi-star half-star">
+                                    <img src="assets/images/star/half-star.svg"/>
+                                </div>
+                                <?php
+                                for($starCounter=0;$starCounter<(4-$roundedRating);$starCounter++){
+                                ?>
+                                <div class="indi-star">
+                                    <img src="assets/images/star/empty-star.svg" />
+                                </div>
+                                <?php } ?>
+                                <?php
+                                }else if(($roundedRating-$currentRating)==0){
+                                    for($starCounter=0;$starCounter<$roundedRating;$starCounter++){
+                                        ?>
                                         <div class="indi-star">
-                                            <img src="assets/images/star/filled-star.svg" />
-                                        </div>
+                                            <img src="assets/images/star/filled-star.svg"/>
+                                        </div> <?php }
+                                        for($starCounter=0;$starCounter<(5-$roundedRating);$starCounter++){
+                                        ?>
                                         <div class="indi-star">
-                                            <img src="assets/images/star/filled-star.svg" />
-                                        </div>
+                                            <img src="assets/images/star/empty-star.svg"/>
+                                        </div> <?php }
+                                }else{
+                                    for($starCounter=0;$starCounter<($roundedRating-1);$starCounter++){
+                                        ?>
                                         <div class="indi-star">
-                                            <img src="assets/images/star/filled-star.svg" />
-                                        </div>
-                                        <div class="indi-star">
-                                            <img src="assets/images/star/empty-star.svg" />
-                                        </div>
-                                        <div class="indi-star">
-                                            <img src="assets/images/star/empty-star.svg" />
-                                        </div>
-                                        <!-- 4 stars -->
+                                            <img src="assets/images/star/filled-star.svg"/>
+                                        </div> <?php } ?>
+                                        <div class="indi-star half-star">
+                                        <img src="assets/images/star/half-star.svg"/>
                                     </div>
-        
-                                    <span class="product-card__details__star-rating__count">(15)</span>
-        
+                                        <?php
+                                        for($starCounter=0;$starCounter<(5-$roundedRating);$starCounter++){
+                                        ?>
+                                        <div class="indi-star">
+                                        <img src="assets/images/star/empty-star.svg"/>
+                                    </div> <?php }
+                                }
+                                ?>
+                                    </div>
+                                    <span class="product-card__details__star-rating__count">(<?php if($currentRating!=null){echo $currentRating;} else{echo "NA";} ?>)</span>
                                 </div>
         
                                 <?php

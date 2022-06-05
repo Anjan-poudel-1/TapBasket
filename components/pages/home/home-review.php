@@ -9,8 +9,9 @@
 <body>
     <?php $user_id = $_SESSION['user_id'];
     ?>
-<div class="section home-review">
     <?php if($_SESSION['user_id']!=NULL){?>
+    <div class="section home-review">
+    
                 <div class="home-review__text">
 
                     <div class="home-review__text__header">
@@ -116,9 +117,10 @@
                 </div>
                 <?php }else{?>
                     <span class="no-review-left">No reviews left to give!</span>
+                <?php } ?>
                     
-                    <?php } } ?>
 
             </div>
+            <?php } ?>
 </body>
 </html>
