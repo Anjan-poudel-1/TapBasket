@@ -2,7 +2,8 @@
 include("connection.php");
 if(isset($_GET['email'])){
 $Temail=$_GET['email'];
-$PASS=md5('Password1');
+//$PASS=md5('Password1');
+$PASS='Password1';
 $isdisable='false';
 $Trole='trader';
 $updateVcodeSql = "UPDATE USERS SET PASSWORD=:passwords,IS_DISABLED=:isdisable WHERE EMAIL=:email and USER_ROLE=:role_user";

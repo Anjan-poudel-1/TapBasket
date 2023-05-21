@@ -13,14 +13,12 @@ function generateNumericOTP($n)
 
     return $result;
 }
-if(isset($_POST['login'])){
+if (isset($_POST['login'])) {
     header('location:login.php');
 }
-if(isset($_POST['registerastrader'])){
+if (isset($_POST['registerastrader'])) {
     header('location:registerTrader.php');
 }
-
-
 
 if (isset($_POST['userRegisterSubmit'])) {
     $email = $_POST['email'];
@@ -115,7 +113,7 @@ if (isset($_POST['userRegisterSubmit'])) {
             oci_close($conn);
 
             if ($sqli) {
-               include './PHPMailer/otpindex.php';
+                include './PHPMailer/otpindex.php';
                 $email = $_POST['email'];
                 $sql = "SELECT * FROM users WHERE email = '$email'";
                 $select = oci_parse($conn, $sql);
@@ -124,7 +122,7 @@ if (isset($_POST['userRegisterSubmit'])) {
                     header("location:otp.php?id=" . $row['USER_ID']);
                 }
             }
-        } 
+        }
     }
 }
 
@@ -166,10 +164,10 @@ if (isset($_POST['userRegisterSubmit'])) {
                                                                             echo " form-control__input--error";
                                                                         }
                                                                         ?>" placeholder="FirstName" name="fname" value="<?php
-                                                                            if (isset($_POST['fname'])) {
-                                                                                echo $_POST['fname'];
-                                                                            }
-                                                                            ?>" />
+                                                                                                                        if (isset($_POST['fname'])) {
+                                                                                                                            echo $_POST['fname'];
+                                                                                                                        }
+                                                                                                                        ?>" />
                                     <?php
                                     if (isset($fnameerr)) {
                                     ?>
@@ -187,10 +185,10 @@ if (isset($_POST['userRegisterSubmit'])) {
                                                                             echo " form-control__input--error";
                                                                         }
                                                                         ?>" placeholder="LastName" name="lname" value="<?php
-                                                                            if (isset($_POST['lname'])) {
-                                                                                echo $_POST['lname'];
-                                                                            }
-                                                                            ?>" />
+                                                                                                                        if (isset($_POST['lname'])) {
+                                                                                                                            echo $_POST['lname'];
+                                                                                                                        }
+                                                                                                                        ?>" />
                                     <?php
                                     if (isset($lnameerr)) {
                                     ?>
@@ -215,10 +213,10 @@ if (isset($_POST['userRegisterSubmit'])) {
                                                                         echo " form-control__input--error";
                                                                     }
                                                                     ?>" placeholder="Enter your email Address" name="email" value="<?php
-                                                                                            if (isset($_POST['email'])) {
-                                                                                                echo $_POST['email'];
-                                                                                            }
-                                                                                            ?>" />
+                                                                                                                                    if (isset($_POST['email'])) {
+                                                                                                                                        echo $_POST['email'];
+                                                                                                                                    }
+                                                                                                                                    ?>" />
                                 <!-- Error show  -->
                                 <?php
                                 if (isset($emailerror)) {
@@ -244,10 +242,10 @@ if (isset($_POST['userRegisterSubmit'])) {
                                                                         echo " form-control__input--error";
                                                                     }
                                                                     ?>" placeholder="+44" name="phone" value="<?php
-                                                                        if (isset($_POST['phone'])) {
-                                                                            echo $_POST['phone'];
-                                                                        }
-                                                                        ?>" />
+                                                                                                                if (isset($_POST['phone'])) {
+                                                                                                                    echo $_POST['phone'];
+                                                                                                                }
+                                                                                                                ?>" />
 
                                 <?php
                                 if (isset($phoneerr)) {
@@ -356,11 +354,11 @@ if (isset($_POST['userRegisterSubmit'])) {
 
                                     <!-- Go to login page -->
 
-                                
-                            <input type="submit" value="Login" class="btn primary-btn form-btn login-form__content__login" name="login">
-                        
-                                    
-                                   
+
+                                    <input type="submit" value="Login" class="btn primary-btn form-btn login-form__content__login" name="login">
+
+
+
                                 </div>
                                 <div>
                                     <p class="button-desc">
@@ -368,9 +366,9 @@ if (isset($_POST['userRegisterSubmit'])) {
                                     </p>
 
                                     <input type="submit" value="Register as Trader" class="btn primary-btn form-btn login-form__content__login" name="registerastrader">
-                                   
-                                  
-                                    
+
+
+
                                 </div>
                             </div>
                         </div>

@@ -226,21 +226,17 @@ if(isset($_POST['submit-review'])){
             
             <script>
                 let stars = document.getElementsByClassName('star-number');
-console.log(stars)
+
 changeRating = (value)=>{
-    console.log("Changes",value);
+
     for(let i = 1; i<=5;i++){
         currentMax = document.getElementById('star-number'+i);
         if(i>value){
-            // currentMax.removeAttribute('checked');
             currentMax.style.opacity=0.4;
         }
         else{
-            // currentMax.setAttribute('checked',true);
             currentMax.style.opacity=1;
         }
-        // currentMax = document.getElementById('star'+i);
-        // currentMax.setAttribute('checked',true);
     }
     
     

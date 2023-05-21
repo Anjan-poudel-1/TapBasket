@@ -106,7 +106,6 @@ function setTheme(themeName) {
  function toggleTheme() {
    
     let currentTheme = bodyTheme.getAttribute('data-theme');
-   
     if (localStorage.getItem('theme') === 'dark'){
         setTheme('default');
         darkThemeSvg.style.display="none";
