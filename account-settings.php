@@ -186,8 +186,9 @@ while (($row = oci_fetch_object($stid)) != false) {
     $rows= oci_fetch_all($select,$res);
 
     foreach ($res as $key => $value) {
-        if($key=="PASSWORD")
-        $recentpass=$value[0];   
+        if($key=="PASSWORD"){
+            $recentpass=$value[0]; 
+        }
     }
     if(md5($password) != $recentpass){
         $passwordErr = "This password doesnot matches the previous password";

@@ -52,7 +52,7 @@ if(isset($isStepOneCompleted) && $isStepOneCompleted ){
                                  Date of Collection :
                             </div>
                             <div class="checkout-desc">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero totam ad optio quo ipsum molestias in 
+                               Choose the day of the collection here:
                             </div>
                             <div class="checkout-body checkout-select-date__body">
                             
@@ -101,7 +101,7 @@ if(isset($isStepOneCompleted) && $isStepOneCompleted ){
                                  Time of Collection :
                             </div>
                             <div class="checkout-desc">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero totam ad optio quo ipsum molestias in 
+                                Select the time of collection
                             </div>
                             <div class="checkout-body checkout-select-time__body">
                               
